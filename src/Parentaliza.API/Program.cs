@@ -1,5 +1,4 @@
 using Amazon.Lambda.AspNetCoreServer.Hosting;
-using Parentaliza.Domain.Repository;
 using Parentaliza.API.Infrastructure;
 using Parentaliza.ServiceDefaults;
 using Microsoft.AspNetCore.Diagnostics;
@@ -18,9 +17,6 @@ builder.Services.AddDbContext<ParentalizaDbContext>(options =>
 {
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
 });
-
-
-builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 
 // Add Controllers
 builder.Services.AddControllers();
