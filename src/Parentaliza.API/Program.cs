@@ -9,7 +9,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
 
-// Add Lambda hosting
 builder.Services.AddAWSLambdaHosting(LambdaEventSource.HttpApi);
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
