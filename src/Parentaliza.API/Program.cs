@@ -3,6 +3,8 @@ using Parentaliza.Domain.Repository;
 using Parentaliza.API.Infrastructure;
 using Parentaliza.ServiceDefaults;
 using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,8 +13,33 @@ builder.AddServiceDefaults();
 // Add Lambda hosting
 builder.Services.AddAWSLambdaHosting(LambdaEventSource.HttpApi);
 
-// Add Repository
-builder.Services.AddSingleton<IOrderRepository, InMemoryOrderRepository>();
+// Configure EF Core MySQL DbContext
+var rawConnectionString = builder.Configuration.GetConnectionString("Default") ?? string.Empty;
+string BuildPomeloConnectionString(string value)
+{
+    if (!string.IsNullOrWhiteSpace(value) && value.StartsWith("mysql://", StringComparison.OrdinalIgnoreCase))
+    {
+        var uri = new Uri(value);
+        var userInfoParts = (uri.UserInfo ?? string.Empty).Split(':', 2);
+        var user = userInfoParts.Length > 0 ? Uri.UnescapeDataString(userInfoParts[0]) : string.Empty;
+        var password = userInfoParts.Length > 1 ? Uri.UnescapeDataString(userInfoParts[1]) : string.Empty;
+        var host = uri.Host;
+        var port = uri.IsDefaultPort ? 3306 : uri.Port;
+        var database = uri.AbsolutePath.Trim('/');
+        return $"Server={host};Port={port};Database={database};User={user};Password={password};SslMode=None;";
+    }
+    return value;
+}
+
+var pomeloConnectionString = BuildPomeloConnectionString(rawConnectionString);
+
+builder.Services.AddDbContext<ParentalizaDbContext>(options =>
+{
+    options.UseMySql(pomeloConnectionString, ServerVersion.AutoDetect(pomeloConnectionString));
+});
+
+// Use EF repository instead of in-memory
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 
 // Add Controllers
 builder.Services.AddControllers();
