@@ -13,9 +13,9 @@ namespace Parentaliza.API.Controllers;
 public class HealthController : ControllerBase
 {
     private readonly ILogger<HealthController> _logger;
-    private readonly ParentalizaDbContext _dbContext;
+    private readonly ApplicationDbContext _dbContext;
 
-    public HealthController(ILogger<HealthController> logger, ParentalizaDbContext dbContext)
+    public HealthController(ILogger<HealthController> logger, ApplicationDbContext dbContext)
     {
         _logger = logger;
         _dbContext = dbContext;
