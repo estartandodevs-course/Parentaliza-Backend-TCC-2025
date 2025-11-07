@@ -10,4 +10,11 @@
     <ProjectReference Include="..\Parentaliza.Domain\Parentaliza.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="CasosDeUso\Agendamento\Obter\" />
+    <Folder Include="CasosDeUso\PerfilBebe\Criar\" />
+    <Folder Include="CasosDeUso\PerfilBebe\Obter\" />
+    <Folder Include="Mediator\" />
+  </ItemGroup>
+
 </Project>
