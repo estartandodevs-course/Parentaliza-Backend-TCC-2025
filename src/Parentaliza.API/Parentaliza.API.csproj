@@ -36,6 +36,11 @@
     <ProjectReference Include="..\..\Parentaliza.ServiceDefaults\Parentaliza.ServiceDefaults.csproj" />
     <ProjectReference Include="..\Parentaliza.Application\Parentaliza.Application.csproj" />
     <ProjectReference Include="..\Parentaliza.Domain\Parentaliza.Domain.csproj" />
+    <ProjectReference Include="..\Parentaliza.Infrastructure\Parentaliza.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controller\Dtos\" />
   </ItemGroup>
 
 </Project>

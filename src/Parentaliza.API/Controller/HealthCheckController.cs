@@ -33,10 +33,10 @@ public class HealthCheckController : ControllerBase
         try
         {
             _logger.LogInformation("Checking database connection...");
-            
+
             // Try to connect to the database
             var canConnect = await _dbContext.Database.CanConnectAsync(cancellationToken);
-            
+
             if (!canConnect)
             {
                 _logger.LogWarning("Database connection failed");
@@ -49,15 +49,15 @@ public class HealthCheckController : ControllerBase
                 });
             }
 
-                        // Execute a simple query to verify connectivity and get connection info
-            await _dbContext.Database.ExecuteSqlRawAsync("SELECT 1", cancellationToken);                                                                        
-            
+            // Execute a simple query to verify connectivity and get connection info
+            await _dbContext.Database.ExecuteSqlRawAsync("SELECT 1", cancellationToken);
+
             // Get connection info while connection is open
             var connection = _dbContext.Database.GetDbConnection();
             var connectionString = _dbContext.Database.GetConnectionString();
             string databaseName = connection.Database ?? "unknown";
             string? serverVersion = null;
-            
+
             try
             {
                 // Ensure connection is open to get server version
@@ -73,21 +73,21 @@ public class HealthCheckController : ControllerBase
             }
 
             _logger.LogInformation("Database connection successful");
-            
+
             return Ok(new
             {
                 status = "healthy",
                 database = "connected",
                 timestamp = DateTime.UtcNow,
                 databaseName = databaseName,
-                serverVersion = serverVersion ?? "unknown",                                                                            
+                serverVersion = serverVersion ?? "unknown",
                 message = "Database connection is working correctly"
             });
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "Error checking database connection");
-            
+
             return StatusCode(StatusCodes.Status503ServiceUnavailable, new
             {
                 status = "unhealthy",
