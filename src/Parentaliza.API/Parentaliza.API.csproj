@@ -17,6 +17,7 @@
   <ItemGroup>
     <PackageReference Include="Amazon.Lambda.AspNetCoreServer" Version="9.2.0" />
     <PackageReference Include="Amazon.Lambda.AspNetCoreServer.Hosting" Version="1.9.0" />
+    <PackageReference Include="MediatR" Version="13.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.8">
       <PrivateAssets>all</PrivateAssets>
@@ -37,10 +38,6 @@
     <ProjectReference Include="..\Parentaliza.Application\Parentaliza.Application.csproj" />
     <ProjectReference Include="..\Parentaliza.Domain\Parentaliza.Domain.csproj" />
     <ProjectReference Include="..\Parentaliza.Infrastructure\Parentaliza.Infrastructure.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Controller\Dtos\" />
   </ItemGroup>
 
 </Project>
