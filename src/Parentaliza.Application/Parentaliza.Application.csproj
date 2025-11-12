@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="CasosDeUso\Agendamento\Criar\" />
     <Folder Include="CasosDeUso\Agendamento\Obter\" />
     <Folder Include="CasosDeUso\PerfilBebe\Criar\" />
     <Folder Include="CasosDeUso\PerfilBebe\Obter\" />
