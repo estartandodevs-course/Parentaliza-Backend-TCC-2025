@@ -5,7 +5,7 @@ public enum TiposEnum
     Pai = 2,
     Parente = 3
 }
-public enum  SexoEnum
+public enum SexoEnum
 {
     Masculino = 1,
     Feminino = 2,
@@ -21,4 +21,21 @@ public enum TipoSanguineoEnum
     ABNegativo = 6,
     OPositivo = 7,
     ONegativo = 8
+}
+public enum TipoEvento
+{
+    Consulta = 1,
+    Vacina = 2,
+    Exame = 3,
+    Compromisso = 4,
+    Evento = 5,
+    Lembrete = 6,
+    Outro = 7
+}
+public enum StatusEvento
+{
+
+    Pendente = 1,
+    Realizado = 2,
+    Cancelado = 3
 }
