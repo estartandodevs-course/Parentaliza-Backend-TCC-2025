@@ -1,8 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Parentaliza.API.Controller.Base;
 using Parentaliza.API.Infrastructure;
 
-namespace Parentaliza.API.Controllers;
+namespace Parentaliza.API.Controller.EntidadesControllers;
 
 /// <summary>
 /// Controller for health check and database connection verification
@@ -10,7 +11,7 @@ namespace Parentaliza.API.Controllers;
 [ApiController]
 [Route("api/v1/[controller]")]
 [Produces("application/json")]
-public class HealthCheckController : ControllerBase
+public class HealthCheckController : BaseController
 {
     private readonly ILogger<HealthCheckController> _logger;
     private readonly ApplicationDbContext _dbContext;
@@ -79,7 +80,7 @@ public class HealthCheckController : ControllerBase
                 status = "healthy",
                 database = "connected",
                 timestamp = DateTime.UtcNow,
-                databaseName = databaseName,
+                databaseName,
                 serverVersion = serverVersion ?? "unknown",
                 message = "Database connection is working correctly"
             });

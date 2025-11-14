@@ -1,5 +1,5 @@
 ﻿namespace Parentaliza.Domain.Entidades;
-public class VacinaSus
+public class VacinaSus : Entity
 {
     public string? NomeVacina { get; set; }
     public string? Descricao { get; set; }

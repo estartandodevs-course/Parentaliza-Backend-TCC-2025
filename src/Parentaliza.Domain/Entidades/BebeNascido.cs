@@ -7,7 +7,6 @@ public class BebeNascido : Entity
     public string? Nome { get; set; }
     public DateTime DataNascimento { get; set; }
     public SexoEnum Sexo { get; set; }
-    public Guid ResponsavelId { get; set; }
     public Responsavel? Responsavel { get; set; }
     public TipoSanguineoEnum TipoSanguineo { get; set; }
     public int IdadeMeses
@@ -23,21 +22,22 @@ public class BebeNascido : Entity
     }
     public decimal Peso { get; set; }
     public decimal Altura { get; set; }
-
-    public BebeNascido() { }
-
-    public BebeNascido(string? nome, DateTime dataNascimento, SexoEnum sexo, TipoSanguineoEnum tipoSanguineo, Guid responsavelId)
+    public BebeNascido(string? nome,
+                       DateTime dataNascimento,
+                       SexoEnum sexo,
+                       TipoSanguineoEnum tipoSanguineo,
+                       decimal peso,
+                       decimal altura)
     {
-        if (responsavelId == Guid.Empty) throw new ArgumentException("ResponsavelId inválido.", nameof(responsavelId));
         if (dataNascimento > DateTime.UtcNow) throw new ArgumentException("Data de nascimento não pode ser no futuro.", nameof(dataNascimento));
         if (!Enum.IsDefined(typeof(SexoEnum), sexo)) throw new ArgumentException("Sexo inválido.", nameof(sexo));
         if (!Enum.IsDefined(typeof(TipoSanguineoEnum), tipoSanguineo)) throw new ArgumentException("Tipo sanguíneo inválido.", nameof(tipoSanguineo));
 
-        Id = Guid.NewGuid();
         Nome = nome;
         DataNascimento = dataNascimento;
         Sexo = sexo;
         TipoSanguineo = tipoSanguineo;
-        ResponsavelId = responsavelId;
+        Peso = peso;
+        Altura = altura;
     }
 }
