@@ -3,9 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Parentaliza.API.Controller.Base;
 using Parentaliza.API.Controller.Dtos;
 using Parentaliza.Application.CasosDeUso.EventoAgendaCasoDeUso.Criar;
-using RouteAttribute = Microsoft.AspNetCore.Components.RouteAttribute;
 
-namespace Parentaliza.API.Controller;
+namespace Parentaliza.API.Controller.EntidadesControllers;
 
 [ApiController]
 [Route("[controller]")]
@@ -19,8 +18,8 @@ public class EventoAgendaController : BaseController
     }
 
     [HttpPost]
-    public async Task<IActionResult> AdicionaEvento(
-            [FromBody] CriarEventoAgendaDtos request) // falta request no nome 
+    public async Task<IActionResult> AdicionaEventoAgenda(
+            [FromBody] CriarEventoAgendaDtos request) 
     {
         var command = new CriarEventoAgendaCommand(
             evento: request.Evento,

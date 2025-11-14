@@ -1,6 +1,6 @@
 ﻿namespace Parentaliza.Domain.Entidades;
 
-public class Conteudo
+public class Conteudo : Entity
 {
     public string? Titulo { get; set; }
     public string? Categoria { get; set; }

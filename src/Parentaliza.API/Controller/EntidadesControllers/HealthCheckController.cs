@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Parentaliza.API.Controller.Base;
 using Parentaliza.API.Infrastructure;
 
-namespace Parentaliza.API.Controllers;
+namespace Parentaliza.API.Controller.EntidadesControllers;
 
 /// <summary>
 /// Controller for health check and database connection verification
@@ -80,7 +80,7 @@ public class HealthCheckController : BaseController
                 status = "healthy",
                 database = "connected",
                 timestamp = DateTime.UtcNow,
-                databaseName = databaseName,
+                databaseName,
                 serverVersion = serverVersion ?? "unknown",
                 message = "Database connection is working correctly"
             });

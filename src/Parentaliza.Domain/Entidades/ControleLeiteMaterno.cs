@@ -1,6 +1,6 @@
 ﻿namespace Parentaliza.Domain.Entidades;
 
-public class ControleLeiteMaterno
+public class ControleLeiteMaterno : Entity
 {
     public DateTime Cronometro { get; set; }
     public string? LadoDireito { get; set; }

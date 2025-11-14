@@ -1,6 +1,6 @@
 ﻿namespace Parentaliza.Domain.Entidades;
 
-public class ControleFralda
+public class ControleFralda : Entity
 {
     public DateTime HoraTroca { get; set; }
     public string? TipoFralda { get; set; }

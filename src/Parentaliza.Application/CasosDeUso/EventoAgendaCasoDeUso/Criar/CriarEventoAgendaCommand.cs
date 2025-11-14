@@ -15,7 +15,7 @@ public class CriarEventoAgendaCommand : IRequest<CommandResponse<CriarEventoAgen
     public DateTime Horario { get; set; }
     public string? Anotacao { get; set; }
 
-    public ValidationResult ResultadoDasValidacoes { get; private set; }
+    public ValidationResult ResultadoDasValidacoes { get; private set; } = new ValidationResult();
     public CriarEventoAgendaCommand(string? evento, string? especialidade, string? localizacao, DateTime data, DateTime horario, string? anotacao)
     {
         Evento = evento;

@@ -1,6 +1,6 @@
 ﻿namespace Parentaliza.Domain.Repository;
 
-public class IControleMamadeiraRepository
+public interface IControleMamadeiraRepository
 {
 
 }

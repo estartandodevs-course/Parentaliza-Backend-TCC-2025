@@ -10,9 +10,6 @@ public class ApplicationDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        base.OnModelCreating(modelBuilder);
-        // Model configurations will be added here as needed
+        base.OnModelCreating(modelBuilder); // Faz a configuração padrão do Entity Framework Core
     }
 }
-
-

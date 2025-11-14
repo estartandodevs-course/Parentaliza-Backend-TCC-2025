@@ -29,27 +29,6 @@ public class CriarEventoAgendaDtos
     public string? Anotacao { get; set; } = string.Empty;
 
 }
-
-public class EventoAgendaResponseDtos
-{
-    public Guid Id { get; set; }
-    public string Titulo { get; set; } = string.Empty;
-    public string? Descricao { get; set; }
-    public string Tipo { get; set; } = string.Empty;
-    public DateTime DataHora { get; set; }
-    public string? Endereco { get; set; }
-    public DateTime DataCriacao { get; set; }
-
-    public Guid? BebeId { get; set; }
-    public string? BebeNome { get; set; }
-
-    public bool EventoPassado { get; set; }
-    public bool EventoHoje { get; set; }
-    public int DiasAteEvento { get; set; }
-    public int HorasAteEvento { get; set; }
-}
-
-
 public class AtualizarEventoAgendaDtos
 {
     [StringLength(200, MinimumLength = 3)]
