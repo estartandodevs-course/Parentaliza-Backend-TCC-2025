@@ -11,18 +11,18 @@ public class CriarEventoAgendaCommand : IRequest<CommandResponse<CriarEventoAgen
     public string? Evento { get; set; }
     public string? Especialidade { get; set; }
     public string? Localizacao { get; set; }
-    public DateTime Data { get; set; }
-    public DateTime Horario { get; set; }
+    public DateTime Data { get; set; } = DateTime.Now;
+    public DateTime Hora { get; set; } = DateTime.Now;
     public string? Anotacao { get; set; }
 
     public ValidationResult ResultadoDasValidacoes { get; private set; } = new ValidationResult();
-    public CriarEventoAgendaCommand(string? evento, string? especialidade, string? localizacao, DateTime data, DateTime horario, string? anotacao)
+    public CriarEventoAgendaCommand(string? evento, string? especialidade, string? localizacao, DateTime data, DateTime hora, string? anotacao)
     {
         Evento = evento;
         Especialidade = especialidade;
         Localizacao = localizacao;
         Data = data;
-        Horario = horario;
+        Hora = hora;
         Anotacao = anotacao;
     }
     public bool Validar()
@@ -49,7 +49,7 @@ public class CriarEventoAgendaCommand : IRequest<CommandResponse<CriarEventoAgen
             .WithErrorCode(((int)HttpStatusCode.BadRequest).ToString())
             .WithMessage("O tipo do fornecedor precisa ser 1 (Pessoa Física) ou 2 (Pessoa Jurídica)");
 
-        validacoes.RuleFor(EventoAgenda => EventoAgenda.Horario)
+        validacoes.RuleFor(EventoAgenda => EventoAgenda.Hora)
             .NotEmpty()
             .WithErrorCode(((int)HttpStatusCode.BadRequest).ToString())
             .WithMessage("O tipo do fornecedor precisa ser 1 (Pessoa Física) ou 2 (Pessoa Jurídica)");

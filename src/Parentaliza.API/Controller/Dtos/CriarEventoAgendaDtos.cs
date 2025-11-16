@@ -19,7 +19,7 @@ public class CriarEventoAgendaDtos
 
     [Required(ErrorMessage = "A data do evento é obrigatório")]
     [DataType(DataType.DateTime)]
-    public DateTime Data { get; set; } 
+    public DateTime Data { get; set; } = DateTime.Now;
 
     [Required(ErrorMessage = "A hora do evento é obrigatório")]
     [DataType(DataType.DateTime)]
@@ -29,6 +29,7 @@ public class CriarEventoAgendaDtos
     public string? Anotacao { get; set; } = string.Empty;
 
 }
+/*
 public class AtualizarEventoAgendaDtos
 {
     [StringLength(200, MinimumLength = 3)]
@@ -132,3 +133,4 @@ public class CalendarioMensalDtos
     public Dictionary<int, List<EventoResumoDtos>> EventosPorDia { get; set; } = new();
     public int TotalEventos { get; set; }
 }
+*/

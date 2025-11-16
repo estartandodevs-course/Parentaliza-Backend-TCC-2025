@@ -31,7 +31,9 @@ public class CriarBebeGestacaoCommand : IRequest<CommandResponse<CriarBebeGestac
         validacoes.RuleFor(BebeGestacao => BebeGestacao.Nome)
             .NotEmpty()
             .WithMessage("O nome é obrigatória.")
-            .ChildRules(nome => { nome.RuleFor(n => n.Length).LessThanOrEqualTo(100)
+            .ChildRules(nome =>
+            {
+                nome.RuleFor(n => n.Length).LessThanOrEqualTo(100)
             .WithMessage("O nome deve ter no máximo 100 caracteres.");
             })
             .WithErrorCode(((int)HttpStatusCode.BadRequest).ToString());

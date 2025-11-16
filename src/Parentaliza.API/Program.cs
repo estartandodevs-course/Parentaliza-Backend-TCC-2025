@@ -1,9 +1,7 @@
-using Amazon.Lambda.AspNetCoreServer.Hosting;
-using Parentaliza.API.Infrastructure;
-using Parentaliza.ServiceDefaults;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.EntityFrameworkCore;
-using Pomelo.EntityFrameworkCore.MySql;
+using Parentaliza.API.Infrastructure;
+using Parentaliza.ServiceDefaults;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -44,7 +42,7 @@ builder.Services.AddSwaggerGen(c =>
         Title = "Parentaliza API",
         Description = "AWS Lambda ASP.NET Core API Parentaliza",
     });
-    
+
     // Include XML comments
     var xmlFile = $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name}.xml";
     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
@@ -75,7 +73,7 @@ using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
     var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
-    
+
     try
     {
         if (db.Database.GetPendingMigrations().Any())
