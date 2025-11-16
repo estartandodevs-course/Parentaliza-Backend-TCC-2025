@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
-using MediatR;
 using FluentValidation.Results;
+using MediatR;
 using Parentaliza.Application.Mediator;
 using Parentaliza.Domain.Enums;
 using System.Net;

@@ -7,7 +7,7 @@ public class CommandResponse<T>
 {
     public HttpStatusCode StatusCode { get; private set; }
     public string Mensagem { get; private set; }
-    public T Dados { get; private set; }
+    public T? Dados { get; private set; }
 
     public CommandResponse(HttpStatusCode statusCode, string mensagem, T dados)
     {
@@ -23,7 +23,7 @@ public class CommandResponse<T>
     }
 
     public static CommandResponse<T> Sucesso(T dados, HttpStatusCode statusCode = HttpStatusCode.OK)
-            => new(statusCode, null, dados);
+            => new(statusCode, string.Empty, dados);
 
     public static CommandResponse<T> Sucesso(string mensagem, HttpStatusCode statusCode = HttpStatusCode.OK)
         => new(statusCode, mensagem);
