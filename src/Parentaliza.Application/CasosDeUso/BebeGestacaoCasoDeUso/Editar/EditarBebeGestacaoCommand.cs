@@ -1,4 +1,4 @@
-﻿namespace Parentaliza.Application.CasosDeUso.PerfilBebeGestacaoCasoDeUso.Editar;
+﻿namespace Parentaliza.Application.CasosDeUso.BebeGestacaoCasoDeUso.Editar;
 
 public class EditarBebeGestacaoCommand
 {

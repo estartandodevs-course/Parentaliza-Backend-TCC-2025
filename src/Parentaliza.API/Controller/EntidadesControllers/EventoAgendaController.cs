@@ -21,12 +21,15 @@ public class EventoAgendaController : BaseController
     public async Task<IActionResult> AdicionaEventoAgenda(
             [FromBody] CriarEventoAgendaDtos request) 
     {
+        // Combinar Data e Hora em um DateTime para o horário
+        var horarioCompleto = request.Data.Date.Add(request.Hora);
+
         var command = new CriarEventoAgendaCommand(
             evento: request.Evento,
             especialidade: request.Especialidade,
             localizacao: request.Localizacao,
             data: request.Data,
-            horario: request.Hora,
+            horario: horarioCompleto,
             anotacao: request.Anotacao
             );
 

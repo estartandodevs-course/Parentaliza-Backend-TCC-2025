@@ -6,20 +6,21 @@ namespace Parentaliza.Application.Mediator;
 public class CommandResponse<T>
 {
     public HttpStatusCode StatusCode { get; private set; }
-    public string Mensagem { get; private set; }
-    public T Dados { get; private set; }
+    public string? Mensagem { get; private set; }
+    public T? Dados { get; private set; }
 
-    public CommandResponse(HttpStatusCode statusCode, string mensagem, T dados)
+    public CommandResponse(HttpStatusCode statusCode, string? mensagem, T? dados)
     {
         StatusCode = statusCode;
         Mensagem = mensagem;
         Dados = dados;
     }
 
-    public CommandResponse(HttpStatusCode statusCode, string mensagem)
+    public CommandResponse(HttpStatusCode statusCode, string? mensagem)
     {
         StatusCode = statusCode;
         Mensagem = mensagem;
+        Dados = default;
     }
 
     public static CommandResponse<T> Sucesso(T dados, HttpStatusCode statusCode = HttpStatusCode.OK)

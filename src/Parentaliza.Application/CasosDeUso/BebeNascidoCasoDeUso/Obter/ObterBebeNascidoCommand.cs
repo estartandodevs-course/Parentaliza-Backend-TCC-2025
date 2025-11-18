@@ -1,4 +1,4 @@
-﻿namespace Parentaliza.Application.CasosDeUso.PerfilBebe.Obter;
+﻿namespace Parentaliza.Application.CasosDeUso.BebeNascidoCasoDeUso.Obter;
 
 public class ObterBebeNascidoCommand
 {

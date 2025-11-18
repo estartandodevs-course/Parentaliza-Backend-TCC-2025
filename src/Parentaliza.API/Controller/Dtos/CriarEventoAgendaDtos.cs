@@ -5,51 +5,47 @@ namespace Parentaliza.API.Controller.Dtos;
 
 public class CriarEventoAgendaDtos
 {
-
     [Required(ErrorMessage = "O título do evento é obrigatório")]
     [StringLength(200, MinimumLength = 3, ErrorMessage = "O evento deve ter entre 3 e 200 caracteres")]
     public string Evento { get; set; } = string.Empty;
 
-    [Required(ErrorMessage = "O tipo do evento é obrigatório")]
-    [EnumDataType(typeof(TipoEvento), ErrorMessage = "Tipo de evento inválido")]
+    [Required(ErrorMessage = "A especialidade do evento é obrigatória")]
+    [StringLength(100, ErrorMessage = "A especialidade não pode exceder 100 caracteres")]
     public string Especialidade { get; set; } = string.Empty;
 
-    [StringLength(500, ErrorMessage = "O endereço não pode exceder 500 caracteres")]
-    public string? Localizacao { get; set; } = string.Empty;
+    [StringLength(500, ErrorMessage = "A localização não pode exceder 500 caracteres")]
+    public string? Localizacao { get; set; }
 
-    [Required(ErrorMessage = "A data do evento é obrigatório")]
-    [DataType(DataType.DateTime)]
-    public DateTime Data { get; set; } 
+    [Required(ErrorMessage = "A data do evento é obrigatória")]
+    [DataType(DataType.Date, ErrorMessage = "Data inválida")]
+    public DateTime Data { get; set; }
 
-    [Required(ErrorMessage = "A hora do evento é obrigatório")]
-    [DataType(DataType.DateTime)]
-    public DateTime Hora { get; set; } 
+    [Required(ErrorMessage = "O horário do evento é obrigatório")]
+    [DataType(DataType.Time, ErrorMessage = "Horário inválido")]
+    public TimeSpan Hora { get; set; }
 
-    [StringLength(1000, ErrorMessage = "A descrição não pode exceder 1000 caracteres")]
-    public string? Anotacao { get; set; } = string.Empty;
-
+    [StringLength(1000, ErrorMessage = "A anotação não pode exceder 1000 caracteres")]
+    public string? Anotacao { get; set; }
 }
 public class AtualizarEventoAgendaDtos
 {
-    [StringLength(200, MinimumLength = 3)]
-    public string? Titulo { get; set; }
+    [StringLength(200, MinimumLength = 3, ErrorMessage = "O evento deve ter entre 3 e 200 caracteres")]
+    public string? Evento { get; set; }
 
-    [StringLength(1000)]
-    public string? Descricao { get; set; }
+    [StringLength(100, ErrorMessage = "A especialidade não pode exceder 100 caracteres")]
+    public string? Especialidade { get; set; }
 
-    [EnumDataType(typeof(TipoEvento))]
-    public TipoEvento? Tipo { get; set; }
+    [StringLength(500, ErrorMessage = "A localização não pode exceder 500 caracteres")]
+    public string? Localizacao { get; set; }
 
-    [DataType(DataType.DateTime)]
-    public DateTime? DataHora { get; set; }
+    [DataType(DataType.Date, ErrorMessage = "Data inválida")]
+    public DateTime? Data { get; set; }
 
-    [StringLength(500)]
-    public string? Endereco { get; set; }
+    [DataType(DataType.Time, ErrorMessage = "Horário inválido")]
+    public TimeSpan? Hora { get; set; }
 
-    public Guid? BebeId { get; set; }
-
-    [StringLength(2000)]
-    public string? Observacoes { get; set; }
+    [StringLength(1000, ErrorMessage = "A anotação não pode exceder 1000 caracteres")]
+    public string? Anotacao { get; set; }
 }
 
 public class MarcarEventoRealizadoDtos
@@ -74,24 +70,23 @@ public class CancelarEventoDtos
 public class EventoResumoDtos
 {
     public Guid Id { get; set; }
-    public string Titulo { get; set; } = string.Empty;
-    public string Tipo { get; set; } = string.Empty;
-    public string Status { get; set; } = string.Empty;
-    public string? BebeNome { get; set; }
+    public string Evento { get; set; } = string.Empty;
+    public string Especialidade { get; set; } = string.Empty;
+    public string? Localizacao { get; set; }
+    public DateTime Data { get; set; }
+    public DateTime Horario { get; set; }
+    public string? Anotacao { get; set; }
     public bool EventoHoje { get; set; }
     public int HorasAteEvento { get; set; }
 }
 
 public class FiltrarEventosDtos
 {
+    [StringLength(200)]
+    public string? Evento { get; set; }
 
-    [EnumDataType(typeof(TipoEvento))]
-    public TipoEvento? Tipo { get; set; }
-
-    [EnumDataType(typeof(StatusEvento))]
-    public StatusEvento? Status { get; set; }
-
-    public Guid? BebeId { get; set; }
+    [StringLength(100)]
+    public string? Especialidade { get; set; }
 
     [DataType(DataType.Date)]
     public DateTime? DataInicio { get; set; }

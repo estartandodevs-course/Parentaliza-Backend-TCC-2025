@@ -4,6 +4,9 @@ using Parentaliza.ServiceDefaults;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 using Pomelo.EntityFrameworkCore.MySql;
+using MediatR;
+using Parentaliza.Domain.Repository;
+using Parentaliza.Infrastructure.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,6 +33,13 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
             errorNumbersToAdd: null);
     });
 });
+
+// Add MediatR
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Parentaliza.Application.CasosDeUso.EventoAgendaCasoDeUso.Criar.CriarEventoAgendaCommand).Assembly));
+
+// Add Repositories
+builder.Services.AddScoped<IEventoAgendaRepository, EventoAgendaRepository>();
+builder.Services.AddScoped<IBebeNascidoRepository, BebeNascidoRepository>();
 
 // Add Controllers
 builder.Services.AddControllers();

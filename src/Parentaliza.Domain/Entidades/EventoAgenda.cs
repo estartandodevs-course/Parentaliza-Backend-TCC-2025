@@ -8,6 +8,8 @@ public class EventoAgenda : Entity
     public DateTime Horario { get; set; }
     public string? Anotacao { get; set; }
 
+    public EventoAgenda() { }
+
     public EventoAgenda(string? evento, string? especialidade, string? localizacao, DateTime horario, DateTime data, string? anotacao)
     {
         Evento = evento;

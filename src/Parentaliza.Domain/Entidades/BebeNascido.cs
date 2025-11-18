@@ -22,6 +22,9 @@ public class BebeNascido : Entity
     }
     public decimal Peso { get; set; }
     public decimal Altura { get; set; }
+
+    public BebeNascido() { }
+
     public BebeNascido(string? nome,
                        DateTime dataNascimento,
                        SexoEnum sexo,

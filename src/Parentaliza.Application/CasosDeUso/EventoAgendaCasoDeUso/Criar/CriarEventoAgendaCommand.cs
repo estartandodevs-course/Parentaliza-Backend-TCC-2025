@@ -32,32 +32,38 @@ public class CriarEventoAgendaCommand : IRequest<CommandResponse<CriarEventoAgen
         validacoes.RuleFor(EventoAgenda => EventoAgenda.Evento)
             .NotEmpty()
             .WithErrorCode(((int)HttpStatusCode.BadRequest).ToString())
-            .WithMessage("O nome do fornecedor deve ser informado.");
+            .WithMessage("O título do evento é obrigatório.")
+            .MaximumLength(200)
+            .WithMessage("O evento deve ter no máximo 200 caracteres.")
+            .MinimumLength(3)
+            .WithMessage("O evento deve ter no mínimo 3 caracteres.");
 
         validacoes.RuleFor(EventoAgenda => EventoAgenda.Especialidade)
            .NotEmpty()
            .WithErrorCode(((int)HttpStatusCode.BadRequest).ToString())
-           .WithMessage("O documento do fornecedor precisa ser informado");
+           .WithMessage("A especialidade do evento é obrigatória.");
 
         validacoes.RuleFor(EventoAgenda => EventoAgenda.Localizacao)
-            .NotEmpty()
+            .MaximumLength(500)
             .WithErrorCode(((int)HttpStatusCode.BadRequest).ToString())
-            .WithMessage("O tipo do fornecedor precisa ser 1 (Pessoa Física) ou 2 (Pessoa Jurídica)");
+            .WithMessage("A localização não pode exceder 500 caracteres.")
+            .When(x => !string.IsNullOrEmpty(x.Localizacao));
 
         validacoes.RuleFor(EventoAgenda => EventoAgenda.Data)
             .NotEmpty()
             .WithErrorCode(((int)HttpStatusCode.BadRequest).ToString())
-            .WithMessage("O tipo do fornecedor precisa ser 1 (Pessoa Física) ou 2 (Pessoa Jurídica)");
+            .WithMessage("A data do evento é obrigatória.");
 
         validacoes.RuleFor(EventoAgenda => EventoAgenda.Horario)
             .NotEmpty()
             .WithErrorCode(((int)HttpStatusCode.BadRequest).ToString())
-            .WithMessage("O tipo do fornecedor precisa ser 1 (Pessoa Física) ou 2 (Pessoa Jurídica)");
+            .WithMessage("O horário do evento é obrigatório.");
 
         validacoes.RuleFor(EventoAgenda => EventoAgenda.Anotacao)
-            .NotEmpty()
+            .MaximumLength(1000)
             .WithErrorCode(((int)HttpStatusCode.BadRequest).ToString())
-            .WithMessage("O tipo do fornecedor precisa ser 1 (Pessoa Física) ou 2 (Pessoa Jurídica)");
+            .WithMessage("A anotação não pode exceder 1000 caracteres.")
+            .When(x => !string.IsNullOrEmpty(x.Anotacao));
 
         ResultadoDasValidacoes = validacoes.Validate(this);
         return ResultadoDasValidacoes.IsValid;

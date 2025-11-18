@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Parentaliza.Domain.Entidades;
 
 namespace Parentaliza.API.Infrastructure;
 
@@ -8,8 +9,11 @@ public class ApplicationDbContext : DbContext
     {
     }
 
+    public DbSet<EventoAgenda> EventoAgendas { get; set; }
+    public DbSet<BebeNascido> BebeNascidos { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        base.OnModelCreating(modelBuilder); // Faz a configuraÁ„o padr„o do Entity Framework Core
+        base.OnModelCreating(modelBuilder); // Faz a configura√ß√£o padr√£o do Entity Framework Core
     }
 }

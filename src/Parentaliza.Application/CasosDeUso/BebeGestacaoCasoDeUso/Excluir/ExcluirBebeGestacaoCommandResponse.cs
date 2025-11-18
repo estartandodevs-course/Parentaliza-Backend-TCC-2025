@@ -1,4 +1,4 @@
-﻿namespace Parentaliza.Application.CasosDeUso.PerfilBebeGestacaoCasoDeUso.Excluir;
+﻿namespace Parentaliza.Application.CasosDeUso.BebeGestacaoCasoDeUso.Excluir;
 
 public class ExcluirBebeGestacaoCommandResponse
 {
