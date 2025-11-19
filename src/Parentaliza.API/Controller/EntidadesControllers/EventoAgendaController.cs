@@ -9,7 +9,7 @@ using Parentaliza.Application.CasosDeUso.EventoAgendaCasoDeUso.Obter;
 namespace Parentaliza.API.Controller.EntidadesControllers;
 
 [ApiController]
-[Route("api/agendamento/[controller]")]
+[Route("api/EventoAgenda/[controller]")]
 public class EventoAgendaController : BaseController
 {
     private readonly IMediator _mediator;
@@ -18,28 +18,9 @@ public class EventoAgendaController : BaseController
     {
         _mediator = mediator;
     }
-    [HttpGet]
-    [Route("EventoAgenda")]
 
-    public async Task<IActionResult> ObterEventoAgenda()
-    {
-        var query = new ListarEventoAgendaCommand();
-        var response = await _mediator.Send(query);
-        return StatusCode((int)response.StatusCode, response);
-    }
-
-    [HttpGet]
-    [Route("EventoAgendaId/{id}")]
-    public async Task<IActionResult> GetEventoAgendaId(Guid id)
-    {
-        var command = new ObterEventoAgendaCommand(id);
-        var response = await _mediator.Send(command, CancellationToken.None);
-        if (response == null) //retorna 404 se não encontrar. Retornando direto para response não funciona.
-            return NotFound();
-        return Ok(response);
-
-    }
     [HttpPost]
+    [Route("Adicionar")]
     public async Task<IActionResult> AdicionaEventoAgenda(
             [FromBody] CriarEventoAgendaDtos request)
     {
@@ -47,7 +28,7 @@ public class EventoAgendaController : BaseController
             evento: request.Evento,
             especialidade: request.Especialidade,
             localizacao: request.Localizacao,
-            data: request.Data = DateTime.Now,
+            data: request.Data,
             hora: request.Hora,
             anotacao: request.Anotacao
             );
@@ -56,4 +37,24 @@ public class EventoAgendaController : BaseController
 
         return StatusCode((int)response.StatusCode, response);
     }
+
+    [HttpGet]
+    [Route("ObterTodos")]
+    public async Task<IActionResult> ObterTodosEventoAgenda()
+    {
+        var command = new ListarEventoAgendaCommandResponse();
+        var response = await _mediator.Send(command, CancellationToken.None);
+        return StatusCode((int)response.StatusCode, response);
+    }
+
+    /*
+     * [HttpGet]
+    [Route("BuscarId/EventoAgendaId/{id}")]
+    public async Task<ActionResult> GetEventoAgendaId(Guid id)
+    {
+        var command = new ObterEventoAgendaCommandResponse(id);
+        var response = await _mediator.Send(command, CancellationToken.None);
+        return StatusCode((int)response.StatusCode, response);
+    }
+    */
 }

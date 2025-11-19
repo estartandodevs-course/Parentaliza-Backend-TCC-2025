@@ -2,11 +2,11 @@
 
 public class ControleMamadeira : Entity
 {
-    public DateTime Data { get; set; }
-    public DateTime Hora { get; set; }
-    public decimal? QuantidadeLeite { get; set; }
-    public string? Anotacao { get; set; }
-    public ControleMamadeira(DateTime data, DateTime hora, decimal? quantidadeLeite, string? anotacoes)
+    public DateTime Data { get; private set; }
+    public TimeSpan Hora { get; private set; }
+    public decimal? QuantidadeLeite { get; private set; }
+    public string? Anotacao { get; private set; }
+    public ControleMamadeira(DateTime data, TimeSpan hora, decimal? quantidadeLeite, string? anotacoes)
     {
         Data = data;
         Hora = hora;

@@ -2,9 +2,9 @@
 
 public class ControleLeiteMaterno : Entity
 {
-    public DateTime Cronometro { get; set; }
-    public string? LadoDireito { get; set; }
-    public string? LadoEsquerdo { get; set; }
+    public DateTime Cronometro { get; private set; }
+    public string? LadoDireito { get; private set; }
+    public string? LadoEsquerdo { get; private set; }
     public ControleLeiteMaterno(DateTime cronometro, string? ladoDireito, string? ladoEsquerdo)
     {
         Cronometro = cronometro;

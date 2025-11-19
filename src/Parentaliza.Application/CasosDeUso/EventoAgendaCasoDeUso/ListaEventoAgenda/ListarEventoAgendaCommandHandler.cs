@@ -1,11 +1,11 @@
 ﻿using MediatR;
 using Parentaliza.Application.Mediator;
-using Parentaliza.Domain.Repository;
+using Parentaliza.Domain.InterfacesRepository;
 using System.Net;
 
 namespace Parentaliza.Application.CasosDeUso.EventoAgendaCasoDeUso.ListaEventoAgenda;
 
-public class ListarEventoAgendaCommandHandler : IRequestHandler<ListarEventoAgendaCommand, CommandResponse<List<ListarEventoAgendaCommandResponse>>>
+public class ListarEventoAgendaCommandHandler : IRequestHandler<ListarEventoAgendaCommandResponse, CommandResponse<List<ListarEventoAgendaCommand>>>
 {
     private readonly IEventoAgendaRepository _eventoAgendaRepository;
 
@@ -14,12 +14,12 @@ public class ListarEventoAgendaCommandHandler : IRequestHandler<ListarEventoAgen
         _eventoAgendaRepository = eventoAgendaRepository;
     }
 
-    public async Task<CommandResponse<List<ListarEventoAgendaCommandResponse>>> Handle(ListarEventoAgendaCommand request, CancellationToken cancellationToken)
+    public async Task<CommandResponse<List<ListarEventoAgendaCommand>>> Handle(ListarEventoAgendaCommandResponse request, CancellationToken cancellationToken)
     {
         try
         {
             var AgendaComEventos = await _eventoAgendaRepository.ObterTodos();
-            var response = AgendaComEventos.Select(agenda => new ListarEventoAgendaCommandResponse(
+            var response = AgendaComEventos.Select(agenda => new ListarEventoAgendaCommand(
                 agenda.Evento,
                 agenda.Especialidade,
                 agenda.Localizacao,
@@ -27,11 +27,11 @@ public class ListarEventoAgendaCommandHandler : IRequestHandler<ListarEventoAgen
                 agenda.Hora,
                 agenda.Anotacao
             )).ToList();
-            return CommandResponse<List<ListarEventoAgendaCommandResponse>>.Sucesso(response, HttpStatusCode.OK);
+            return CommandResponse<List<ListarEventoAgendaCommand>>.Sucesso(response, HttpStatusCode.OK);
         }
         catch (Exception ex)
         {
-            return CommandResponse<List<ListarEventoAgendaCommandResponse>>.ErroCritico(mensagem: $"Ocorreu um erro ao listar os fornecedores: {ex.Message}");
+            return CommandResponse<List<ListarEventoAgendaCommand>>.ErroCritico(mensagem: $"Ocorreu um erro ao listar os eventos da agenda: {ex.Message}");
         }
     }
 }

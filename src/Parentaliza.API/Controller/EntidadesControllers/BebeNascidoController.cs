@@ -4,14 +4,13 @@ using Parentaliza.API.Controller.Base;
 using Parentaliza.API.Controller.Dtos;
 using Parentaliza.Application.CasosDeUso.BebeNascidoCasoDeUso.Criar;
 
-
 namespace Parentaliza.API.Controller.EntidadesControllers;
 
 [ApiController]
 [Route("[controller]")]
 public class BebeNascidoController : BaseController
 {
-    private readonly IMediator _mediator; // Mediator faz a mediação entre o controlador e os casos de uso da aplicação
+    private readonly IMediator _mediator;
 
     public BebeNascidoController(IMediator mediator)
     {

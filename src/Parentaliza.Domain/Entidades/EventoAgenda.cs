@@ -1,14 +1,15 @@
 ﻿namespace Parentaliza.Domain.Entidades;
 public class EventoAgenda : Entity
 {
-    public string? Evento { get; set; }
-    public string? Especialidade { get; set; }
-    public string? Localizacao { get; set; }
-    public DateTime Data { get; set; } = DateTime.Now;
-    public DateTime Hora { get; set; } = DateTime.Now;
-    public string? Anotacao { get; set; }
+    public string? Evento { get; private set; }
+    public string? Especialidade { get; private set; }
+    public string? Localizacao { get; private set; }
+    public DateTime Data { get; private set; }
+    public TimeSpan Hora { get; private set; }
+    public string? Anotacao { get; private set; }
 
-    public EventoAgenda(string? evento, string? especialidade, string? localizacao, DateTime hora, DateTime data, string? anotacao)
+    public EventoAgenda() { }
+    public EventoAgenda(string? evento, string? especialidade, string? localizacao, TimeSpan hora, DateTime data, string? anotacao)
     {
         Evento = evento;
         Especialidade = especialidade;

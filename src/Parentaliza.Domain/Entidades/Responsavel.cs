@@ -2,11 +2,12 @@
 namespace Parentaliza.Domain.Entidades;
 public class Responsavel : Entity
 {
-    public string? Nome { get; set; }
-    public string? Email { get; set; }
-    public TiposEnum TipoResponsavel { get; set; }
-    public string? Senha { get; set; }
-    public string? FaseNascimento { get; set; }
+    public Guid? ResponsavelId { get; private set; }
+    public string? Nome { get; private set; }
+    public string? Email { get; private set; }
+    public TiposEnum TipoResponsavel { get; private set; }
+    public string? Senha { get; private set; }
+    public string? FaseNascimento { get; private set; }
     public Responsavel() { }
     public Responsavel(string? nome, string? email, int tipoResponsavel, string? senha, string? faseNascimento)
     {

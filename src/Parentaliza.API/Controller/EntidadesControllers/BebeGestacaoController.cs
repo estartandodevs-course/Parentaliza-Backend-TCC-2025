@@ -10,7 +10,7 @@ namespace Parentaliza.API.Controller.EntidadesControllers;
 [Route("[controller]")]
 public class BebeGestacaoController : BaseController
 {
-    private readonly IMediator _mediator; 
+    private readonly IMediator _mediator;
 
     public BebeGestacaoController(IMediator mediator)
     {
@@ -22,9 +22,9 @@ public class BebeGestacaoController : BaseController
             [FromBody] CriarBebeGestacaoDtos request)
     {
         var command = new CriarBebeGestacaoCommand(
-            nome: request.Nome ?? string.Empty,
+            nome: request.Nome,
             dataPrevista: request.DataPrevista,
-            diasDeGestacao: request.DiasDeGestacao ?? 0, 
+            diasDeGestacao: request.DiasDeGestacao,
             pesoEstimado: request.PesoEstimado,
             comprimentoEstimado: request.ComprimentoEstimado
             );

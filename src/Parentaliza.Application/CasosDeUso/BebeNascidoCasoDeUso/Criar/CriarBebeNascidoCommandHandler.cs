@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Parentaliza.Application.Mediator;
 using Parentaliza.Domain.Entidades;
-using Parentaliza.Domain.Repository;
+using Parentaliza.Domain.InterfacesRepository;
 using System.Net;
 
 namespace Parentaliza.Application.CasosDeUso.BebeNascidoCasoDeUso.Criar;
@@ -30,8 +30,8 @@ public class CriarBebeNascidoCommandHandler : IRequestHandler<CriarBebeNascidoCo
                 return CommandResponse<CriarBebeNascidoCommandResponse>.AdicionarErro(statusCode: HttpStatusCode.Conflict, mensagem: "O nome do bebê já está em uso.");
             }
 
-            // Criar nossa entidade 
             var bebeNascido = new BebeNascido(
+                responsavelIdn: request.ResponsavelIdN,
                 nome: request.Nome,
                 dataNascimento: request.DataNascimento,
                 sexo: request.Sexo,
@@ -40,18 +40,16 @@ public class CriarBebeNascidoCommandHandler : IRequestHandler<CriarBebeNascidoCo
                 altura: request.Altura
             );
 
-            //Salvar no banco de dados
             await _criarBebeNascidoRepository.Adicionar(bebeNascido);
 
             var response = new CriarBebeNascidoCommandResponse(bebeNascido.Id);
 
-            // Retornar uma resposta  
             return CommandResponse<CriarBebeNascidoCommandResponse>.Sucesso(response, statusCode: HttpStatusCode.Created);
 
         }
         catch (Exception ex)
         {
-            return CommandResponse<CriarBebeNascidoCommandResponse>.ErroCritico(mensagem: $"Ocorreu um erro ao criar o fornecedor: {ex.Message}");
+            return CommandResponse<CriarBebeNascidoCommandResponse>.ErroCritico(mensagem: $"Ocorreu um erro ao cadastrar um bebê: {ex.Message}");
         }
     }
 }

@@ -8,14 +8,14 @@ namespace Parentaliza.Application.CasosDeUso.BebeGestacaoCasoDeUso.Criar;
 
 public class CriarBebeGestacaoCommand : IRequest<CommandResponse<CriarBebeGestacaoCommandResponse>>
 {
-    public string Nome { get; set; } = string.Empty;
-    public DateTime DataPrevista { get; set; }
-    public int DiasDeGestacao { get; set; }
-    public decimal PesoEstimado { get; set; }
-    public decimal ComprimentoEstimado { get; set; }
+    public string? Nome { get; private set; }
+    public DateTime DataPrevista { get; private set; }
+    public int DiasDeGestacao { get; private set; }
+    public decimal PesoEstimado { get; private set; }
+    public decimal ComprimentoEstimado { get; private set; }
 
     public ValidationResult ResultadoDasValidacoes { get; private set; } = new ValidationResult();
-    public CriarBebeGestacaoCommand(string nome, DateTime dataPrevista, int diasDeGestacao, decimal pesoEstimado, decimal comprimentoEstimado)
+    public CriarBebeGestacaoCommand(string? nome, DateTime dataPrevista, int diasDeGestacao, decimal pesoEstimado, decimal comprimentoEstimado)
     {
         Nome = nome;
         DataPrevista = dataPrevista;

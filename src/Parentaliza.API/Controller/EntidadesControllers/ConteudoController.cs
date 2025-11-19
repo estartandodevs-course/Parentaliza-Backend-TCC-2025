@@ -19,10 +19,8 @@ public class ConteudoController : BaseController
 
     [HttpPost]
     public async Task<IActionResult> AdicionaConteudo(
-        [FromBody] CriarConteudoDtos
-        request)
+        [FromBody] CriarConteudoDtos request)
     {
-        // Implementar a lógica para adicionar conteúdo
         var command = new CriarConteudoCommand(
         titulo: request.Titulo,
         categoria: request.Categoria,
