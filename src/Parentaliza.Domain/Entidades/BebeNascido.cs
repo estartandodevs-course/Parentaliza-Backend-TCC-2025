@@ -15,6 +15,8 @@ public class BebeNascido : Entity
 
     public Responsavel? Responsavel { get; private set; }
 
+    public BebeNascido() { }
+
     public BebeNascido(string? nome,
                        DateTime dataNascimento,
                        SexoEnum sexo,

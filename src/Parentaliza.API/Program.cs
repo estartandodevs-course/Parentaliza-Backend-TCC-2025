@@ -41,8 +41,8 @@ builder.Services.AddMediatR(cfg =>
 
 // Register Repositories
 builder.Services.AddScoped<IEventoAgendaRepository, TasksEventoAgendaRepository>();
+builder.Services.AddScoped<IBebeNascidoRepository, TasksBebeNascidoRepository>();
 // TODO: Implementar os outros repositórios quando necessário
-// builder.Services.AddScoped<IBebeNascidoRepository, TasksBebeNascidoRepository>();
 // builder.Services.AddScoped<IBebeGestacaoRepository, TasksBebeGestacaoRepository>();
 // builder.Services.AddScoped<IConteudoRepository, TasksConteudoRepository>();
 // builder.Services.AddScoped<IControleFraldaRepository, TasksControleFraldaRepository>();
