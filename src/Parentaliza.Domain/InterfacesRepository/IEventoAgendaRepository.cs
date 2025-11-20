@@ -3,7 +3,8 @@ namespace Parentaliza.Domain.InterfacesRepository;
 
 public interface IEventoAgendaRepository : IRepository<EventoAgenda>
 {
-    Task<EventoAgenda> ObterInformacoesAgendamento();
+    // TODO: Método reservado para uso futuro - obter informações específicas do agendamento
+    // Task<EventoAgenda> ObterInformacoesAgendamento();
     //Task<List<EventoAgenda>> ObterEventosPorData(DateTime data);
     Task<bool> NomeJaUtilizado(string? eventoAgenda);
 }

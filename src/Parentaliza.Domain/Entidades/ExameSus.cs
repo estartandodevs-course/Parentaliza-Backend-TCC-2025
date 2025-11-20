@@ -5,10 +5,10 @@ public class ExameSus : Entity
     public string? CategoriaFaixaEtaria { get; private set; }
     public string? IdadeMinMeses { get; private set; }
     public string? IdadeMaxMeses { get; private set; }
-    public ExameSus(string? nomeExame, string? categoriaFaixa, string? idadeMinMeses, string? idadeMaxMeses)
+    public ExameSus(string? nomeExame, string? categoriaFaixaEtaria, string? idadeMinMeses, string? idadeMaxMeses)
     {
         NomeExame = nomeExame;
-        CategoriaFaixaEtaria = categoriaFaixa;
+        CategoriaFaixaEtaria = categoriaFaixaEtaria;
         IdadeMinMeses = idadeMinMeses;
         IdadeMaxMeses = idadeMaxMeses;
     }

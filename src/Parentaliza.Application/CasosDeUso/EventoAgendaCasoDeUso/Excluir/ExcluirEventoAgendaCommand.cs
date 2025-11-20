@@ -1,5 +1,14 @@
-﻿namespace Parentaliza.Application.CasosDeUso.EventoAgendaCasoDeUso.Excluir;
+﻿using MediatR;
+using Parentaliza.Application.Mediator;
 
-public class ExcluirEventoAgendaCommand
+namespace Parentaliza.Application.CasosDeUso.EventoAgendaCasoDeUso.Excluir;
+
+public class ExcluirEventoAgendaCommand : IRequest<CommandResponse<ExcluirEventoAgendaCommandResponse>>
 {
+    public Guid Id { get; private set; }
+
+    public ExcluirEventoAgendaCommand(Guid id)
+    {
+        Id = id;
+    }
 }

@@ -14,7 +14,7 @@ public class BebeGestacao : Entity
     public BebeGestacao() { }
 
     public BebeGestacao(string? nome,
-                        int responsavelIdg,
+                        int responsavelIdG,
                         DateTime dataPrevista,
                         int diasDeGestacao,
                         decimal pesoEstimado,
@@ -22,12 +22,12 @@ public class BebeGestacao : Entity
     {
         if (string.IsNullOrWhiteSpace(nome)) throw new ArgumentException("Nome do bebê não pode ser vazio.", nameof(nome));
         if (dataPrevista.Date < DateTime.Today) throw new ArgumentException("Data prevista não pode ser no passado.", nameof(dataPrevista));
-        if (responsavelIdg <= 0) throw new ArgumentException("Responsável inválido.", nameof(responsavelIdg));
+        if (responsavelIdG <= 0) throw new ArgumentException("Responsável inválido.", nameof(responsavelIdG));
         if (pesoEstimado < 0) throw new ArgumentOutOfRangeException(nameof(pesoEstimado), "Peso estimado não pode ser negativo.");
         if (comprimentoEstimado < 0) throw new ArgumentOutOfRangeException(nameof(pesoEstimado), "Comprimento estimado não pode ser negativo.");
 
         Nome = nome;
-        ResponsavelIdG = responsavelIdg;
+        ResponsavelIdG = responsavelIdG;
         DataPrevista = dataPrevista;
         DiasDeGestacao = diasDeGestacao;
         PesoEstimado = pesoEstimado;

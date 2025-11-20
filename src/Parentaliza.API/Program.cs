@@ -1,7 +1,11 @@
+using MediatR;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 using Parentaliza.API.Infrastructure;
+using Parentaliza.Domain.InterfacesRepository;
+using Parentaliza.Infrastructure.Repository;
 using Parentaliza.ServiceDefaults;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +32,24 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
             errorNumbersToAdd: null);
     });
 });
+
+// Add MediatR
+builder.Services.AddMediatR(cfg =>
+{
+    cfg.RegisterServicesFromAssembly(typeof(Parentaliza.Application.CasosDeUso.EventoAgendaCasoDeUso.Criar.CriarEventoAgendaCommand).Assembly);
+});
+
+// Register Repositories
+builder.Services.AddScoped<IEventoAgendaRepository, TasksEventoAgendaRepository>();
+// TODO: Implementar os outros repositórios quando necessário
+// builder.Services.AddScoped<IBebeNascidoRepository, TasksBebeNascidoRepository>();
+// builder.Services.AddScoped<IBebeGestacaoRepository, TasksBebeGestacaoRepository>();
+// builder.Services.AddScoped<IConteudoRepository, TasksConteudoRepository>();
+// builder.Services.AddScoped<IControleFraldaRepository, TasksControleFraldaRepository>();
+// builder.Services.AddScoped<IControleLeiteMaternoRepository, TasksControleLeiteMaternoRepository>();
+// builder.Services.AddScoped<IControleMamadeiraRepository, TasksControleMamadeiraRepository>();
+// builder.Services.AddScoped<IExameSusRepository, TasksExameSusRepository>();
+// builder.Services.AddScoped<IVacinaSusRepository, TasksVacinaSusRepository>();
 
 // Add Controllers
 builder.Services.AddControllers();

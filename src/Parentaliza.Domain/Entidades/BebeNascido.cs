@@ -18,7 +18,7 @@ public class BebeNascido : Entity
     public BebeNascido(string? nome,
                        DateTime dataNascimento,
                        SexoEnum sexo,
-                       int responsavelIdn,
+                       int responsavelIdN,
                        TipoSanguineoEnum tipoSanguineo,
                        decimal peso,
                        decimal altura)
@@ -30,7 +30,7 @@ public class BebeNascido : Entity
         Nome = nome;
         DataNascimento = dataNascimento;
         Sexo = sexo;
-        ResponsavelIdN = responsavelIdn;
+        ResponsavelIdN = responsavelIdN;
         TipoSanguineo = tipoSanguineo;
         Peso = peso;
         Altura = altura;

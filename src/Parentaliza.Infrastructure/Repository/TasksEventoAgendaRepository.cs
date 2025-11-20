@@ -9,17 +9,27 @@ public class TasksEventoAgendaRepository : Repository<EventoAgenda>, IEventoAgen
 {
     public TasksEventoAgendaRepository(ApplicationDbContext contexto) : base(contexto) { }
 
-    public async Task<EventoAgenda> ObterInformacoesAgendamento()
-    {
-        var response = await _contexto.EventosAgendas
-            .AsNoTracking()
-            .Include(eventoAgenda => eventoAgenda.Evento)
-            .FirstOrDefaultAsync();
+    // TODO: Método reservado para uso futuro - obter informações específicas do agendamento
+    // public async Task<EventoAgenda> ObterInformacoesAgendamento()
+    // {
+    //     var response = await _contexto.EventosAgendas
+    //         .AsNoTracking()
+    //         .FirstOrDefaultAsync();
+    //
+    //     return response;
+    // }
 
-        return response;
-    }
-    public Task<bool> NomeJaUtilizado(string? eventoAgenda)
+    public async Task<bool> NomeJaUtilizado(string? eventoAgenda)
     {
-        throw new NotImplementedException();
+        if (string.IsNullOrWhiteSpace(eventoAgenda))
+        {
+            return false;
+        }
+
+        var existe = await _dbSet
+            .AsNoTracking()
+            .AnyAsync(e => e.Evento != null && e.Evento.ToLower() == eventoAgenda.ToLower());
+
+        return existe;
     }
 }
