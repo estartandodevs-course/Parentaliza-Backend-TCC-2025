@@ -103,18 +103,31 @@ using (var scope = app.Services.CreateScope())
 app.UseExceptionHandler();
 
 // Configure Swagger (before MapDefaultEndpoints to avoid conflicts)
-if (app.Environment.IsDevelopment())
+// habilitando swagger para producao
+app.UseSwagger();
+app.UseSwaggerUI(c =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI(c =>
-    {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Parentaliza API V1");
-        c.RoutePrefix = "swagger"; // Swagger UI at /swagger
-        c.DocumentTitle = "Parentaliza API Documentation";
-        c.DefaultModelsExpandDepth(-1); // Hide schemas by default
-        c.DisplayRequestDuration(); // Show request duration in Swagger UI
-    });
-}
+    var jsonPath = builder.Configuration["Swagger:JsonPath"];
+    
+    c.SwaggerEndpoint(jsonPath, "Parentaliza API V1");
+    c.RoutePrefix = "api/swagger";
+    c.DocumentTitle = "Parentaliza API Documentation";
+    c.DefaultModelsExpandDepth(-1);
+    c.DisplayRequestDuration();
+});
+
+// if (app.Environment.IsDevelopment())
+// {
+//     app.UseSwagger();
+//     app.UseSwaggerUI(c =>
+//     {
+//         c.SwaggerEndpoint("/swagger/v1/swagger.json", "Parentaliza API V1");
+//         c.RoutePrefix = "swagger"; // Swagger UI at /swagger
+//         c.DocumentTitle = "Parentaliza API Documentation";
+//         c.DefaultModelsExpandDepth(-1); // Hide schemas by default
+//         c.DisplayRequestDuration(); // Show request duration in Swagger UI
+//     });
+// }
 
 app.MapDefaultEndpoints();
 
@@ -160,3 +173,4 @@ public class GlobalExceptionHandler : IExceptionHandler
         return true;
     }
 }
+
