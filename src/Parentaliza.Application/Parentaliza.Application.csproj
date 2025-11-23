@@ -10,4 +10,9 @@
     <ProjectReference Include="..\Parentaliza.Domain\Parentaliza.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="12.1.0" />
+    <PackageReference Include="MediatR" Version="13.1.0" />
+  </ItemGroup>
+
 </Project>

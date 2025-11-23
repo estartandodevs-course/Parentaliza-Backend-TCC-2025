@@ -1,9 +1,11 @@
-using Amazon.Lambda.AspNetCoreServer.Hosting;
-using Parentaliza.API.Infrastructure;
-using Parentaliza.ServiceDefaults;
+using MediatR;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.EntityFrameworkCore;
-using Pomelo.EntityFrameworkCore.MySql;
+using Parentaliza.API.Infrastructure;
+using Parentaliza.Domain.InterfacesRepository;
+using Parentaliza.Infrastructure.Repository;
+using Parentaliza.ServiceDefaults;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,6 +33,25 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     });
 });
 
+// Add MediatR
+builder.Services.AddMediatR(cfg =>
+{
+    cfg.RegisterServicesFromAssembly(typeof(Parentaliza.Application.CasosDeUso.EventoAgendaCasoDeUso.Criar.CriarEventoAgendaCommand).Assembly);
+    cfg.RegisterServicesFromAssembly(typeof(Parentaliza.Application.CasosDeUso.BebeGestacaoCasoDeUso.Criar.CriarBebeGestacaoCommand).Assembly);
+});
+
+// Register Repositories
+builder.Services.AddScoped<IEventoAgendaRepository, TasksEventoAgendaRepository>();
+builder.Services.AddScoped<IBebeNascidoRepository, TasksBebeNascidoRepository>();
+// TODO: Implementar os outros repositórios quando necessário
+builder.Services.AddScoped<IBebeGestacaoRepository, TasksBebeGestacaoRepository>();
+builder.Services.AddScoped<IConteudoRepository, TasksConteudoRepository>();
+// builder.Services.AddScoped<IControleFraldaRepository, TasksControleFraldaRepository>();
+// builder.Services.AddScoped<IControleLeiteMaternoRepository, TasksControleLeiteMaternoRepository>();
+// builder.Services.AddScoped<IControleMamadeiraRepository, TasksControleMamadeiraRepository>();
+// builder.Services.AddScoped<IExameSusRepository, TasksExameSusRepository>();
+// builder.Services.AddScoped<IVacinaSusRepository, TasksVacinaSusRepository>();
+
 // Add Controllers
 builder.Services.AddControllers();
 
@@ -44,7 +65,7 @@ builder.Services.AddSwaggerGen(c =>
         Title = "Parentaliza API",
         Description = "AWS Lambda ASP.NET Core API Parentaliza",
     });
-    
+
     // Include XML comments
     var xmlFile = $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name}.xml";
     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
@@ -75,7 +96,7 @@ using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
     var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
-    
+
     try
     {
         if (db.Database.GetPendingMigrations().Any())
