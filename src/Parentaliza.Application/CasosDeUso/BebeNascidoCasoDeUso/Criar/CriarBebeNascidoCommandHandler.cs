@@ -31,11 +31,11 @@ public class CriarBebeNascidoCommandHandler : IRequestHandler<CriarBebeNascidoCo
             }
 
             var bebeNascido = new BebeNascido(
-                responsavelIdN: request.ResponsavelIdN,
                 nome: request.Nome,
                 dataNascimento: request.DataNascimento,
                 sexo: request.Sexo,
                 tipoSanguineo: request.TipoSanguineo,
+                idadeMeses: request.IdadeMeses,
                 peso: request.Peso,
                 altura: request.Altura
             );

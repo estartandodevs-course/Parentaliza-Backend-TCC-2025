@@ -2,7 +2,7 @@
 
 namespace Parentaliza.API.Controller.Dtos;
 
-public class CriarBebeGestacaoDtos
+public class EditarBebeGestacaoDtos
 {
     [Required(ErrorMessage = "O nome do bebê é obrigatório")]
     [MaxLength(100, ErrorMessage = "O nome não pode exceder 100 caracteres")]

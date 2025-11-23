@@ -4,7 +4,6 @@ namespace Parentaliza.Domain.Entidades;
 
 public class BebeNascido : Entity
 {
-    public int ResponsavelIdN { get; private set; }
     public string? Nome { get; private set; }
     public DateTime DataNascimento { get; private set; }
     public SexoEnum Sexo { get; private set; }
@@ -20,8 +19,8 @@ public class BebeNascido : Entity
     public BebeNascido(string? nome,
                        DateTime dataNascimento,
                        SexoEnum sexo,
-                       int responsavelIdN,
                        TipoSanguineoEnum tipoSanguineo,
+                       int idadeMeses,
                        decimal peso,
                        decimal altura)
     {
@@ -32,8 +31,8 @@ public class BebeNascido : Entity
         Nome = nome;
         DataNascimento = dataNascimento;
         Sexo = sexo;
-        ResponsavelIdN = responsavelIdN;
         TipoSanguineo = tipoSanguineo;
+        IdadeMeses = idadeMeses;
         Peso = peso;
         Altura = altura;
     }

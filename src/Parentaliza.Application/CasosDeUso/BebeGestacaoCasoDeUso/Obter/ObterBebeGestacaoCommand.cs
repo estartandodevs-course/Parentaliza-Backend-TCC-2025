@@ -1,5 +1,14 @@
-﻿namespace Parentaliza.Application.CasosDeUso.PerfilBebeGestacaoCasoDeUso.Obter;
+﻿using MediatR;
+using Parentaliza.Application.Mediator;
 
-public class ObterBebeGestacaoCommand
+namespace Parentaliza.Application.CasosDeUso.PerfilBebeGestacaoCasoDeUso.Obter;
+
+public class ObterBebeGestacaoCommand : IRequest<CommandResponse<ObterBebeGestacaoCommandResponse>>
 {
+    public Guid Id { get; private set; }
+
+    public ObterBebeGestacaoCommand(Guid id)
+    {
+        Id = id;
+    }
 }

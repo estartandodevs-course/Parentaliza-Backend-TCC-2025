@@ -2,7 +2,7 @@
 
 namespace Parentaliza.API.Controller.Dtos;
 
-public class CriarConteudoDtos
+public class EditarConteudoDtos
 {
     [Required(ErrorMessage = "O título do conteúdo é obrigatório")]
     [StringLength(100, MinimumLength = 3, ErrorMessage = "O título deve ter entre 3 e 100 caracteres")]

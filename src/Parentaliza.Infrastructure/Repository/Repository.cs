@@ -8,7 +8,7 @@ namespace Parentaliza.Infrastructure.Repository;
 public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity, new()
 {
     protected readonly ApplicationDbContext _contexto;
-    protected readonly DbSet<TEntity> _dbSet; 
+    protected readonly DbSet<TEntity> _dbSet;
 
     protected Repository(ApplicationDbContext contexto)
     {

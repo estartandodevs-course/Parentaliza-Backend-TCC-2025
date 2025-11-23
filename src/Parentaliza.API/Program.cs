@@ -37,14 +37,15 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddMediatR(cfg =>
 {
     cfg.RegisterServicesFromAssembly(typeof(Parentaliza.Application.CasosDeUso.EventoAgendaCasoDeUso.Criar.CriarEventoAgendaCommand).Assembly);
+    cfg.RegisterServicesFromAssembly(typeof(Parentaliza.Application.CasosDeUso.BebeGestacaoCasoDeUso.Criar.CriarBebeGestacaoCommand).Assembly);
 });
 
 // Register Repositories
 builder.Services.AddScoped<IEventoAgendaRepository, TasksEventoAgendaRepository>();
 builder.Services.AddScoped<IBebeNascidoRepository, TasksBebeNascidoRepository>();
 // TODO: Implementar os outros repositórios quando necessário
-// builder.Services.AddScoped<IBebeGestacaoRepository, TasksBebeGestacaoRepository>();
-// builder.Services.AddScoped<IConteudoRepository, TasksConteudoRepository>();
+builder.Services.AddScoped<IBebeGestacaoRepository, TasksBebeGestacaoRepository>();
+builder.Services.AddScoped<IConteudoRepository, TasksConteudoRepository>();
 // builder.Services.AddScoped<IControleFraldaRepository, TasksControleFraldaRepository>();
 // builder.Services.AddScoped<IControleLeiteMaternoRepository, TasksControleLeiteMaternoRepository>();
 // builder.Services.AddScoped<IControleMamadeiraRepository, TasksControleMamadeiraRepository>();

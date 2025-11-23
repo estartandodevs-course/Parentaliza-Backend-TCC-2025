@@ -4,7 +4,6 @@ namespace Parentaliza.API.Controller.Dtos;
 
 public class CriarEventoAgendaDtos
 {
-
     [Required(ErrorMessage = "O título do evento é obrigatório")]
     [StringLength(100, MinimumLength = 3, ErrorMessage = "O evento deve ter entre 3 e 100 caracteres")]
     public string? Evento { get; set; }
@@ -28,5 +27,4 @@ public class CriarEventoAgendaDtos
     [Required(ErrorMessage = "A descrição do evento é obrigatória")]
     [StringLength(1000, ErrorMessage = "A descrição não pode exceder 1000 caracteres")]
     public string? Anotacao { get; set; }
-
 }

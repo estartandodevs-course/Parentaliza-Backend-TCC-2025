@@ -9,7 +9,6 @@ namespace Parentaliza.Application.CasosDeUso.BebeNascidoCasoDeUso.Criar;
 
 public class CriarBebeNascidoCommand : IRequest<CommandResponse<CriarBebeNascidoCommandResponse>>
 {
-    public int ResponsavelIdN { get; private set; }
     public string? Nome { get; private set; }
     public DateTime DataNascimento { get; private set; }
     public SexoEnum Sexo { get; private set; }

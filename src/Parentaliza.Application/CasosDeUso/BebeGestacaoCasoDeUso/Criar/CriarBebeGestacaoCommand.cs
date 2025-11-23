@@ -29,38 +29,38 @@ public class CriarBebeGestacaoCommand : IRequest<CommandResponse<CriarBebeGestac
         var validacoes = new InlineValidator<CriarBebeGestacaoCommand>();
 
         validacoes.RuleFor(BebeGestacao => BebeGestacao.Nome)
-            .NotEmpty()
-            .WithMessage("O nome é obrigatória.")
-            .ChildRules(nome =>
-            {
-                nome.RuleFor(n => n.Length).LessThanOrEqualTo(100)
-            .WithMessage("O nome deve ter no máximo 100 caracteres.");
-            })
-            .WithErrorCode(((int)HttpStatusCode.BadRequest).ToString());
+                  .NotEmpty()
+                  .WithMessage("O nome é obrigatória.")
+                  .ChildRules(nome =>
+                  {
+                      nome.RuleFor(n => n.Length).LessThanOrEqualTo(100)
+                  .WithMessage("O nome deve ter no máximo 100 caracteres.");
+                  })
+                  .WithErrorCode(((int)HttpStatusCode.BadRequest).ToString());
 
         validacoes.RuleFor(BebeGestacao => BebeGestacao.DataPrevista)
-            .NotEmpty()
-            .WithMessage("A data prevista é obrigatória.")
-            .GreaterThan(DateTime.Now).WithMessage("A data prevista deve ser uma data futura.")
-            .WithErrorCode(((int)HttpStatusCode.BadRequest).ToString());
+                  .NotEmpty()
+                  .WithMessage("A data prevista é obrigatória.")
+                  .GreaterThan(DateTime.Now).WithMessage("A data prevista deve ser uma data futura.")
+                  .WithErrorCode(((int)HttpStatusCode.BadRequest).ToString());
 
         validacoes.RuleFor(BebeGestacao => BebeGestacao.DiasDeGestacao)
-            .NotEmpty()
-            .WithMessage("Os dias de gestação são obrigatórios.")
-            .GreaterThan(0).WithMessage("Os dias de gestação devem ser maiores que zero.")
-            .WithErrorCode(((int)HttpStatusCode.BadRequest).ToString());
+                  .NotEmpty()
+                  .WithMessage("Os dias de gestação são obrigatórios.")
+                  .GreaterThan(0).WithMessage("Os dias de gestação devem ser maiores que zero.")
+                  .WithErrorCode(((int)HttpStatusCode.BadRequest).ToString());
 
         validacoes.RuleFor(BebeGestacao => BebeGestacao.PesoEstimado)
-            .NotEmpty()
-            .WithMessage("O peso estimado é obrigatório.")
-            .GreaterThan(0).WithMessage("O peso estimado deve ser maior que zero.")
-            .WithErrorCode(((int)HttpStatusCode.BadRequest).ToString());
+                  .NotEmpty()
+                  .WithMessage("O peso estimado é obrigatório.")
+                  .GreaterThan(0).WithMessage("O peso estimado deve ser maior que zero.")
+                  .WithErrorCode(((int)HttpStatusCode.BadRequest).ToString());
 
         validacoes.RuleFor(BebeGestacao => BebeGestacao.ComprimentoEstimado)
-            .NotEmpty()
-            .WithMessage("O comprimento estimado é obrigatório.")
-            .GreaterThan(0).WithMessage("O comprimento estimado deve ser maior que zero.")
-            .WithErrorCode(((int)HttpStatusCode.BadRequest).ToString());
+                  .NotEmpty()
+                  .WithMessage("O comprimento estimado é obrigatório.")
+                  .GreaterThan(0).WithMessage("O comprimento estimado deve ser maior que zero.")
+                  .WithErrorCode(((int)HttpStatusCode.BadRequest).ToString());
 
         ResultadoDasValidacoes = validacoes.Validate(this);
         return ResultadoDasValidacoes.IsValid;

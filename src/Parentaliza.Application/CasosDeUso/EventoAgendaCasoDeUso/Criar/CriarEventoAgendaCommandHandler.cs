@@ -37,7 +37,7 @@ public class CriarEventoAgendaCommandHandler : IRequestHandler<CriarEventoAgenda
 
             var response = new CriarEventoAgendaCommandResponse(eventoAgenda.Id);
 
-            
+
             return CommandResponse<CriarEventoAgendaCommandResponse>.Sucesso(response, statusCode: HttpStatusCode.Created);
 
         }

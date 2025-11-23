@@ -27,39 +27,39 @@ public class CriarConteudoCommand : IRequest<CommandResponse<CriarConteudoComman
         var validacoes = new InlineValidator<CriarConteudoCommand>();
 
         validacoes.RuleFor(Conteudo => Conteudo.Titulo)
-            .NotEmpty().WithMessage("O título é obrigatório.")
-            .MaximumLength(100).WithMessage("O título deve ter no máximo 100 caracteres.")
-            .WithErrorCode(((int)HttpStatusCode.BadRequest).ToString());
+                  .NotEmpty().WithMessage("O título é obrigatório.")
+                  .MaximumLength(100).WithMessage("O título deve ter no máximo 100 caracteres.")
+                  .WithErrorCode(((int)HttpStatusCode.BadRequest).ToString());
 
         validacoes.RuleFor(Conteudo => Conteudo.Categoria)
-            .NotEmpty().WithMessage("A categoria é obrigatória.")
-            .WithErrorCode(((int)HttpStatusCode.BadRequest).ToString())
-            .Custom((categoria, contexto) =>
-            {
-                var categoriasValidas = new List<string> { "Nutrição", "Pós-parto", "Direitos trabalhistas" };
-                if (categoria == null || !categoriasValidas.Contains(categoria))
-                {
-                    contexto.AddFailure("A categoria informada é inválida. As categorias válidas são: Nutrição, Pós-parto, Direitos trabalhistas.");
-                }
-            });
+                  .NotEmpty().WithMessage("A categoria é obrigatória.")
+                  .WithErrorCode(((int)HttpStatusCode.BadRequest).ToString())
+                  .Custom((categoria, contexto) =>
+                    {
+                        var categoriasValidas = new List<string> { "Nutrição", "Pós-parto", "Direitos trabalhistas" };
+                        if (categoria == null || !categoriasValidas.Contains(categoria))
+                        {
+                            contexto.AddFailure("A categoria informada é inválida. As categorias válidas são: Nutrição, Pós-parto, Direitos trabalhistas.");
+                        }
+                    });
 
         validacoes.RuleFor(Conteudo => Conteudo.DataPublicacao)
-            .LessThanOrEqualTo(DateTime.Now)
-            .WithErrorCode(((int)HttpStatusCode.BadRequest).ToString())
-            .ChildRules(data =>
-            {
-                data.RuleFor(d => d)
-                    .NotEmpty().WithMessage("A data de publicação é obrigatória.");
-            });
+                  .LessThanOrEqualTo(DateTime.Now)
+                  .WithErrorCode(((int)HttpStatusCode.BadRequest).ToString())
+                  .ChildRules(data =>
+                  {
+                      data.RuleFor(d => d)
+                   .NotEmpty().WithMessage("A data de publicação é obrigatória.");
+                  });
 
         validacoes.RuleFor(Conteudo => Conteudo.Descricao)
-            .ChildRules(descricao =>
-            {
-                descricao.RuleFor(d => d)
-                    .MaximumLength(1000).WithMessage("A descrição deve ter no máximo 1000 caracteres.");
-            })
-            .NotEmpty().WithMessage("A descrição é obrigatória.")
-            .WithErrorCode(((int)HttpStatusCode.BadRequest).ToString());
+                  .ChildRules(descricao =>
+                      {
+                          descricao.RuleFor(d => d)
+                            .MaximumLength(2000).WithMessage("A descrição deve ter no máximo 2000 caracteres.");
+                      })
+                  .NotEmpty().WithMessage("A descrição é obrigatória.")
+                  .WithErrorCode(((int)HttpStatusCode.BadRequest).ToString());
 
         ResultadoDasValidacoes = validacoes.Validate(this);
         return ResultadoDasValidacoes.IsValid;

@@ -34,6 +34,6 @@ public class EventoAgendaMapping : IEntityTypeConfiguration<EventoAgenda>
                .IsRequired()
                .HasMaxLength(1000);
 
-        builder.ToTable("EventosAgendas");
+        builder.ToTable("EventoAgenda");
     }
 }

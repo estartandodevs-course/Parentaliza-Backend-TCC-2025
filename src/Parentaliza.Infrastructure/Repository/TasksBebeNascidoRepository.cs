@@ -22,4 +22,9 @@ public class TasksBebeNascidoRepository : Repository<BebeNascido>, IBebeNascidoR
 
         return existe;
     }
+
+    public Task<BebeNascido> ObterBebeNascido(Guid bebeNascidoId)
+    {
+        throw new NotImplementedException();
+    }
 }

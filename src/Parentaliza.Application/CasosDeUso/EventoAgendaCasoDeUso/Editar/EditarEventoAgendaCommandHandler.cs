@@ -33,7 +33,6 @@ public class EditarEventoAgendaCommandHandler : IRequestHandler<EditarEventoAgen
                     mensagem: "Evento da agenda não encontrado.");
             }
 
-            // Verificar se o nome do evento já está em uso por outro evento
             if (eventoAgenda.Evento?.ToLower() != request.Evento?.ToLower())
             {
                 var nomeJaUtilizado = await _eventoAgendaRepository.NomeJaUtilizado(request.Evento);
@@ -45,7 +44,6 @@ public class EditarEventoAgendaCommandHandler : IRequestHandler<EditarEventoAgen
                 }
             }
 
-            // Criar nova instância com os dados atualizados
             var eventoAgendaAtualizado = new EventoAgenda(
                 request.Evento,
                 request.Especialidade,
@@ -54,7 +52,7 @@ public class EditarEventoAgendaCommandHandler : IRequestHandler<EditarEventoAgen
                 request.Data,
                 request.Anotacao
             );
-            // Definir o Id para manter a mesma entidade
+
             eventoAgendaAtualizado.Id = request.Id;
 
             await _eventoAgendaRepository.Atualizar(eventoAgendaAtualizado);
