@@ -59,5 +59,4 @@ public class CommandResponse<T>
 
     public static CommandResponse<T> ErroCritico(string mensagem)
         => new(HttpStatusCode.InternalServerError, mensagem);
-
 }

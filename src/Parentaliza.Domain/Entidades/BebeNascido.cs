@@ -4,28 +4,23 @@ namespace Parentaliza.Domain.Entidades;
 
 public class BebeNascido : Entity
 {
-    public string? Nome { get; set; }
-    public DateTime DataNascimento { get; set; }
-    public SexoEnum Sexo { get; set; }
-    public Responsavel? Responsavel { get; set; }
-    public TipoSanguineoEnum TipoSanguineo { get; set; }
-    public int IdadeMeses
-    {
-        get
-        {
-            var now = DateTime.UtcNow.Date;
-            var dob = DataNascimento.Date;
-            int months = (now.Year - dob.Year) * 12 + now.Month - dob.Month;
-            if (now.Day < dob.Day) months--;
-            return Math.Max(0, months);
-        }
-    }
-    public decimal Peso { get; set; }
-    public decimal Altura { get; set; }
+    public string? Nome { get; private set; }
+    public DateTime DataNascimento { get; private set; }
+    public SexoEnum Sexo { get; private set; }
+    public TipoSanguineoEnum TipoSanguineo { get; private set; }
+    public int IdadeMeses { get; private set; }
+    public decimal Peso { get; private set; }
+    public decimal Altura { get; private set; }
+
+    public Responsavel? Responsavel { get; private set; }
+
+    public BebeNascido() { }
+
     public BebeNascido(string? nome,
                        DateTime dataNascimento,
                        SexoEnum sexo,
                        TipoSanguineoEnum tipoSanguineo,
+                       int idadeMeses,
                        decimal peso,
                        decimal altura)
     {
@@ -37,6 +32,7 @@ public class BebeNascido : Entity
         DataNascimento = dataNascimento;
         Sexo = sexo;
         TipoSanguineo = tipoSanguineo;
+        IdadeMeses = idadeMeses;
         Peso = peso;
         Altura = altura;
     }

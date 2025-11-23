@@ -2,4 +2,10 @@
 
 public class EditarConteudoCommandResponse
 {
+    public Guid Id { get; private set; }
+
+    public EditarConteudoCommandResponse(Guid id)
+    {
+        Id = id;
+    }
 }

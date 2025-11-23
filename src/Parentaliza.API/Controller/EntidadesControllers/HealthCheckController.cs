@@ -6,7 +6,7 @@ using Parentaliza.API.Infrastructure;
 namespace Parentaliza.API.Controller.EntidadesControllers;
 
 /// <summary>
-/// Controller for health check and database connection verification
+/// Faz a verificação de integridade da API e do banco de dados
 /// </summary>
 [ApiController]
 [Route("api/v1/[controller]")]
@@ -23,9 +23,9 @@ public class HealthCheckController : BaseController
     }
 
     /// <summary>
-    /// Verifies database connection status
+    /// Verifica a conexão com o banco de dados
     /// </summary>
-    /// <returns>Database connection status</returns>
+    /// <returns>Status de conexão</returns>
     [HttpGet("database")]
     [ProducesResponseType(typeof(object), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(object), StatusCodes.Status503ServiceUnavailable)]
@@ -35,7 +35,7 @@ public class HealthCheckController : BaseController
         {
             _logger.LogInformation("Checking database connection...");
 
-            // Try to connect to the database
+            // Checa se a conexão com o banco de dados pode ser estabelecida
             var canConnect = await _dbContext.Database.CanConnectAsync(cancellationToken);
 
             if (!canConnect)
@@ -50,10 +50,10 @@ public class HealthCheckController : BaseController
                 });
             }
 
-            // Execute a simple query to verify connectivity and get connection info
+            // Executa uma consulta simples para garantir que o banco de dados está respondendo e obter informações adicionais
             await _dbContext.Database.ExecuteSqlRawAsync("SELECT 1", cancellationToken);
 
-            // Get connection info while connection is open
+            // Obtem informações adicionais sobre o banco de dados enquanto a conexão está aberta
             var connection = _dbContext.Database.GetDbConnection();
             var connectionString = _dbContext.Database.GetConnectionString();
             string databaseName = connection.Database ?? "unknown";
@@ -61,7 +61,7 @@ public class HealthCheckController : BaseController
 
             try
             {
-                // Ensure connection is open to get server version
+                // certifica que a conexão está aberta para obter a versão do servidor
                 if (connection.State != System.Data.ConnectionState.Open)
                 {
                     await connection.OpenAsync(cancellationToken);
@@ -101,9 +101,9 @@ public class HealthCheckController : BaseController
     }
 
     /// <summary>
-    /// General health check endpoint
+    /// Endpoint geral de verificação de integridade da API
     /// </summary>
-    /// <returns>API health status</returns>
+    /// <returns>Status de integridade da API</returns>
     [HttpGet]
     [ProducesResponseType(typeof(object), StatusCodes.Status200OK)]
     public ActionResult GetHealth()
@@ -116,4 +116,3 @@ public class HealthCheckController : BaseController
         });
     }
 }
-

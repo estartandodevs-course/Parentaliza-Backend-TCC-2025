@@ -1,17 +1,17 @@
 ﻿namespace Parentaliza.Domain.Entidades;
 public class VacinaSus : Entity
 {
-    public string? NomeVacina { get; set; }
-    public string? Descricao { get; set; }
-    public string? CategoriaFaixaEtaria { get; set; }
-    public string? IdadeMinMeses { get; set; }
-    public string? IdadeMaxMeses { get; set; }
-    public VacinaSus(string? nomeVacina, string? descricao, string? categoriaFaixa, string? idadeMinMeses, string? idadeMaxMeses)
+    public string? NomeVacina { get; private set; }
+    public string? Descricao { get; private set; }
+    public string? CategoriaFaixaEtaria { get; private set; }
+    public string? IdadeMinMesesVacina { get; private set; }
+    public string? IdadeMaxMesesVacina { get; private set; }
+    public VacinaSus(string? nomeVacina, string? descricao, string? categoriaFaixaEtaria, string? idadeMinMesesVacina, string? idadeMaxMesesVacina)
     {
         NomeVacina = nomeVacina;
         Descricao = descricao;
-        CategoriaFaixaEtaria = categoriaFaixa;
-        IdadeMinMeses = idadeMinMeses;
-        IdadeMaxMeses = idadeMaxMeses;
+        CategoriaFaixaEtaria = categoriaFaixaEtaria;
+        IdadeMinMesesVacina = idadeMinMesesVacina;
+        IdadeMaxMesesVacina = idadeMaxMesesVacina;
     }
 }

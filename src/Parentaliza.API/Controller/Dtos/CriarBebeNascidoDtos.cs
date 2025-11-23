@@ -4,12 +4,12 @@ using System.ComponentModel.DataAnnotations;
 namespace Parentaliza.API.Controller.Dtos;
 public class CriarBebeNascidoDtos
 {
-    [Required(ErrorMessage = "O nome é obrigatório")]
-    [StringLength(50, MinimumLength = 3, ErrorMessage = "O evento deve ter entre 3 e 50 caracteres")]
-    public string? Nome { get; set; } = string.Empty;
+    [Required(ErrorMessage = "O nome do bebê é obrigatório")]
+    [MaxLength(100, ErrorMessage = "O nome não pode exceder 100 caracteres")]
+    public string? Nome { get; set; }
 
     [Required(ErrorMessage = "A Data de Nascimento é obrigatória")]
-    [DataType(DataType.Date)]
+    [DataType(DataType.Date, ErrorMessage = "O tipo de data e inválido")]
     public DateTime DataNascimento { get; set; }
 
     [Required(ErrorMessage = "O Sexo é obrigatório")]
@@ -17,11 +17,11 @@ public class CriarBebeNascidoDtos
     public SexoEnum Sexo { get; set; }
 
     [Required(ErrorMessage = "O Tipo sanguineo é obrigatório")]
+    [EnumDataType(typeof(TipoSanguineoEnum), ErrorMessage = "Tipo sanguíneo inválido")]
     public TipoSanguineoEnum TipoSanguineo { get; set; }
 
-    [Required(ErrorMessage = "A Idade em meses é obrigatória")]
-    [Range(0, 11, ErrorMessage = "A idade em meses deve estar entre 0 e 11")]
-    public int? IdadeMeses { get; set; } 
+    [Required(ErrorMessage = "A Idade é obrigatória")]
+    public int IdadeMeses { get; set; }
 
     [Required(ErrorMessage = "O Peso é obrigatório")]
     [Range(0.1, 20.0, ErrorMessage = "O peso deve estar entre 0.1 e 20.0 kg")]

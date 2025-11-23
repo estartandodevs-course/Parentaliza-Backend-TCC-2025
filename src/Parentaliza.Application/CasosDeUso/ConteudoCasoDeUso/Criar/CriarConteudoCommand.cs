@@ -1,14 +1,17 @@
 ﻿using FluentValidation;
 using FluentValidation.Results;
+using MediatR;
+using Parentaliza.Application.Mediator;
+using System.Net;
 
 namespace Parentaliza.Application.CasosDeUso.ConteudoCasoDeUso.Criar;
 
-public class CriarConteudoCommand
+public class CriarConteudoCommand : IRequest<CommandResponse<CriarConteudoCommandResponse>>
 {
-    public string? Titulo { get; set; }
-    public string? Categoria { get; set; }
-    public DateTime DataPublicacao { get; set; }
-    public string? Descricao { get; set; }
+    public string? Titulo { get; private set; }
+    public string? Categoria { get; private set; }
+    public DateTime DataPublicacao { get; private set; }
+    public string? Descricao { get; private set; }
 
     public ValidationResult ResultadoDasValidacoes { get; private set; } = new ValidationResult();
     public CriarConteudoCommand(string? titulo, string? categoria, DateTime dataPublicacao, string? descricao)
@@ -24,15 +27,39 @@ public class CriarConteudoCommand
         var validacoes = new InlineValidator<CriarConteudoCommand>();
 
         validacoes.RuleFor(Conteudo => Conteudo.Titulo)
-            .NotEmpty().WithMessage("O título é obrigatório.")
-            .MaximumLength(100).WithMessage("O título deve ter no máximo 100 caracteres.");
-        validacoes.RuleFor(Conteudo => Conteudo.Categoria).NotEmpty().WithMessage("A categoria é obrigatória.");
+                  .NotEmpty().WithMessage("O título é obrigatório.")
+                  .MaximumLength(100).WithMessage("O título deve ter no máximo 100 caracteres.")
+                  .WithErrorCode(((int)HttpStatusCode.BadRequest).ToString());
+
+        validacoes.RuleFor(Conteudo => Conteudo.Categoria)
+                  .NotEmpty().WithMessage("A categoria é obrigatória.")
+                  .WithErrorCode(((int)HttpStatusCode.BadRequest).ToString())
+                  .Custom((categoria, contexto) =>
+                    {
+                        var categoriasValidas = new List<string> { "Nutrição", "Pós-parto", "Direitos trabalhistas" };
+                        if (categoria == null || !categoriasValidas.Contains(categoria))
+                        {
+                            contexto.AddFailure("A categoria informada é inválida. As categorias válidas são: Nutrição, Pós-parto, Direitos trabalhistas.");
+                        }
+                    });
 
         validacoes.RuleFor(Conteudo => Conteudo.DataPublicacao)
-            .LessThanOrEqualTo(DateTime.Now).WithMessage("A data de publicação não pode ser no futuro.");
+                  .LessThanOrEqualTo(DateTime.Now)
+                  .WithErrorCode(((int)HttpStatusCode.BadRequest).ToString())
+                  .ChildRules(data =>
+                  {
+                      data.RuleFor(d => d)
+                   .NotEmpty().WithMessage("A data de publicação é obrigatória.");
+                  });
 
         validacoes.RuleFor(Conteudo => Conteudo.Descricao)
-            .NotEmpty().WithMessage("A descrição é obrigatória.");
+                  .ChildRules(descricao =>
+                      {
+                          descricao.RuleFor(d => d)
+                            .MaximumLength(2000).WithMessage("A descrição deve ter no máximo 2000 caracteres.");
+                      })
+                  .NotEmpty().WithMessage("A descrição é obrigatória.")
+                  .WithErrorCode(((int)HttpStatusCode.BadRequest).ToString());
 
         ResultadoDasValidacoes = validacoes.Validate(this);
         return ResultadoDasValidacoes.IsValid;

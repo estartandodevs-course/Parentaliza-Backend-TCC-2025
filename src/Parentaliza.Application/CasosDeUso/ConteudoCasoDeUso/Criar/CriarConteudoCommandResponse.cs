@@ -2,4 +2,10 @@
 
 public class CriarConteudoCommandResponse
 {
+    public Guid Id { get; private set; }
+
+    public CriarConteudoCommandResponse(Guid id)
+    {
+        Id = id;
+    }
 }

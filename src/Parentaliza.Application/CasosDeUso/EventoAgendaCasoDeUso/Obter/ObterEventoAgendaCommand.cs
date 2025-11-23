@@ -1,12 +1,14 @@
-﻿
+﻿using MediatR;
+using Parentaliza.Application.Mediator;
+
 namespace Parentaliza.Application.CasosDeUso.EventoAgendaCasoDeUso.Obter;
 
-public class ObterEventoAgendaCommand
+public class ObterEventoAgendaCommand : IRequest<CommandResponse<ObterEventoAgendaCommandResponse>>
 {
-    private Guid id;
+    public Guid Id { get; private set; }
 
     public ObterEventoAgendaCommand(Guid id)
     {
-        this.id = id;
+        Id = id;
     }
 }

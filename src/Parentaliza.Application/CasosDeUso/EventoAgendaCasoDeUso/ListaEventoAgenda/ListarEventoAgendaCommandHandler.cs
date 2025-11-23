@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using Parentaliza.Application.Mediator;
-using Parentaliza.Domain.Repository;
+using Parentaliza.Domain.InterfacesRepository;
 using System.Net;
 
 namespace Parentaliza.Application.CasosDeUso.EventoAgendaCasoDeUso.ListaEventoAgenda;
@@ -18,8 +18,9 @@ public class ListarEventoAgendaCommandHandler : IRequestHandler<ListarEventoAgen
     {
         try
         {
-            var AgendaComEventos = await _eventoAgendaRepository.ObterTodos();
-            var response = AgendaComEventos.Select(agenda => new ListarEventoAgendaCommandResponse(
+            var agendaComEventos = await _eventoAgendaRepository.ObterTodos();
+            var response = agendaComEventos.Select(agenda => new ListarEventoAgendaCommandResponse(
+                agenda.Id,
                 agenda.Evento,
                 agenda.Especialidade,
                 agenda.Localizacao,
@@ -31,7 +32,7 @@ public class ListarEventoAgendaCommandHandler : IRequestHandler<ListarEventoAgen
         }
         catch (Exception ex)
         {
-            return CommandResponse<List<ListarEventoAgendaCommandResponse>>.ErroCritico(mensagem: $"Ocorreu um erro ao listar os fornecedores: {ex.Message}");
+            return CommandResponse<List<ListarEventoAgendaCommandResponse>>.ErroCritico(mensagem: $"Ocorreu um erro ao listar os eventos da agenda: {ex.Message}");
         }
     }
 }
