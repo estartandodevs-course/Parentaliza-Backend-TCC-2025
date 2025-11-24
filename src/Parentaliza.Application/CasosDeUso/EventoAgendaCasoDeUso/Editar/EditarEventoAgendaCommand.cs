@@ -9,6 +9,7 @@ namespace Parentaliza.Application.CasosDeUso.EventoAgendaCasoDeUso.Editar;
 public class EditarEventoAgendaCommand : IRequest<CommandResponse<EditarEventoAgendaCommandResponse>>
 {
     public Guid Id { get; private set; }
+    public Guid ResponsavelId { get; private set; }
     public string? Evento { get; private set; }
     public string? Especialidade { get; private set; }
     public string? Localizacao { get; private set; }
@@ -18,9 +19,10 @@ public class EditarEventoAgendaCommand : IRequest<CommandResponse<EditarEventoAg
 
     public ValidationResult ResultadoDasValidacoes { get; private set; } = new ValidationResult();
 
-    public EditarEventoAgendaCommand(Guid id, string? evento, string? especialidade, string? localizacao, DateTime data, TimeSpan hora, string? anotacao)
+    public EditarEventoAgendaCommand(Guid id, Guid responsavelId, string? evento, string? especialidade, string? localizacao, DateTime data, TimeSpan hora, string? anotacao)
     {
         Id = id;
+        ResponsavelId = responsavelId;
         Evento = evento;
         Especialidade = especialidade;
         Localizacao = localizacao;
@@ -33,28 +35,30 @@ public class EditarEventoAgendaCommand : IRequest<CommandResponse<EditarEventoAg
     {
         var validacoes = new InlineValidator<EditarEventoAgendaCommand>();
 
+        validacoes.RuleFor(EventoAgenda => EventoAgenda.ResponsavelId)
+            .NotEqual(Guid.Empty).WithMessage("O ID do responsável é obrigatório")
+            .WithErrorCode(((int)HttpStatusCode.BadRequest).ToString());
+
         validacoes.RuleFor(EventoAgenda => EventoAgenda.Evento)
-            .NotEmpty().WithMessage("O Evento ou consulta precisa ser informado")
+            .NotEmpty().WithMessage("O evento ou consulta deve ser informado.")
             .WithErrorCode(((int)HttpStatusCode.BadRequest).ToString());
 
         validacoes.RuleFor(EventoAgenda => EventoAgenda.Especialidade)
-           .NotEmpty().WithMessage("A especialidade do evento ou consulta precisa ser informado")
+           .NotEmpty().WithMessage("A especialidade do evento ou consulta deve ser informada.")
            .WithErrorCode(((int)HttpStatusCode.BadRequest).ToString());
 
         validacoes.RuleFor(EventoAgenda => EventoAgenda.Localizacao)
-            .NotEmpty().WithMessage("A Localização do evento ou consulta deve ser informado")
+            .NotEmpty().WithMessage("A localização do evento ou consulta deve ser informada.")
             .WithErrorCode(((int)HttpStatusCode.BadRequest).ToString());
 
         validacoes.RuleFor(EventoAgenda => EventoAgenda.Data)
-            .NotEmpty().WithMessage("A Data do evento ou consulta deve ser informada")
-            .WithErrorCode(((int)HttpStatusCode.BadRequest).ToString());
-
-        validacoes.RuleFor(EventoAgenda => EventoAgenda.Hora)
-            .NotEmpty().WithMessage("A Hora do evento ou consulta deve ser informada")
+            .NotEqual(default(DateTime)).WithMessage("A data do evento ou consulta deve ser informada.")
             .WithErrorCode(((int)HttpStatusCode.BadRequest).ToString());
 
         validacoes.RuleFor(EventoAgenda => EventoAgenda.Anotacao)
-            .NotEmpty().WithMessage("Uma breve descrição do evento ou consulta deve ser informada")
+            .MaximumLength(1000)
+            .When(e => !string.IsNullOrEmpty(e.Anotacao))
+            .WithMessage("A descrição não pode exceder 1000 caracteres.")
             .WithErrorCode(((int)HttpStatusCode.BadRequest).ToString());
 
         ResultadoDasValidacoes = validacoes.Validate(this);

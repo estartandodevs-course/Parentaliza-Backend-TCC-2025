@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.Extensions.Logging;
 using Parentaliza.Application.Mediator;
 using Parentaliza.Domain.InterfacesRepository;
 using System.Net;
@@ -8,10 +9,14 @@ namespace Parentaliza.Application.CasosDeUso.EventoAgendaCasoDeUso.Obter;
 public class ObterEventoAgendaCommandHandler : IRequestHandler<ObterEventoAgendaCommand, CommandResponse<ObterEventoAgendaCommandResponse>>
 {
     private readonly IEventoAgendaRepository _eventoAgendaRepository;
+    private readonly ILogger<ObterEventoAgendaCommandHandler> _logger;
 
-    public ObterEventoAgendaCommandHandler(IEventoAgendaRepository eventoAgendaRepository)
+    public ObterEventoAgendaCommandHandler(
+        IEventoAgendaRepository eventoAgendaRepository,
+        ILogger<ObterEventoAgendaCommandHandler> logger)
     {
         _eventoAgendaRepository = eventoAgendaRepository;
+        _logger = logger;
     }
 
     public async Task<CommandResponse<ObterEventoAgendaCommandResponse>> Handle(ObterEventoAgendaCommand request, CancellationToken cancellationToken)
@@ -41,6 +46,7 @@ public class ObterEventoAgendaCommandHandler : IRequestHandler<ObterEventoAgenda
         }
         catch (Exception ex)
         {
+            _logger.LogError(ex, "Erro ao obter evento da agenda");
             return CommandResponse<ObterEventoAgendaCommandResponse>.ErroCritico(
                 mensagem: $"Ocorreu um erro ao obter o evento da agenda: {ex.Message}");
         }

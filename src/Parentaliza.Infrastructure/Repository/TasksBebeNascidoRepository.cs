@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Parentaliza.API.Infrastructure;
+using Parentaliza.Infrastructure.Context;
 using Parentaliza.Domain.Entidades;
 using Parentaliza.Domain.InterfacesRepository;
 
@@ -23,8 +23,16 @@ public class TasksBebeNascidoRepository : Repository<BebeNascido>, IBebeNascidoR
         return existe;
     }
 
-    public Task<BebeNascido> ObterBebeNascido(Guid bebeNascidoId)
+    public async Task<BebeNascido> ObterBebeNascido(Guid bebeNascidoId)
     {
-        throw new NotImplementedException();
+        return await ObterPorId(bebeNascidoId);
+    }
+
+    public async Task<List<BebeNascido>> ObterPorResponsavelId(Guid responsavelId)
+    {
+        return await _dbSet
+            .AsNoTracking()
+            .Where(b => b.ResponsavelId == responsavelId)
+            .ToListAsync();
     }
 }

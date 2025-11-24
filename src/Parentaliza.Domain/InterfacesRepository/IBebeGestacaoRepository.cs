@@ -5,4 +5,5 @@ public interface IBebeGestacaoRepository : IRepository<BebeGestacao>
 {
     Task<BebeGestacao> ObterBebeGestacao(Guid bebeGestacaoId);
     Task<bool> NomeJaUtilizado(string? nome);
+    Task<List<BebeGestacao>> ObterPorResponsavelId(Guid responsavelId);
 }

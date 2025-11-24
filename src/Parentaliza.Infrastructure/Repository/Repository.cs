@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Parentaliza.API.Infrastructure;
+using Parentaliza.Infrastructure.Context;
 using Parentaliza.Domain.Entidades;
 using Parentaliza.Domain.InterfacesRepository;
 
@@ -24,7 +24,7 @@ public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity :
 
     public virtual async Task<List<TEntity>> ObterTodos()
     {
-        var dado = await _dbSet.ToListAsync();
+        var dado = await _dbSet.AsNoTracking().ToListAsync();
         return dado;
     }
 
@@ -42,7 +42,12 @@ public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity :
 
     public virtual async Task Remover(Guid id)
     {
-        _dbSet.Remove(new TEntity { Id = id });
+        var entity = await ObterPorId(id);
+        if (entity == null)
+        {
+            throw new ArgumentException($"Entidade com Id {id} não encontrada.", nameof(id));
+        }
+        _dbSet.Remove(entity);
         await SaveChanges();
     }
 

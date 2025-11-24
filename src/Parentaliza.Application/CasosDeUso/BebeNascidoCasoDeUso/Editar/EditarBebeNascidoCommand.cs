@@ -10,6 +10,7 @@ namespace Parentaliza.Application.CasosDeUso.BebeNascidoCasoDeUso.Editar;
 public class EditarBebeNascidoCommand : IRequest<CommandResponse<EditarBebeNascidoCommandResponse>>
 {
     public Guid Id { get; private set; }
+    public Guid ResponsavelId { get; private set; }
     public string? Nome { get; private set; }
     public DateTime DataNascimento { get; private set; }
     public SexoEnum Sexo { get; private set; }
@@ -19,9 +20,10 @@ public class EditarBebeNascidoCommand : IRequest<CommandResponse<EditarBebeNasci
     public decimal Altura { get; private set; }
 
     public ValidationResult ResultadoDasValidacoes { get; private set; } = new ValidationResult();
-    public EditarBebeNascidoCommand(Guid id, string? nome, DateTime dataNascimento, SexoEnum sexo, TipoSanguineoEnum tipoSanguineo, int idadeMeses, decimal peso, decimal altura)
+    public EditarBebeNascidoCommand(Guid id, Guid responsavelId, string? nome, DateTime dataNascimento, SexoEnum sexo, TipoSanguineoEnum tipoSanguineo, int idadeMeses, decimal peso, decimal altura)
     {
         Id = id;
+        ResponsavelId = responsavelId;
         Nome = nome;
         DataNascimento = dataNascimento;
         Sexo = sexo;
@@ -35,14 +37,18 @@ public class EditarBebeNascidoCommand : IRequest<CommandResponse<EditarBebeNasci
     {
         var validacoes = new InlineValidator<EditarBebeNascidoCommand>();
 
+        validacoes.RuleFor(bebeNascido => bebeNascido.ResponsavelId)
+                  .NotEqual(Guid.Empty).WithMessage("O ID do responsável é obrigatório.")
+                  .WithErrorCode(((int)HttpStatusCode.BadRequest).ToString());
+
         validacoes.RuleFor(bebeNascido => bebeNascido.Nome)
                   .NotEmpty().WithMessage("O nome do bebê é obrigatório.")
                   .MaximumLength(100).WithMessage("O nome do bebê não pode exceder 100 caracteres.")
                   .WithErrorCode(((int)HttpStatusCode.BadRequest).ToString());
 
         validacoes.RuleFor(bebeNascido => bebeNascido.DataNascimento)
-                  .NotEmpty().WithMessage("A data de nascimento é obrigatória.")
-                  .LessThanOrEqualTo(DateTime.Now).WithMessage("A data de nascimento não pode ser no futuro.")
+                  .NotEqual(default(DateTime)).WithMessage("A data de nascimento é obrigatória.")
+                  .LessThanOrEqualTo(DateTime.UtcNow).WithMessage("A data de nascimento não pode ser no futuro.")
                   .WithErrorCode(((int)HttpStatusCode.BadRequest).ToString());
 
         validacoes.RuleFor(bebeNascido => bebeNascido.Sexo)
@@ -54,17 +60,14 @@ public class EditarBebeNascidoCommand : IRequest<CommandResponse<EditarBebeNasci
                   .WithErrorCode(((int)HttpStatusCode.BadRequest).ToString());
 
         validacoes.RuleFor(bebeNascido => bebeNascido.IdadeMeses)
-                  .NotEmpty().WithMessage("A idade em meses é obrigatória.")
                   .GreaterThanOrEqualTo(0).WithMessage("A idade em meses não pode ser negativa.")
                   .WithErrorCode(((int)HttpStatusCode.BadRequest).ToString());
 
         validacoes.RuleFor(bebeNascido => bebeNascido.Peso)
-                  .NotEmpty().WithMessage("O peso é obrigatório.")
                   .GreaterThan(0).WithMessage("O peso deve ser maior que zero.")
                   .WithErrorCode(((int)HttpStatusCode.BadRequest).ToString());
 
         validacoes.RuleFor(bebeNascido => bebeNascido.Altura)
-                  .NotEmpty().WithMessage("A altura é obrigatória.")
                   .GreaterThan(0).WithMessage("A altura deve ser maior que zero.")
                   .WithErrorCode(((int)HttpStatusCode.BadRequest).ToString());
 

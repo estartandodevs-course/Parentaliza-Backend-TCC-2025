@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Parentaliza.API.Infrastructure;
+using Parentaliza.Infrastructure.Context;
 using Parentaliza.Domain.Entidades;
 using Parentaliza.Domain.InterfacesRepository;
 
@@ -8,16 +8,6 @@ namespace Parentaliza.Infrastructure.Repository;
 public class TasksEventoAgendaRepository : Repository<EventoAgenda>, IEventoAgendaRepository
 {
     public TasksEventoAgendaRepository(ApplicationDbContext contexto) : base(contexto) { }
-
-    // TODO: Método reservado para uso futuro - obter informações específicas do agendamento
-    // public async Task<EventoAgenda> ObterInformacoesAgendamento()
-    // {
-    //     var response = await _contexto.EventosAgendas
-    //         .AsNoTracking()
-    //         .FirstOrDefaultAsync();
-    //
-    //     return response;
-    // }
 
     public async Task<bool> NomeJaUtilizado(string? eventoAgenda)
     {
@@ -31,5 +21,13 @@ public class TasksEventoAgendaRepository : Repository<EventoAgenda>, IEventoAgen
             .AnyAsync(e => e.Evento != null && e.Evento.ToLower() == eventoAgenda.ToLower());
 
         return existe;
+    }
+
+    public async Task<List<EventoAgenda>> ObterPorResponsavelId(Guid responsavelId)
+    {
+        return await _dbSet
+            .AsNoTracking()
+            .Where(e => e.ResponsavelId == responsavelId)
+            .ToListAsync();
     }
 }
