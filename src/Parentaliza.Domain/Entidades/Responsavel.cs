@@ -4,7 +4,7 @@ public class Responsavel : Entity
 {
     public string? Nome { get; private set; }
     public string? Email { get; private set; }
-    public TiposEnum TipoResponsavel { get; private set; }
+    public TipoResponsavel TipoResponsavel { get; private set; }
     public string? Senha { get; private set; }
     public string? FaseNascimento { get; private set; }
     public Responsavel() { }
@@ -22,12 +22,12 @@ public class Responsavel : Entity
         if (string.IsNullOrWhiteSpace(senha)) 
             throw new ArgumentException("A senha é obrigatória.", nameof(senha));
         
-        if (!Enum.IsDefined(typeof(TiposEnum), tipoResponsavel))
+        if (!Enum.IsDefined(typeof(TipoResponsavel), tipoResponsavel))
             throw new ArgumentException("O tipo de responsável é inválido.", nameof(tipoResponsavel));
         
         Nome = nome;
         Email = email;
-        TipoResponsavel = (TiposEnum)tipoResponsavel;
+        TipoResponsavel = (TipoResponsavel)tipoResponsavel;
         Senha = senha;
         FaseNascimento = faseNascimento;
     }

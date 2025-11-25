@@ -15,7 +15,7 @@ public class EditarResponsavelDtos
     public string? Email { get; set; }
 
     [Required(ErrorMessage = "O tipo de responsável é obrigatório")]
-    public TiposEnum TipoResponsavel { get; set; }
+    public TipoResponsavel TipoResponsavel { get; set; }
 
     [MaxLength(100, ErrorMessage = "A senha não pode exceder 100 caracteres")]
     public string? Senha { get; set; }

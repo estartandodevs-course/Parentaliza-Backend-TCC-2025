@@ -14,7 +14,7 @@ public class ObterBebeNascidoCommand : IRequest<CommandResponse<ObterBebeNascido
     public ObterBebeNascidoCommand(Guid id)
     {
         Id = id;
-
+        ResultadoDasValidacoes = new ValidationResult();
     }
     public bool Validar()
     {

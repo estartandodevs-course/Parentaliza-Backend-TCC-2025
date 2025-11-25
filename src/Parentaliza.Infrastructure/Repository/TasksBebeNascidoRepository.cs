@@ -23,7 +23,7 @@ public class TasksBebeNascidoRepository : Repository<BebeNascido>, IBebeNascidoR
         return existe;
     }
 
-    public async Task<BebeNascido> ObterBebeNascido(Guid bebeNascidoId)
+    public async Task<BebeNascido?> ObterBebeNascido(Guid bebeNascidoId)
     {
         return await ObterPorId(bebeNascidoId);
     }

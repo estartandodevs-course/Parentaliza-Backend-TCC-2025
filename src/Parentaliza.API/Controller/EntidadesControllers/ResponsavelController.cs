@@ -88,7 +88,7 @@ public class ResponsavelController : BaseController
             pageSize: pageSize,
             nome: nome,
             email: email,
-            tipoResponsavel: tipoResponsavel.HasValue ? (Domain.Enums.TiposEnum)tipoResponsavel.Value : null,
+            tipoResponsavel: tipoResponsavel.HasValue ? (Domain.Enums.TipoResponsavel)tipoResponsavel.Value : null,
             sortBy: sortBy,
             sortOrder: sortOrder);
         var response = await _mediator.Send(command);

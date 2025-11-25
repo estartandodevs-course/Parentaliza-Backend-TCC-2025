@@ -11,13 +11,13 @@ public class CriarResponsavelCommand : IRequest<CommandResponse<CriarResponsavel
 {
     public string? Nome { get; private set; }
     public string? Email { get; private set; }
-    public TiposEnum TipoResponsavel { get; private set; }
+    public TipoResponsavel TipoResponsavel { get; private set; }
     public string? Senha { get; private set; }
     public string? FaseNascimento { get; private set; }
 
     public ValidationResult ResultadoDasValidacoes { get; private set; } = new ValidationResult();
 
-    public CriarResponsavelCommand(string? nome, string? email, TiposEnum tipoResponsavel, string? senha, string? faseNascimento)
+    public CriarResponsavelCommand(string? nome, string? email, TipoResponsavel tipoResponsavel, string? senha, string? faseNascimento)
     {
         Nome = nome;
         Email = email;

@@ -10,7 +10,7 @@ public class ListarResponsavelCommand : IRequest<CommandResponse<PagedResult<Lis
     public int PageSize { get; private set; }
     public string? Nome { get; private set; }
     public string? Email { get; private set; }
-    public TiposEnum? TipoResponsavel { get; private set; }
+    public TipoResponsavel? TipoResponsavel { get; private set; }
     public string? SortBy { get; private set; }
     public string SortOrder { get; private set; }
 
@@ -19,7 +19,7 @@ public class ListarResponsavelCommand : IRequest<CommandResponse<PagedResult<Lis
         int pageSize = 10,
         string? nome = null,
         string? email = null,
-        TiposEnum? tipoResponsavel = null,
+        TipoResponsavel? tipoResponsavel = null,
         string? sortBy = null,
         string sortOrder = "asc")
     {

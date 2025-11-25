@@ -16,7 +16,7 @@ public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity :
         _dbSet = _contexto.Set<TEntity>();
     }
 
-    public virtual async Task<TEntity> ObterPorId(Guid id)
+    public virtual async Task<TEntity?> ObterPorId(Guid id)
     {
         var dado = await _dbSet.FindAsync(id);
         return dado;

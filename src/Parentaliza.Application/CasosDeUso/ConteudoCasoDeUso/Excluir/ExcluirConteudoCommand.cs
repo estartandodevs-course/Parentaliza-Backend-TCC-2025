@@ -14,6 +14,7 @@ public class ExcluirConteudoCommand : IRequest<CommandResponse<Unit>>
     public ExcluirConteudoCommand(Guid id)
     {
         Id = id;
+        ResultadoDasValidacoes = new ValidationResult();
     }
     public bool Validar()
     {
