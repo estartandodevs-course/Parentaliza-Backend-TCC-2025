@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.Extensions.Logging;
 using Parentaliza.Application.Mediator;
 using Parentaliza.Domain.Entidades;
 using Parentaliza.Domain.InterfacesRepository;
@@ -9,11 +10,14 @@ namespace Parentaliza.Application.CasosDeUso.ConteudoCasoDeUso.Criar;
 public class CriarConteudoCommandHandler : IRequestHandler<CriarConteudoCommand, CommandResponse<CriarConteudoCommandResponse>>
 {
     private readonly IConteudoRepository _conteudoRepository;
+    private readonly ILogger<CriarConteudoCommandHandler> _logger;
 
-    public CriarConteudoCommandHandler(IConteudoRepository conteudoRepository)
+    public CriarConteudoCommandHandler(
+        IConteudoRepository conteudoRepository,
+        ILogger<CriarConteudoCommandHandler> logger)
     {
         _conteudoRepository = conteudoRepository;
-
+        _logger = logger;
     }
     public async Task<CommandResponse<CriarConteudoCommandResponse>> Handle(CriarConteudoCommand request, CancellationToken cancellationToken)
     {
@@ -43,6 +47,7 @@ public class CriarConteudoCommandHandler : IRequestHandler<CriarConteudoCommand,
         }
         catch (Exception ex)
         {
+            _logger.LogError(ex, "Erro ao criar conteúdo");
             return CommandResponse<CriarConteudoCommandResponse>.ErroCritico(mensagem: $"Ocorreu um erro ao criar o conteudo: {ex.Message}");
         }
 

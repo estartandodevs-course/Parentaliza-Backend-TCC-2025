@@ -1,5 +1,14 @@
-﻿namespace Parentaliza.Application.CasosDeUso.ConteudoCasoDeUso.Obter;
+﻿using MediatR;
+using Parentaliza.Application.Mediator;
 
-public class ObterConteudoCommand
+namespace Parentaliza.Application.CasosDeUso.ConteudoCasoDeUso.Obter;
+
+public class ObterConteudoCommand : IRequest<CommandResponse<ObterConteudoCommandResponse>>
 {
+    public Guid Id { get; private set; }
+
+    public ObterConteudoCommand(Guid id)
+    {
+        Id = id;
+    }
 }

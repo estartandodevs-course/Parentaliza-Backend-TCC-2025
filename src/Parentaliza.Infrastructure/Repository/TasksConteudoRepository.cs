@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Parentaliza.API.Infrastructure;
+using Parentaliza.Infrastructure.Context;
 using Parentaliza.Domain.Entidades;
 using Parentaliza.Domain.InterfacesRepository;
 

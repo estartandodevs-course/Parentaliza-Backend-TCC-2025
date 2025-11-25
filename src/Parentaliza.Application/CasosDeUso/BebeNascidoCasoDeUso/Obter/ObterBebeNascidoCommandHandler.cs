@@ -1,5 +1,6 @@
 ﻿using MediatR;
-using Parentaliza.Application.CasosDeUso.PerfilBebe.Obter;
+using Microsoft.Extensions.Logging;
+using Parentaliza.Application.CasosDeUso.BebeNascidoCasoDeUso.Obter;
 using Parentaliza.Application.Mediator;
 using Parentaliza.Domain.InterfacesRepository;
 using System.Net;
@@ -9,10 +10,14 @@ namespace Parentaliza.Application.CasosDeUso.BebeNascidoCasoDeUso.Obter;
 public class ObterBebeNascidoCommandHandler : IRequestHandler<ObterBebeNascidoCommand, CommandResponse<ObterBebeNascidoCommandResponse>>
 {
     private readonly IBebeNascidoRepository _bebeNascidoRepository;
+    private readonly ILogger<ObterBebeNascidoCommandHandler> _logger;
 
-    public ObterBebeNascidoCommandHandler(IBebeNascidoRepository bebeNascidoRepository)
+    public ObterBebeNascidoCommandHandler(
+        IBebeNascidoRepository bebeNascidoRepository,
+        ILogger<ObterBebeNascidoCommandHandler> logger)
     {
         _bebeNascidoRepository = bebeNascidoRepository;
+        _logger = logger;
     }
 
     public async Task<CommandResponse<ObterBebeNascidoCommandResponse>> Handle(ObterBebeNascidoCommand request, CancellationToken cancellationToken)
@@ -46,7 +51,8 @@ public class ObterBebeNascidoCommandHandler : IRequestHandler<ObterBebeNascidoCo
         }
         catch(Exception ex)
         {
-            return CommandResponse<ObterBebeNascidoCommandResponse>.ErroCritico($"Erro ao obter bebê nascido: {ex.Message}");
+            _logger.LogError(ex, "Erro ao obter bebê nascido");
+            return CommandResponse<ObterBebeNascidoCommandResponse>.ErroCritico(mensagem: $"Ocorreu um erro ao obter o bebê nascido: {ex.Message}");
         }
     }
 }

@@ -19,10 +19,10 @@ public class ExcluirConteudoCommand : IRequest<CommandResponse<Unit>>
     {
         var validacoes = new InlineValidator<ExcluirConteudoCommand>();
 
-        validacoes.RuleFor(fornecedor => fornecedor.Id)
-            .NotEmpty()
+        validacoes.RuleFor(conteudo => conteudo.Id)
+            .NotEqual(Guid.Empty)
             .WithErrorCode(((int)HttpStatusCode.BadRequest).ToString())
-            .WithMessage("O titulo do conteudo deve ser informado.");
+            .WithMessage("O ID do conteúdo deve ser informado.");
 
 
         ResultadoDasValidacoes = validacoes.Validate(this);

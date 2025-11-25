@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.Extensions.Logging;
 using Parentaliza.Application.Mediator;
 using Parentaliza.Domain.Entidades;
 using Parentaliza.Domain.InterfacesRepository;
@@ -9,11 +10,17 @@ namespace Parentaliza.Application.CasosDeUso.EventoAgendaCasoDeUso.Criar;
 public class CriarEventoAgendaCommandHandler : IRequestHandler<CriarEventoAgendaCommand, CommandResponse<CriarEventoAgendaCommandResponse>>
 {
     private readonly IEventoAgendaRepository _eventoAgendaRepository;
+    private readonly IResponsavelRepository _responsavelRepository;
+    private readonly ILogger<CriarEventoAgendaCommandHandler> _logger;
 
-    public CriarEventoAgendaCommandHandler(IEventoAgendaRepository eventoAgendaRepository)
+    public CriarEventoAgendaCommandHandler(
+        IEventoAgendaRepository eventoAgendaRepository,
+        IResponsavelRepository responsavelRepository,
+        ILogger<CriarEventoAgendaCommandHandler> logger)
     {
         _eventoAgendaRepository = eventoAgendaRepository;
-
+        _responsavelRepository = responsavelRepository;
+        _logger = logger;
     }
     public async Task<CommandResponse<CriarEventoAgendaCommandResponse>> Handle(CriarEventoAgendaCommand request, CancellationToken cancellationToken)
     {
@@ -24,6 +31,14 @@ public class CriarEventoAgendaCommandHandler : IRequestHandler<CriarEventoAgenda
 
         try
         {
+            var responsavel = await _responsavelRepository.ObterPorId(request.ResponsavelId);
+            if (responsavel == null)
+            {
+                return CommandResponse<CriarEventoAgendaCommandResponse>.AdicionarErro(
+                    statusCode: HttpStatusCode.NotFound,
+                    mensagem: "Responsável não encontrado.");
+            }
+
             var nomeJaUtilizado = await _eventoAgendaRepository.NomeJaUtilizado(request.Evento);
 
             if (nomeJaUtilizado)
@@ -31,7 +46,14 @@ public class CriarEventoAgendaCommandHandler : IRequestHandler<CriarEventoAgenda
                 return CommandResponse<CriarEventoAgendaCommandResponse>.AdicionarErro(statusCode: HttpStatusCode.Conflict, mensagem: "O nome do evento ou consulta já está em uso.");
             }
 
-            var eventoAgenda = new EventoAgenda(request.Evento, request.Especialidade, request.Localizacao, request.Hora, request.Data, request.Anotacao);
+            var eventoAgenda = new EventoAgenda(
+                responsavelId: request.ResponsavelId,
+                evento: request.Evento,
+                especialidade: request.Especialidade,
+                localizacao: request.Localizacao,
+                hora: request.Hora,
+                data: request.Data,
+                anotacao: request.Anotacao);
 
             await _eventoAgendaRepository.Adicionar(eventoAgenda);
 
@@ -43,6 +65,7 @@ public class CriarEventoAgendaCommandHandler : IRequestHandler<CriarEventoAgenda
         }
         catch (Exception ex)
         {
+            _logger.LogError(ex, "Erro ao criar evento/consulta");
             return CommandResponse<CriarEventoAgendaCommandResponse>.ErroCritico(mensagem: $"Ocorreu um erro ao criar o evento/consulta: {ex.Message}");
         }
 

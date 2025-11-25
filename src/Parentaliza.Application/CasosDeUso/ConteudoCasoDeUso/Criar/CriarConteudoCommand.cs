@@ -44,21 +44,17 @@ public class CriarConteudoCommand : IRequest<CommandResponse<CriarConteudoComman
                     });
 
         validacoes.RuleFor(Conteudo => Conteudo.DataPublicacao)
-                  .LessThanOrEqualTo(DateTime.Now)
-                  .WithErrorCode(((int)HttpStatusCode.BadRequest).ToString())
-                  .ChildRules(data =>
-                  {
-                      data.RuleFor(d => d)
-                   .NotEmpty().WithMessage("A data de publicação é obrigatória.");
-                  });
+                  .NotEqual(default(DateTime))
+                  .WithMessage("A data de publicação é obrigatória.")
+                  .LessThanOrEqualTo(DateTime.UtcNow)
+                  .WithMessage("A data de publicação não pode ser no futuro.")
+                  .WithErrorCode(((int)HttpStatusCode.BadRequest).ToString());
 
         validacoes.RuleFor(Conteudo => Conteudo.Descricao)
-                  .ChildRules(descricao =>
-                      {
-                          descricao.RuleFor(d => d)
-                            .MaximumLength(2000).WithMessage("A descrição deve ter no máximo 2000 caracteres.");
-                      })
-                  .NotEmpty().WithMessage("A descrição é obrigatória.")
+                  .NotEmpty()
+                  .WithMessage("A descrição é obrigatória.")
+                  .MaximumLength(2000)
+                  .WithMessage("A descrição deve ter no máximo 2000 caracteres.")
                   .WithErrorCode(((int)HttpStatusCode.BadRequest).ToString());
 
         ResultadoDasValidacoes = validacoes.Validate(this);

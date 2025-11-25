@@ -1,7 +1,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.EntityFrameworkCore;
-using Parentaliza.API.Infrastructure;
+using Parentaliza.Infrastructure.Context;
 using Parentaliza.Domain.InterfacesRepository;
 using Parentaliza.Infrastructure.Repository;
 using Parentaliza.ServiceDefaults;
@@ -38,19 +38,29 @@ builder.Services.AddMediatR(cfg =>
 {
     cfg.RegisterServicesFromAssembly(typeof(Parentaliza.Application.CasosDeUso.EventoAgendaCasoDeUso.Criar.CriarEventoAgendaCommand).Assembly);
     cfg.RegisterServicesFromAssembly(typeof(Parentaliza.Application.CasosDeUso.BebeGestacaoCasoDeUso.Criar.CriarBebeGestacaoCommand).Assembly);
+    cfg.RegisterServicesFromAssembly(typeof(Parentaliza.Application.CasosDeUso.ResponsavelCasoDeUso.Criar.CriarResponsavelCommand).Assembly);
+    cfg.RegisterServicesFromAssembly(typeof(Parentaliza.Application.CasosDeUso.ExameSusCasoDeUso.Criar.CriarExameSusCommand).Assembly);
+    cfg.RegisterServicesFromAssembly(typeof(Parentaliza.Application.CasosDeUso.VacinaSusCasoDeUso.Criar.CriarVacinaSusCommand).Assembly);
+    cfg.RegisterServicesFromAssembly(typeof(Parentaliza.Application.CasosDeUso.ExameRealizadoCasoDeUso.MarcarRealizado.MarcarExameRealizadoCommand).Assembly);
+    cfg.RegisterServicesFromAssembly(typeof(Parentaliza.Application.CasosDeUso.VacinaAplicadaCasoDeUso.MarcarAplicada.MarcarVacinaAplicadaCommand).Assembly);
+    cfg.RegisterServicesFromAssembly(typeof(Parentaliza.Application.CasosDeUso.ControleFraldaCasoDeUso.Criar.CriarControleFraldaCommand).Assembly);
+    cfg.RegisterServicesFromAssembly(typeof(Parentaliza.Application.CasosDeUso.ControleLeiteMaternoCasoDeUso.Criar.CriarControleLeiteMaternoCommand).Assembly);
+    cfg.RegisterServicesFromAssembly(typeof(Parentaliza.Application.CasosDeUso.ControleMamadeiraCasoDeUso.Criar.CriarControleMamadeiraCommand).Assembly);
 });
 
 // Register Repositories
 builder.Services.AddScoped<IEventoAgendaRepository, TasksEventoAgendaRepository>();
 builder.Services.AddScoped<IBebeNascidoRepository, TasksBebeNascidoRepository>();
-// TODO: Implementar os outros repositórios quando necessário
 builder.Services.AddScoped<IBebeGestacaoRepository, TasksBebeGestacaoRepository>();
 builder.Services.AddScoped<IConteudoRepository, TasksConteudoRepository>();
-// builder.Services.AddScoped<IControleFraldaRepository, TasksControleFraldaRepository>();
-// builder.Services.AddScoped<IControleLeiteMaternoRepository, TasksControleLeiteMaternoRepository>();
-// builder.Services.AddScoped<IControleMamadeiraRepository, TasksControleMamadeiraRepository>();
-// builder.Services.AddScoped<IExameSusRepository, TasksExameSusRepository>();
-// builder.Services.AddScoped<IVacinaSusRepository, TasksVacinaSusRepository>();
+builder.Services.AddScoped<IResponsavelRepository, TasksResponsavelRepository>();
+builder.Services.AddScoped<IExameSusRepository, TasksExameSusRepository>();
+builder.Services.AddScoped<IVacinaSusRepository, TasksVacinaSusRepository>();
+builder.Services.AddScoped<IExameRealizadoRepository, TasksExameRealizadoRepository>();
+builder.Services.AddScoped<IVacinaAplicadaRepository, TasksVacinaAplicadaRepository>();
+builder.Services.AddScoped<IControleFraldaRepository, TasksControleFraldaRepository>();
+builder.Services.AddScoped<IControleLeiteMaternoRepository, TasksControleLeiteMaternoRepository>();
+builder.Services.AddScoped<IControleMamadeiraRepository, TasksControleMamadeiraRepository>();
 
 // Add Controllers
 builder.Services.AddControllers();
@@ -124,18 +134,31 @@ using (var scope = app.Services.CreateScope())
 app.UseExceptionHandler();
 
 // Configure Swagger (before MapDefaultEndpoints to avoid conflicts)
-if (app.Environment.IsDevelopment())
+// habilitando swagger para producao
+app.UseSwagger();
+app.UseSwaggerUI(c =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI(c =>
-    {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Parentaliza API V1");
-        c.RoutePrefix = "swagger"; // Swagger UI at /swagger
-        c.DocumentTitle = "Parentaliza API Documentation";
-        c.DefaultModelsExpandDepth(-1); // Hide schemas by default
-        c.DisplayRequestDuration(); // Show request duration in Swagger UI
-    });
-}
+    var jsonPath = builder.Configuration["Swagger:JsonPath"];
+    
+    c.SwaggerEndpoint(jsonPath, "Parentaliza API V1");
+    c.RoutePrefix = "api/swagger";
+    c.DocumentTitle = "Parentaliza API Documentation";
+    c.DefaultModelsExpandDepth(-1);
+    c.DisplayRequestDuration();
+});
+
+// if (app.Environment.IsDevelopment())
+// {
+//     app.UseSwagger();
+//     app.UseSwaggerUI(c =>
+//     {
+//         c.SwaggerEndpoint("/swagger/v1/swagger.json", "Parentaliza API V1");
+//         c.RoutePrefix = "swagger"; // Swagger UI at /swagger
+//         c.DocumentTitle = "Parentaliza API Documentation";
+//         c.DefaultModelsExpandDepth(-1); // Hide schemas by default
+//         c.DisplayRequestDuration(); // Show request duration in Swagger UI
+//     });
+// }
 
 app.MapDefaultEndpoints();
 
@@ -181,3 +204,4 @@ public class GlobalExceptionHandler : IExceptionHandler
         return true;
     }
 }
+

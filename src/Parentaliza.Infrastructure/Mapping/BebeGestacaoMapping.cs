@@ -20,13 +20,24 @@ public class BebeGestacaoMapping : IEntityTypeConfiguration<BebeGestacao>
 
         builder.Property(b => b.DiasDeGestacao)
                .IsRequired()
-               .HasColumnType("varchar(3)");
+               .HasColumnType("int");
 
         builder.Property(b => b.PesoEstimado)
-               .IsRequired();
+               .IsRequired()
+               .HasColumnType("decimal(10,2)");
 
         builder.Property(b => b.ComprimentoEstimado)
+               .IsRequired()
+               .HasColumnType("decimal(10,2)");
+
+        builder.Property(b => b.ResponsavelId)
                .IsRequired();
+
+        // Relacionamento
+        builder.HasOne(b => b.Responsavel)
+               .WithMany()
+               .HasForeignKey(b => b.ResponsavelId)
+               .OnDelete(DeleteBehavior.Restrict);
 
         builder.ToTable("BebeGestacao");
     }

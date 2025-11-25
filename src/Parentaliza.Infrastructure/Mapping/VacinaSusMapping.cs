@@ -12,23 +12,19 @@ public class VacinaSusMapping : IEntityTypeConfiguration<VacinaSus>
 
         builder.Property(v => v.NomeVacina)
                .IsRequired()
-               .HasColumnType("varchar(80)");
+               .HasColumnType("varchar(200)");
 
         builder.Property(v => v.Descricao)
-               .IsRequired()
-               .HasColumnType("varchar(80)");
+               .HasColumnType("varchar(1000)");
 
         builder.Property(v => v.CategoriaFaixaEtaria)
-               .IsRequired()
-               .HasColumnType("varchar(80)");
+               .HasColumnType("varchar(100)");
 
         builder.Property(v => v.IdadeMinMesesVacina)
-               .IsRequired()
-               .HasColumnType("varchar(80)");
+               .HasColumnType("int");
 
         builder.Property(v => v.IdadeMaxMesesVacina)
-               .IsRequired()
-               .HasColumnType("varchar(80)");
+               .HasColumnType("int");
 
         builder.ToTable("VacinaSus");
     }

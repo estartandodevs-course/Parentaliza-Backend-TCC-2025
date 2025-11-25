@@ -31,8 +31,16 @@ public class EventoAgendaMapping : IEntityTypeConfiguration<EventoAgenda>
                .HasColumnType("time");
 
         builder.Property(e => e.Anotacao)
-               .IsRequired()
                .HasMaxLength(1000);
+
+        builder.Property(e => e.ResponsavelId)
+               .IsRequired();
+
+        // Relacionamento
+        builder.HasOne(e => e.Responsavel)
+               .WithMany()
+               .HasForeignKey(e => e.ResponsavelId)
+               .OnDelete(DeleteBehavior.Restrict);
 
         builder.ToTable("EventoAgenda");
     }

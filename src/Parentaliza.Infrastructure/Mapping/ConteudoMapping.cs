@@ -20,11 +20,11 @@ public class ConteudoMapping : IEntityTypeConfiguration<Conteudo>
 
         builder.Property(c => c.DataPublicacao)
                .IsRequired()
-               .HasColumnType("varchar(80)");
+               .HasColumnType("datetime");
 
         builder.Property(c => c.Descricao)
                .IsRequired()
-               .HasColumnType("varchar(80)");
+               .HasColumnType("varchar(1000)");
 
         builder.ToTable("Conteudos");
     }
