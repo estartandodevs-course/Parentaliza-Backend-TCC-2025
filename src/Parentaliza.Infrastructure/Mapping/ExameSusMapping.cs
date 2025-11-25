@@ -12,19 +12,19 @@ public class ExameSusMapping : IEntityTypeConfiguration<ExameSus>
 
         builder.Property(e => e.NomeExame)
                .IsRequired()
-               .HasColumnType("varchar(80)");
+               .HasColumnType("varchar(200)");
+
+        builder.Property(e => e.Descricao)
+               .HasColumnType("varchar(1000)");
 
         builder.Property(e => e.CategoriaFaixaEtaria)
-               .IsRequired()
-               .HasColumnType("varchar(80)");
+               .HasColumnType("varchar(100)");
 
         builder.Property(e => e.IdadeMinMesesExame)
-               .IsRequired()
-               .HasColumnType("varchar(80)");
+               .HasColumnType("int");
 
         builder.Property(e => e.IdadeMaxMesesExame)
-               .IsRequired()
-               .HasColumnType("varchar(80)");
+               .HasColumnType("int");
 
         builder.ToTable("ExameSus");
     }

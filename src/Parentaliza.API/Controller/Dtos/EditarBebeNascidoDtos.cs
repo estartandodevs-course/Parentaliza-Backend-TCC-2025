@@ -5,12 +5,15 @@ namespace Parentaliza.API.Controller.Dtos;
 
 public class EditarBebeNascidoDtos
 {
+    [Required(ErrorMessage = "O ID do responsável é obrigatório")]
+    public Guid ResponsavelId { get; set; }
+
     [Required(ErrorMessage = "O nome do bebê é obrigatório")]
     [MaxLength(100, ErrorMessage = "O nome não pode exceder 100 caracteres")]
     public string? Nome { get; set; }
 
     [Required(ErrorMessage = "A Data de Nascimento é obrigatória")]
-    [DataType(DataType.Date, ErrorMessage = "O tipo de data e inválido")]
+    [DataType(DataType.Date, ErrorMessage = "O tipo de data é inválido")]
     public DateTime DataNascimento { get; set; }
 
     [Required(ErrorMessage = "O Sexo é obrigatório")]

@@ -1,16 +1,22 @@
 ﻿using MediatR;
+using Microsoft.Extensions.Logging;
 using Parentaliza.Application.Mediator;
 using Parentaliza.Domain.InterfacesRepository;
 using System.Net;
 
-namespace Parentaliza.Application.CasosDeUso.PerfilBebeGestacaoCasoDeUso.Obter;
+namespace Parentaliza.Application.CasosDeUso.BebeGestacaoCasoDeUso.Obter;
 
 public class ObterBebeGestacaoCommandHandler : IRequestHandler<ObterBebeGestacaoCommand, CommandResponse<ObterBebeGestacaoCommandResponse>>
 {
     private readonly IBebeGestacaoRepository _bebeGestacaoRepository;
-    public ObterBebeGestacaoCommandHandler(IBebeGestacaoRepository bebeGestacaoRepository)
+    private readonly ILogger<ObterBebeGestacaoCommandHandler> _logger;
+
+    public ObterBebeGestacaoCommandHandler(
+        IBebeGestacaoRepository bebeGestacaoRepository,
+        ILogger<ObterBebeGestacaoCommandHandler> logger)
     {
         _bebeGestacaoRepository = bebeGestacaoRepository;
+        _logger = logger;
     }
 
     public async Task<CommandResponse<ObterBebeGestacaoCommandResponse>> Handle (ObterBebeGestacaoCommand request, CancellationToken cancellationToken)
@@ -40,7 +46,8 @@ public class ObterBebeGestacaoCommandHandler : IRequestHandler<ObterBebeGestacao
         }
         catch (Exception ex)
         {
-            return CommandResponse<ObterBebeGestacaoCommandResponse>.ErroCritico(mensagem: $"Ocorreu um erro ao obter o bêbe: {ex.Message}");
+            _logger.LogError(ex, "Erro ao obter bebê em gestação");
+            return CommandResponse<ObterBebeGestacaoCommandResponse>.ErroCritico(mensagem: $"Ocorreu um erro ao obter o bebê: {ex.Message}");
         }
     }
 }

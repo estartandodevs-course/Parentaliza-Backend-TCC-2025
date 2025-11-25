@@ -1,12 +1,10 @@
 ﻿using FluentValidation;
 using FluentValidation.Results;
 using MediatR;
-using Parentaliza.Application.CasosDeUso.BebeNascidoCasoDeUso.Obter;
 using Parentaliza.Application.Mediator;
 using System.Net;
 
-
-namespace Parentaliza.Application.CasosDeUso.PerfilBebe.Obter;
+namespace Parentaliza.Application.CasosDeUso.BebeNascidoCasoDeUso.Obter;
 
 public class ObterBebeNascidoCommand : IRequest<CommandResponse<ObterBebeNascidoCommandResponse>>
 {
@@ -23,7 +21,7 @@ public class ObterBebeNascidoCommand : IRequest<CommandResponse<ObterBebeNascido
         var validacoes = new InlineValidator<ObterBebeNascidoCommand>();
 
         validacoes.RuleFor(BebeNascido => BebeNascido.Id)
-            .NotEmpty()
+            .NotEqual(Guid.Empty)
             .WithErrorCode(((int)HttpStatusCode.BadRequest).ToString())
             .WithMessage("O ID do Bebê deve ser informado.");
 

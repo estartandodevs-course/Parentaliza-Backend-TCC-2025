@@ -20,23 +20,34 @@ public class BebeNascidoMapping : IEntityTypeConfiguration<BebeNascido>
 
         builder.Property(bn => bn.Sexo)
                .IsRequired()
-               .HasColumnType("varchar(80)");
+               .HasConversion<int>()
+               .HasColumnType("int");
 
         builder.Property(bn => bn.TipoSanguineo)
                .IsRequired()
-               .HasColumnType("varchar(80)");
+               .HasConversion<int>()
+               .HasColumnType("int");
 
         builder.Property(bn => bn.IdadeMeses)
                .IsRequired()
-               .HasColumnType("varchar(80)");
+               .HasColumnType("int");
 
         builder.Property(bn => bn.Peso)
                .IsRequired()
-               .HasColumnType("varchar(80)");
+               .HasColumnType("decimal(10,2)");
 
         builder.Property(bn => bn.Altura)
                .IsRequired()
-               .HasColumnType("varchar(80)");
+               .HasColumnType("decimal(10,2)");
+
+        builder.Property(bn => bn.ResponsavelId)
+               .IsRequired();
+
+        // Relacionamento
+        builder.HasOne(bn => bn.Responsavel)
+               .WithMany()
+               .HasForeignKey(bn => bn.ResponsavelId)
+               .OnDelete(DeleteBehavior.Restrict);
 
         builder.ToTable("BebeNascido");
     }

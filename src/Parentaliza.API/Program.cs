@@ -1,7 +1,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.EntityFrameworkCore;
-using Parentaliza.API.Infrastructure;
+using Parentaliza.Infrastructure.Context;
 using Parentaliza.Domain.InterfacesRepository;
 using Parentaliza.Infrastructure.Repository;
 using Parentaliza.ServiceDefaults;
@@ -38,19 +38,29 @@ builder.Services.AddMediatR(cfg =>
 {
     cfg.RegisterServicesFromAssembly(typeof(Parentaliza.Application.CasosDeUso.EventoAgendaCasoDeUso.Criar.CriarEventoAgendaCommand).Assembly);
     cfg.RegisterServicesFromAssembly(typeof(Parentaliza.Application.CasosDeUso.BebeGestacaoCasoDeUso.Criar.CriarBebeGestacaoCommand).Assembly);
+    cfg.RegisterServicesFromAssembly(typeof(Parentaliza.Application.CasosDeUso.ResponsavelCasoDeUso.Criar.CriarResponsavelCommand).Assembly);
+    cfg.RegisterServicesFromAssembly(typeof(Parentaliza.Application.CasosDeUso.ExameSusCasoDeUso.Criar.CriarExameSusCommand).Assembly);
+    cfg.RegisterServicesFromAssembly(typeof(Parentaliza.Application.CasosDeUso.VacinaSusCasoDeUso.Criar.CriarVacinaSusCommand).Assembly);
+    cfg.RegisterServicesFromAssembly(typeof(Parentaliza.Application.CasosDeUso.ExameRealizadoCasoDeUso.MarcarRealizado.MarcarExameRealizadoCommand).Assembly);
+    cfg.RegisterServicesFromAssembly(typeof(Parentaliza.Application.CasosDeUso.VacinaAplicadaCasoDeUso.MarcarAplicada.MarcarVacinaAplicadaCommand).Assembly);
+    cfg.RegisterServicesFromAssembly(typeof(Parentaliza.Application.CasosDeUso.ControleFraldaCasoDeUso.Criar.CriarControleFraldaCommand).Assembly);
+    cfg.RegisterServicesFromAssembly(typeof(Parentaliza.Application.CasosDeUso.ControleLeiteMaternoCasoDeUso.Criar.CriarControleLeiteMaternoCommand).Assembly);
+    cfg.RegisterServicesFromAssembly(typeof(Parentaliza.Application.CasosDeUso.ControleMamadeiraCasoDeUso.Criar.CriarControleMamadeiraCommand).Assembly);
 });
 
 // Register Repositories
 builder.Services.AddScoped<IEventoAgendaRepository, TasksEventoAgendaRepository>();
 builder.Services.AddScoped<IBebeNascidoRepository, TasksBebeNascidoRepository>();
-// TODO: Implementar os outros repositórios quando necessário
 builder.Services.AddScoped<IBebeGestacaoRepository, TasksBebeGestacaoRepository>();
 builder.Services.AddScoped<IConteudoRepository, TasksConteudoRepository>();
-// builder.Services.AddScoped<IControleFraldaRepository, TasksControleFraldaRepository>();
-// builder.Services.AddScoped<IControleLeiteMaternoRepository, TasksControleLeiteMaternoRepository>();
-// builder.Services.AddScoped<IControleMamadeiraRepository, TasksControleMamadeiraRepository>();
-// builder.Services.AddScoped<IExameSusRepository, TasksExameSusRepository>();
-// builder.Services.AddScoped<IVacinaSusRepository, TasksVacinaSusRepository>();
+builder.Services.AddScoped<IResponsavelRepository, TasksResponsavelRepository>();
+builder.Services.AddScoped<IExameSusRepository, TasksExameSusRepository>();
+builder.Services.AddScoped<IVacinaSusRepository, TasksVacinaSusRepository>();
+builder.Services.AddScoped<IExameRealizadoRepository, TasksExameRealizadoRepository>();
+builder.Services.AddScoped<IVacinaAplicadaRepository, TasksVacinaAplicadaRepository>();
+builder.Services.AddScoped<IControleFraldaRepository, TasksControleFraldaRepository>();
+builder.Services.AddScoped<IControleLeiteMaternoRepository, TasksControleLeiteMaternoRepository>();
+builder.Services.AddScoped<IControleMamadeiraRepository, TasksControleMamadeiraRepository>();
 
 // Add Controllers
 builder.Services.AddControllers();

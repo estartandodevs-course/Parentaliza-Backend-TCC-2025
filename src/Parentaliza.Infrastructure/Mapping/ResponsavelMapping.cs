@@ -20,14 +20,14 @@ public class ResponsavelMapping : IEntityTypeConfiguration<Responsavel>
 
         builder.Property(r => r.TipoResponsavel)
                .IsRequired()
-               .HasColumnType("varchar(80)");
+               .HasConversion<int>()
+               .HasColumnType("int");
 
         builder.Property(r => r.Senha)
                .IsRequired()
                .HasColumnType("varchar(80)");
 
         builder.Property(r => r.FaseNascimento)
-               .IsRequired()
                .HasColumnType("varchar(80)");
 
         builder.ToTable("Responsaveis");

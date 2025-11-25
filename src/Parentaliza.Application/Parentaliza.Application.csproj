@@ -8,11 +8,13 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Parentaliza.Domain\Parentaliza.Domain.csproj" />
+    <ProjectReference Include="..\Parentaliza.Infrastructure\Parentaliza.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="FluentValidation" Version="12.1.0" />
     <PackageReference Include="MediatR" Version="13.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.8" />
   </ItemGroup>
 
 </Project>

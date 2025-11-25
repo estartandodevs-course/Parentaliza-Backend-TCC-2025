@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Parentaliza.Application.Mediator;
 
-namespace Parentaliza.Application.CasosDeUso.PerfilBebeGestacaoCasoDeUso.Obter;
+namespace Parentaliza.Application.CasosDeUso.BebeGestacaoCasoDeUso.Obter;
 
 public class ObterBebeGestacaoCommand : IRequest<CommandResponse<ObterBebeGestacaoCommandResponse>>
 {

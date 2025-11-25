@@ -4,6 +4,7 @@ namespace Parentaliza.Domain.Entidades;
 
 public class BebeNascido : Entity
 {
+    public Guid ResponsavelId { get; private set; }
     public string? Nome { get; private set; }
     public DateTime DataNascimento { get; private set; }
     public SexoEnum Sexo { get; private set; }
@@ -12,11 +13,13 @@ public class BebeNascido : Entity
     public decimal Peso { get; private set; }
     public decimal Altura { get; private set; }
 
+    // Navegação
     public Responsavel? Responsavel { get; private set; }
 
     public BebeNascido() { }
 
-    public BebeNascido(string? nome,
+    public BebeNascido(Guid responsavelId,
+                       string? nome,
                        DateTime dataNascimento,
                        SexoEnum sexo,
                        TipoSanguineoEnum tipoSanguineo,
@@ -24,10 +27,16 @@ public class BebeNascido : Entity
                        decimal peso,
                        decimal altura)
     {
+        if (responsavelId == Guid.Empty) throw new ArgumentException("O ID do responsável é obrigatório.", nameof(responsavelId));
+        if (string.IsNullOrWhiteSpace(nome)) throw new ArgumentException("O nome é obrigatório.", nameof(nome));
         if (dataNascimento > DateTime.UtcNow) throw new ArgumentException("Data de nascimento não pode ser no futuro.", nameof(dataNascimento));
         if (!Enum.IsDefined(typeof(SexoEnum), sexo)) throw new ArgumentException("Sexo inválido.", nameof(sexo));
         if (!Enum.IsDefined(typeof(TipoSanguineoEnum), tipoSanguineo)) throw new ArgumentException("Tipo sanguíneo inválido.", nameof(tipoSanguineo));
+        if (idadeMeses < 0) throw new ArgumentOutOfRangeException(nameof(idadeMeses), "A idade em meses não pode ser negativa.");
+        if (peso <= 0) throw new ArgumentOutOfRangeException(nameof(peso), "O peso deve ser maior que zero.");
+        if (altura <= 0) throw new ArgumentOutOfRangeException(nameof(altura), "A altura deve ser maior que zero.");
 
+        ResponsavelId = responsavelId;
         Nome = nome;
         DataNascimento = dataNascimento;
         Sexo = sexo;

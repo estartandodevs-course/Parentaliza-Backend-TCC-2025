@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.Extensions.Logging;
 using Parentaliza.Application.Mediator;
 using Parentaliza.Domain.InterfacesRepository;
 using System.Net;
@@ -8,10 +9,14 @@ namespace Parentaliza.Application.CasosDeUso.EventoAgendaCasoDeUso.Excluir;
 public class ExcluirEventoAgendaCommandHandler : IRequestHandler<ExcluirEventoAgendaCommand, CommandResponse<ExcluirEventoAgendaCommandResponse>>
 {
     private readonly IEventoAgendaRepository _eventoAgendaRepository;
+    private readonly ILogger<ExcluirEventoAgendaCommandHandler> _logger;
 
-    public ExcluirEventoAgendaCommandHandler(IEventoAgendaRepository eventoAgendaRepository)
+    public ExcluirEventoAgendaCommandHandler(
+        IEventoAgendaRepository eventoAgendaRepository,
+        ILogger<ExcluirEventoAgendaCommandHandler> logger)
     {
         _eventoAgendaRepository = eventoAgendaRepository;
+        _logger = logger;
     }
 
     public async Task<CommandResponse<ExcluirEventoAgendaCommandResponse>> Handle(ExcluirEventoAgendaCommand request, CancellationToken cancellationToken)
@@ -29,12 +34,11 @@ public class ExcluirEventoAgendaCommandHandler : IRequestHandler<ExcluirEventoAg
 
             await _eventoAgendaRepository.Remover(request.Id);
 
-            var response = new ExcluirEventoAgendaCommandResponse(request.Id);
-
-            return CommandResponse<ExcluirEventoAgendaCommandResponse>.Sucesso(response, HttpStatusCode.OK);
+            return CommandResponse<ExcluirEventoAgendaCommandResponse>.Sucesso(string.Empty, HttpStatusCode.NoContent);
         }
         catch (Exception ex)
         {
+            _logger.LogError(ex, "Erro ao excluir evento da agenda");
             return CommandResponse<ExcluirEventoAgendaCommandResponse>.ErroCritico(
                 mensagem: $"Ocorreu um erro ao excluir o evento da agenda: {ex.Message}");
         }

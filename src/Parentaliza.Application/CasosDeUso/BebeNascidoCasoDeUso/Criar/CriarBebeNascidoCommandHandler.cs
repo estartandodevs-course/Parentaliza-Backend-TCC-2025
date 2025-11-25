@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.Extensions.Logging;
 using Parentaliza.Application.Mediator;
 using Parentaliza.Domain.Entidades;
 using Parentaliza.Domain.InterfacesRepository;
@@ -9,10 +10,17 @@ namespace Parentaliza.Application.CasosDeUso.BebeNascidoCasoDeUso.Criar;
 public class CriarBebeNascidoCommandHandler : IRequestHandler<CriarBebeNascidoCommand, CommandResponse<CriarBebeNascidoCommandResponse>>
 {
     private readonly IBebeNascidoRepository _criarBebeNascidoRepository;
+    private readonly IResponsavelRepository _responsavelRepository;
+    private readonly ILogger<CriarBebeNascidoCommandHandler> _logger;
 
-    public CriarBebeNascidoCommandHandler(IBebeNascidoRepository criarBebeNascidoRepository)
+    public CriarBebeNascidoCommandHandler(
+        IBebeNascidoRepository criarBebeNascidoRepository,
+        IResponsavelRepository responsavelRepository,
+        ILogger<CriarBebeNascidoCommandHandler> logger)
     {
         _criarBebeNascidoRepository = criarBebeNascidoRepository;
+        _responsavelRepository = responsavelRepository;
+        _logger = logger;
     }
 
     public async Task<CommandResponse<CriarBebeNascidoCommandResponse>> Handle(CriarBebeNascidoCommand request, CancellationToken cancellationToken)
@@ -23,6 +31,14 @@ public class CriarBebeNascidoCommandHandler : IRequestHandler<CriarBebeNascidoCo
         }
         try
         {
+            var responsavel = await _responsavelRepository.ObterPorId(request.ResponsavelId);
+            if (responsavel == null)
+            {
+                return CommandResponse<CriarBebeNascidoCommandResponse>.AdicionarErro(
+                    statusCode: HttpStatusCode.NotFound,
+                    mensagem: "Responsável não encontrado.");
+            }
+
             var nomeJaUtilizado = await _criarBebeNascidoRepository.NomeJaUtilizado(request.Nome);
 
             if (nomeJaUtilizado)
@@ -31,6 +47,7 @@ public class CriarBebeNascidoCommandHandler : IRequestHandler<CriarBebeNascidoCo
             }
 
             var bebeNascido = new BebeNascido(
+                responsavelId: request.ResponsavelId,
                 nome: request.Nome,
                 dataNascimento: request.DataNascimento,
                 sexo: request.Sexo,
@@ -49,7 +66,8 @@ public class CriarBebeNascidoCommandHandler : IRequestHandler<CriarBebeNascidoCo
         }
         catch (Exception ex)
         {
-            return CommandResponse<CriarBebeNascidoCommandResponse>.ErroCritico(mensagem: $"Ocorreu um erro ao cadastrar um bebê: {ex.Message}");
+            _logger.LogError(ex, "Erro ao criar bebê nascido");
+            return CommandResponse<CriarBebeNascidoCommandResponse>.ErroCritico(mensagem: $"Ocorreu um erro ao criar o bebê: {ex.Message}");
         }
     }
 }

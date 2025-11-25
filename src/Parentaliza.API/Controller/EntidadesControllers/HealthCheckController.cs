@@ -1,12 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Parentaliza.API.Controller.Base;
-using Parentaliza.API.Infrastructure;
+using Parentaliza.Infrastructure.Context;
 
 namespace Parentaliza.API.Controller.EntidadesControllers;
 
 /// <summary>
-/// Faz a verificação de integridade da API e do banco de dados
+/// Faz a verificaï¿½ï¿½o de integridade da API e do banco de dados
 /// </summary>
 [ApiController]
 [Route("api/v1/[controller]")]
@@ -23,9 +23,9 @@ public class HealthCheckController : BaseController
     }
 
     /// <summary>
-    /// Verifica a conexão com o banco de dados
+    /// Verifica a conexï¿½o com o banco de dados
     /// </summary>
-    /// <returns>Status de conexão</returns>
+    /// <returns>Status de conexï¿½o</returns>
     [HttpGet("database")]
     [ProducesResponseType(typeof(object), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(object), StatusCodes.Status503ServiceUnavailable)]
@@ -35,7 +35,7 @@ public class HealthCheckController : BaseController
         {
             _logger.LogInformation("Checking database connection...");
 
-            // Checa se a conexão com o banco de dados pode ser estabelecida
+            // Checa se a conexï¿½o com o banco de dados pode ser estabelecida
             var canConnect = await _dbContext.Database.CanConnectAsync(cancellationToken);
 
             if (!canConnect)
@@ -50,10 +50,10 @@ public class HealthCheckController : BaseController
                 });
             }
 
-            // Executa uma consulta simples para garantir que o banco de dados está respondendo e obter informações adicionais
+            // Executa uma consulta simples para garantir que o banco de dados estï¿½ respondendo e obter informaï¿½ï¿½es adicionais
             await _dbContext.Database.ExecuteSqlRawAsync("SELECT 1", cancellationToken);
 
-            // Obtem informações adicionais sobre o banco de dados enquanto a conexão está aberta
+            // Obtem informaï¿½ï¿½es adicionais sobre o banco de dados enquanto a conexï¿½o estï¿½ aberta
             var connection = _dbContext.Database.GetDbConnection();
             var connectionString = _dbContext.Database.GetConnectionString();
             string databaseName = connection.Database ?? "unknown";
@@ -61,7 +61,7 @@ public class HealthCheckController : BaseController
 
             try
             {
-                // certifica que a conexão está aberta para obter a versão do servidor
+                // certifica que a conexï¿½o estï¿½ aberta para obter a versï¿½o do servidor
                 if (connection.State != System.Data.ConnectionState.Open)
                 {
                     await connection.OpenAsync(cancellationToken);
@@ -101,7 +101,7 @@ public class HealthCheckController : BaseController
     }
 
     /// <summary>
-    /// Endpoint geral de verificação de integridade da API
+    /// Endpoint geral de verificaï¿½ï¿½o de integridade da API
     /// </summary>
     /// <returns>Status de integridade da API</returns>
     [HttpGet]
