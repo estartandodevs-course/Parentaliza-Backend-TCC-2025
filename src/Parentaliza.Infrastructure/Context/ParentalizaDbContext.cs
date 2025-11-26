@@ -6,9 +6,8 @@ public class ApplicationDbContext : DbContext
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
     {
-        // Desabilita o rastreamento autom�tico de mudan�as para melhorar a performance em consultas somente leitura
         ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.TrackAll;
-        // Desabilita a detec��o autom�tica de mudan�as para opera��es expl�citas de atualiza��o
+ 
         ChangeTracker.AutoDetectChangesEnabled = false;
     }
     public DbSet<EventoAgenda> EventoAgenda { get; private set; }
@@ -26,10 +25,8 @@ public class ApplicationDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        // Aplica todas as configura��es de mapeamento de entidades do assembly atual
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
 
-        // Configurar o comportamento de exclus�o em cascata para evitar exclus�es acidentais
         foreach (var relationship in modelBuilder.Model.GetEntityTypes()
         .SelectMany(e => e.GetForeignKeys())) relationship.DeleteBehavior = DeleteBehavior.Restrict;
 

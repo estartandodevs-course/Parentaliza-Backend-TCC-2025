@@ -12,4 +12,3 @@ public class ObterExameSusCommand : IRequest<CommandResponse<ObterExameSusComman
         Id = id;
     }
 }
-

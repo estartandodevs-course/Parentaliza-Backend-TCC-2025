@@ -1,11 +1,9 @@
-using MediatR;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.EntityFrameworkCore;
-using Parentaliza.Infrastructure.Context;
 using Parentaliza.Domain.InterfacesRepository;
+using Parentaliza.Infrastructure.Context;
 using Parentaliza.Infrastructure.Repository;
 using Parentaliza.ServiceDefaults;
-using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,19 +19,17 @@ if (string.IsNullOrEmpty(connectionString))
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
-    // Use a specific MySQL version or get it from configuration
-    // AutoDetect can fail during startup in serverless environments
-    var serverVersion = new MySqlServerVersion(new Version(8, 0, 21)); // Adjust to your MySQL version
+    var serverVersion = new MySqlServerVersion(new Version(8, 0, 21));
     options.UseMySql(connectionString, serverVersion, options =>
     {
         options.EnableRetryOnFailure(
             maxRetryCount: 3,
             maxRetryDelay: TimeSpan.FromSeconds(30),
             errorNumbersToAdd: null);
+        options.EnableStringComparisonTranslations(); 
     });
 });
 
-// Add MediatR
 builder.Services.AddMediatR(cfg =>
 {
     cfg.RegisterServicesFromAssembly(typeof(Parentaliza.Application.CasosDeUso.EventoAgendaCasoDeUso.Criar.CriarEventoAgendaCommand).Assembly);
@@ -48,7 +44,6 @@ builder.Services.AddMediatR(cfg =>
     cfg.RegisterServicesFromAssembly(typeof(Parentaliza.Application.CasosDeUso.ControleMamadeiraCasoDeUso.Criar.CriarControleMamadeiraCommand).Assembly);
 });
 
-// Register Repositories
 builder.Services.AddScoped<IEventoAgendaRepository, TasksEventoAgendaRepository>();
 builder.Services.AddScoped<IBebeNascidoRepository, TasksBebeNascidoRepository>();
 builder.Services.AddScoped<IBebeGestacaoRepository, TasksBebeGestacaoRepository>();
@@ -62,10 +57,8 @@ builder.Services.AddScoped<IControleFraldaRepository, TasksControleFraldaReposit
 builder.Services.AddScoped<IControleLeiteMaternoRepository, TasksControleLeiteMaternoRepository>();
 builder.Services.AddScoped<IControleMamadeiraRepository, TasksControleMamadeiraRepository>();
 
-// Add Controllers
 builder.Services.AddControllers();
 
-// Add Swagger/OpenAPI
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
@@ -76,7 +69,6 @@ builder.Services.AddSwaggerGen(c =>
         Description = "AWS Lambda ASP.NET Core API Parentaliza",
     });
 
-    // Include XML comments
     var xmlFile = $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name}.xml";
     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
     if (File.Exists(xmlPath))
@@ -85,7 +77,6 @@ builder.Services.AddSwaggerGen(c =>
     }
 });
 
-// Add CORS
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>
@@ -96,12 +87,10 @@ builder.Services.AddCors(options =>
     });
 });
 
-// Add Exception Handler
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
 
 var app = builder.Build();
-// Apply pending migrations at startup
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
@@ -125,40 +114,28 @@ using (var scope = app.Services.CreateScope())
     {
         logger.LogError(ex, "Error applying migrations or ensuring database is created. " +
                            "The application will continue but database operations may fail.");
-        // Don't throw - allow the app to start even if migrations fail
-        // This is important for Lambda cold starts
     }
 }
 
-// Configure the HTTP request pipeline
 app.UseExceptionHandler();
 
-// Configure Swagger (before MapDefaultEndpoints to avoid conflicts)
-// habilitando swagger para producao
 app.UseSwagger();
 app.UseSwaggerUI(c =>
 {
-    var jsonPath = builder.Configuration["Swagger:JsonPath"];
-    
+    var jsonPath = app.Environment.IsDevelopment()
+        ? "/swagger/v1/swagger.json"
+        : builder.Configuration["Swagger:JsonPath"] ?? "/swagger/v1/swagger.json";
+
+    var routePrefix = app.Environment.IsDevelopment()
+        ? "swagger"
+        : "api/swagger";
+
     c.SwaggerEndpoint(jsonPath, "Parentaliza API V1");
-    c.RoutePrefix = "api/swagger";
+    c.RoutePrefix = routePrefix;
     c.DocumentTitle = "Parentaliza API Documentation";
     c.DefaultModelsExpandDepth(-1);
     c.DisplayRequestDuration();
 });
-
-// if (app.Environment.IsDevelopment())
-// {
-//     app.UseSwagger();
-//     app.UseSwaggerUI(c =>
-//     {
-//         c.SwaggerEndpoint("/swagger/v1/swagger.json", "Parentaliza API V1");
-//         c.RoutePrefix = "swagger"; // Swagger UI at /swagger
-//         c.DocumentTitle = "Parentaliza API Documentation";
-//         c.DefaultModelsExpandDepth(-1); // Hide schemas by default
-//         c.DisplayRequestDuration(); // Show request duration in Swagger UI
-//     });
-// }
 
 app.MapDefaultEndpoints();
 
@@ -166,7 +143,6 @@ app.UseCors("AllowAll");
 
 app.UseHttpsRedirection();
 
-// Map Controllers
 app.MapControllers();
 
 app.Run();

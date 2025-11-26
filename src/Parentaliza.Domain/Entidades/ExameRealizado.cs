@@ -7,8 +7,6 @@ public class ExameRealizado : Entity
     public DateTime? DataRealizacao { get; private set; }
     public bool Realizado { get; private set; }
     public string? Observacoes { get; private set; }
-
-    // Navegação
     public BebeNascido? BebeNascido { get; private set; }
     public ExameSus? ExameSus { get; private set; }
 
@@ -31,7 +29,7 @@ public class ExameRealizado : Entity
     public void MarcarComoRealizado(DateTime dataRealizacao, string? observacoes = null)
     {
         if (dataRealizacao > DateTime.UtcNow) throw new ArgumentException("A data de realização não pode ser no futuro.", nameof(dataRealizacao));
-        
+
         Realizado = true;
         DataRealizacao = dataRealizacao;
         Observacoes = observacoes;
@@ -43,4 +41,3 @@ public class ExameRealizado : Entity
         DataRealizacao = null;
     }
 }
-

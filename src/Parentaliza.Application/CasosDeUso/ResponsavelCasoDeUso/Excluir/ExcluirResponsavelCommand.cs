@@ -12,4 +12,3 @@ public class ExcluirResponsavelCommand : IRequest<CommandResponse<ExcluirRespons
         Id = id;
     }
 }
-

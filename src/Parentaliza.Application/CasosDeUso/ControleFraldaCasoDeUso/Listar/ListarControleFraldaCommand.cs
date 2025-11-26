@@ -31,10 +31,9 @@ public class ListarControleFraldaCommand : IRequest<CommandResponse<PagedResult<
         DataFim = dataFim;
         TipoFralda = tipoFralda;
         SortBy = sortBy;
-        SortOrder = string.IsNullOrWhiteSpace(sortOrder) || 
-                   (sortOrder.ToLower() != "asc" && sortOrder.ToLower() != "desc") 
-                   ? "desc" 
+        SortOrder = string.IsNullOrWhiteSpace(sortOrder) ||
+                   (sortOrder.ToLower() != "asc" && sortOrder.ToLower() != "desc")
+                   ? "desc"
                    : sortOrder.ToLower();
     }
 }
-

@@ -17,12 +17,12 @@ public class EditarBebeNascidoDtos
     public DateTime DataNascimento { get; set; }
 
     [Required(ErrorMessage = "O Sexo é obrigatório")]
-    [EnumDataType(typeof(SexoEnum), ErrorMessage = "Sexo inválido")]
-    public SexoEnum Sexo { get; set; }
+    [EnumDataType(typeof(Sexo), ErrorMessage = "Sexo inválido")]
+    public Sexo Sexo { get; set; }
 
     [Required(ErrorMessage = "O Tipo sanguineo é obrigatório")]
-    [EnumDataType(typeof(TipoSanguineoEnum), ErrorMessage = "Tipo sanguíneo inválido")]
-    public TipoSanguineoEnum TipoSanguineo { get; set; }
+    [EnumDataType(typeof(TipoSanguineo), ErrorMessage = "Tipo sanguíneo inválido")]
+    public TipoSanguineo TipoSanguineo { get; set; }
 
     [Required(ErrorMessage = "A Idade é obrigatória")]
     public int IdadeMeses { get; set; }

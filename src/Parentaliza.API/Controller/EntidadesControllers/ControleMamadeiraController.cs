@@ -2,13 +2,13 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Parentaliza.API.Controller.Base;
 using Parentaliza.API.Controller.Dtos;
-using Parentaliza.Application.Mediator;
 using Parentaliza.Application.CasosDeUso.ControleMamadeiraCasoDeUso.Criar;
 using Parentaliza.Application.CasosDeUso.ControleMamadeiraCasoDeUso.Editar;
 using Parentaliza.Application.CasosDeUso.ControleMamadeiraCasoDeUso.Excluir;
 using Parentaliza.Application.CasosDeUso.ControleMamadeiraCasoDeUso.Listar;
 using Parentaliza.Application.CasosDeUso.ControleMamadeiraCasoDeUso.ListarPorBebe;
 using Parentaliza.Application.CasosDeUso.ControleMamadeiraCasoDeUso.Obter;
+using Parentaliza.Application.Mediator;
 
 namespace Parentaliza.API.Controller.EntidadesControllers;
 
@@ -189,4 +189,3 @@ public class ControleMamadeiraController : BaseController
         return StatusCode((int)response.StatusCode, response);
     }
 }
-

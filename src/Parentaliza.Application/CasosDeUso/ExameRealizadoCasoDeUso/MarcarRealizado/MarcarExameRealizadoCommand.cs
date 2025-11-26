@@ -53,4 +53,3 @@ public class MarcarExameRealizadoCommand : IRequest<CommandResponse<MarcarExameR
         return ResultadoDasValidacoes.IsValid;
     }
 }
-

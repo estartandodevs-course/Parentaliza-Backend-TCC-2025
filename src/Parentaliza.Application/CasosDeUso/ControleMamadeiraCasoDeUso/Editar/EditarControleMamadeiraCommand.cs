@@ -63,4 +63,3 @@ public class EditarControleMamadeiraCommand : IRequest<CommandResponse<EditarCon
         return ResultadoDasValidacoes.IsValid;
     }
 }
-

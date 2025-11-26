@@ -67,4 +67,3 @@ public class MarcarVacinaAplicadaCommand : IRequest<CommandResponse<MarcarVacina
         return ResultadoDasValidacoes.IsValid;
     }
 }
-

@@ -46,10 +46,8 @@ public class ListarControleLeiteMaternoCommandHandler : IRequestHandler<ListarCo
                 query = query.Where(c => c.Cronometro <= request.DataFim.Value);
             }
 
-            // Contar total antes da paginação
             var totalCount = await query.CountAsync(cancellationToken);
 
-            // Aplicar ordenação
             var sortBy = string.IsNullOrWhiteSpace(request.SortBy) ? "cronometro" : request.SortBy.ToLower();
             var isAscending = request.SortOrder == "asc";
 
@@ -60,7 +58,6 @@ public class ListarControleLeiteMaternoCommandHandler : IRequestHandler<ListarCo
                     : query.OrderByDescending(c => c.Cronometro)
             };
 
-            // Aplicar paginação
             var controles = await query
                 .Skip((request.Page - 1) * request.PageSize)
                 .Take(request.PageSize)
@@ -91,4 +88,3 @@ public class ListarControleLeiteMaternoCommandHandler : IRequestHandler<ListarCo
         }
     }
 }
-

@@ -53,4 +53,3 @@ public class CriarControleFraldaCommand : IRequest<CommandResponse<CriarControle
         return ResultadoDasValidacoes.IsValid;
     }
 }
-

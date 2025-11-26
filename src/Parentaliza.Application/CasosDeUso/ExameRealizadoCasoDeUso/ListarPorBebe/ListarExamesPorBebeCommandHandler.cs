@@ -37,14 +37,11 @@ public class ListarExamesPorBebeCommandHandler : IRequestHandler<ListarExamesPor
                     mensagem: "Bebê não encontrado.");
             }
 
-            // Busca todos os exames SUS disponíveis
             var todosExamesSus = await _exameSusRepository.ObterTodos();
-            
-            // Busca os exames realizados pelo bebê
+
             var examesRealizados = await _exameRealizadoRepository.ObterExamesPorBebe(request.BebeNascidoId);
             var examesRealizadosDict = examesRealizados.ToDictionary(e => e.ExameSusId);
 
-            // Cria a resposta combinando todos os exames SUS com o status de realização
             var response = todosExamesSus.Select(exameSus =>
             {
                 var exameRealizado = examesRealizadosDict.GetValueOrDefault(exameSus.Id);
@@ -70,4 +67,3 @@ public class ListarExamesPorBebeCommandHandler : IRequestHandler<ListarExamesPor
         }
     }
 }
-

@@ -30,4 +30,3 @@ public class EditarEventoAgendaDtos
     [StringLength(1000, ErrorMessage = "A descrição não pode exceder 1000 caracteres")]
     public string? Anotacao { get; set; }
 }
-

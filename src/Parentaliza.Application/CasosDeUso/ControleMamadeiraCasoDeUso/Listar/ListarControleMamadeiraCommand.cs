@@ -34,10 +34,9 @@ public class ListarControleMamadeiraCommand : IRequest<CommandResponse<PagedResu
         QuantidadeLeiteMin = quantidadeLeiteMin;
         QuantidadeLeiteMax = quantidadeLeiteMax;
         SortBy = sortBy;
-        SortOrder = string.IsNullOrWhiteSpace(sortOrder) || 
-                   (sortOrder.ToLower() != "asc" && sortOrder.ToLower() != "desc") 
-                   ? "desc" 
+        SortOrder = string.IsNullOrWhiteSpace(sortOrder) ||
+                   (sortOrder.ToLower() != "asc" && sortOrder.ToLower() != "desc")
+                   ? "desc"
                    : sortOrder.ToLower();
     }
 }
-

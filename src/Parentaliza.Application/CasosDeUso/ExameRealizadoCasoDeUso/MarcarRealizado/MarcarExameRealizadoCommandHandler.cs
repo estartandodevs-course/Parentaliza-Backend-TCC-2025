@@ -82,4 +82,3 @@ public class MarcarExameRealizadoCommandHandler : IRequestHandler<MarcarExameRea
         }
     }
 }
-

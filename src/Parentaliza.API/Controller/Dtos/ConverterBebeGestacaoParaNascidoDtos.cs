@@ -10,12 +10,12 @@ public class ConverterBebeGestacaoParaNascidoDtos
     public DateTime DataNascimento { get; set; }
 
     [Required(ErrorMessage = "O Sexo é obrigatório")]
-    [EnumDataType(typeof(SexoEnum), ErrorMessage = "Sexo inválido")]
-    public SexoEnum Sexo { get; set; }
+    [EnumDataType(typeof(Sexo), ErrorMessage = "Sexo inválido")]
+    public Sexo Sexo { get; set; }
 
     [Required(ErrorMessage = "O Tipo sanguíneo é obrigatório")]
-    [EnumDataType(typeof(TipoSanguineoEnum), ErrorMessage = "Tipo sanguíneo inválido")]
-    public TipoSanguineoEnum TipoSanguineo { get; set; }
+    [EnumDataType(typeof(TipoSanguineo), ErrorMessage = "Tipo sanguíneo inválido")]
+    public TipoSanguineo TipoSanguineo { get; set; }
 
     [Required(ErrorMessage = "A Idade em meses é obrigatória")]
     [Range(0, 120, ErrorMessage = "A idade deve estar entre 0 e 120 meses")]
@@ -32,4 +32,3 @@ public class ConverterBebeGestacaoParaNascidoDtos
     [Required(ErrorMessage = "É necessário informar se deseja excluir o registro de gestação após a conversão")]
     public bool ExcluirBebeGestacao { get; set; } = true;
 }
-

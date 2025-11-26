@@ -9,4 +9,3 @@ public class CriarExameSusCommandResponse
         Id = id;
     }
 }
-

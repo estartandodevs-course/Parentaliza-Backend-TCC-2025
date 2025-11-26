@@ -67,4 +67,3 @@ public class CriarVacinaSusCommand : IRequest<CommandResponse<CriarVacinaSusComm
         return ResultadoDasValidacoes.IsValid;
     }
 }
-

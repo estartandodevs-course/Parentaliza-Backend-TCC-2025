@@ -58,4 +58,3 @@ public class ListarBebeGestacaoPorResponsavelCommandHandler : IRequestHandler<Li
         }
     }
 }
-

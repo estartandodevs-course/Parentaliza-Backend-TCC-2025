@@ -37,4 +37,3 @@ public class DesmarcarExameRealizadoCommand : IRequest<CommandResponse<Desmarcar
         return ResultadoDasValidacoes.IsValid;
     }
 }
-

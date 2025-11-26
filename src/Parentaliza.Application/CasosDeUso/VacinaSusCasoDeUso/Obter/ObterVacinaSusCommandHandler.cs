@@ -51,4 +51,3 @@ public class ObterVacinaSusCommandHandler : IRequestHandler<ObterVacinaSusComman
         }
     }
 }
-

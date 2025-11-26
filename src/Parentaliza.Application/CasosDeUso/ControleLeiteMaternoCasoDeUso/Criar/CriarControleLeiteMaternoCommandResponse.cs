@@ -9,4 +9,3 @@ public class CriarControleLeiteMaternoCommandResponse
         Id = id;
     }
 }
-

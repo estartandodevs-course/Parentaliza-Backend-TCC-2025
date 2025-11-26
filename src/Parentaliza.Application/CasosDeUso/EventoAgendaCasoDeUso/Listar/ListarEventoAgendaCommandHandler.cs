@@ -56,10 +56,8 @@ public class ListarEventoAgendaCommandHandler : IRequestHandler<ListarEventoAgen
                 query = query.Where(e => e.Localizacao != null && e.Localizacao.Contains(request.Localizacao));
             }
 
-            // Contar total antes da paginação
             var totalCount = await query.CountAsync(cancellationToken);
 
-            // Aplicar ordenação
             var sortBy = string.IsNullOrWhiteSpace(request.SortBy) ? "data" : request.SortBy.ToLower();
             var isAscending = request.SortOrder == "asc";
 
@@ -76,7 +74,6 @@ public class ListarEventoAgendaCommandHandler : IRequestHandler<ListarEventoAgen
                     : query.OrderByDescending(e => e.Data).ThenByDescending(e => e.Hora)
             };
 
-            // Aplicar paginação
             var eventos = await query
                 .Skip((request.Page - 1) * request.PageSize)
                 .Take(request.PageSize)

@@ -4,7 +4,6 @@ using Parentaliza.Application.Mediator;
 using Parentaliza.Domain.Entidades;
 using Parentaliza.Domain.InterfacesRepository;
 using System.Net;
-using System.Reflection;
 
 namespace Parentaliza.Application.CasosDeUso.ResponsavelCasoDeUso.Editar;
 
@@ -50,18 +49,16 @@ public class EditarResponsavelCommandHandler : IRequestHandler<EditarResponsavel
                 }
             }
 
-            // Atualizar a entidade existente usando reflection para acessar propriedades privadas
             var tipo = typeof(Responsavel);
             tipo.GetProperty(nameof(Responsavel.Nome))?.SetValue(responsavel, request.Nome);
             tipo.GetProperty(nameof(Responsavel.Email))?.SetValue(responsavel, request.Email);
             tipo.GetProperty(nameof(Responsavel.TipoResponsavel))?.SetValue(responsavel, request.TipoResponsavel);
-            
-            // Atualizar senha apenas se fornecida
+
             if (!string.IsNullOrWhiteSpace(request.Senha))
             {
                 tipo.GetProperty(nameof(Responsavel.Senha))?.SetValue(responsavel, request.Senha);
             }
-            
+
             tipo.GetProperty(nameof(Responsavel.FaseNascimento))?.SetValue(responsavel, request.FaseNascimento);
 
             await _responsavelRepository.Atualizar(responsavel);
@@ -78,4 +75,3 @@ public class EditarResponsavelCommandHandler : IRequestHandler<EditarResponsavel
         }
     }
 }
-

@@ -4,7 +4,6 @@ using Parentaliza.Application.Mediator;
 using Parentaliza.Domain.Entidades;
 using Parentaliza.Domain.InterfacesRepository;
 using System.Net;
-using System.Reflection;
 
 namespace Parentaliza.Application.CasosDeUso.EventoAgendaCasoDeUso.Editar;
 
@@ -61,7 +60,6 @@ public class EditarEventoAgendaCommandHandler : IRequestHandler<EditarEventoAgen
                 }
             }
 
-            // Atualizar a entidade existente usando reflection para acessar propriedades privadas
             var tipo = typeof(EventoAgenda);
             tipo.GetProperty(nameof(EventoAgenda.ResponsavelId))?.SetValue(eventoAgenda, request.ResponsavelId);
             tipo.GetProperty(nameof(EventoAgenda.Evento))?.SetValue(eventoAgenda, request.Evento);

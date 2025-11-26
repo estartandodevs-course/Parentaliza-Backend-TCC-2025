@@ -62,4 +62,3 @@ public class CriarControleMamadeiraCommandHandler : IRequestHandler<CriarControl
         }
     }
 }
-

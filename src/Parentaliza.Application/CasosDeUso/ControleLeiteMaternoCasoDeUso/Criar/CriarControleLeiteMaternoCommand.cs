@@ -53,4 +53,3 @@ public class CriarControleLeiteMaternoCommand : IRequest<CommandResponse<CriarCo
         return ResultadoDasValidacoes.IsValid;
     }
 }
-

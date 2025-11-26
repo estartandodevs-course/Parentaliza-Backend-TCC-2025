@@ -17,4 +17,3 @@ public class EditarControleLeiteMaternoDtos
     [MaxLength(50, ErrorMessage = "O lado esquerdo não pode exceder 50 caracteres.")]
     public string? LadoEsquerdo { get; set; }
 }
-

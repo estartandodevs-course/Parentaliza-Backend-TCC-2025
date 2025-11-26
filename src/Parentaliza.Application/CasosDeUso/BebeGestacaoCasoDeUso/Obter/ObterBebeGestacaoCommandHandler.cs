@@ -19,7 +19,7 @@ public class ObterBebeGestacaoCommandHandler : IRequestHandler<ObterBebeGestacao
         _logger = logger;
     }
 
-    public async Task<CommandResponse<ObterBebeGestacaoCommandResponse>> Handle (ObterBebeGestacaoCommand request, CancellationToken cancellationToken)
+    public async Task<CommandResponse<ObterBebeGestacaoCommandResponse>> Handle(ObterBebeGestacaoCommand request, CancellationToken cancellationToken)
     {
         try
         {

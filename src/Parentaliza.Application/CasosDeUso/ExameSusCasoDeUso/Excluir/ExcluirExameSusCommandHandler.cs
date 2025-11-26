@@ -44,4 +44,3 @@ public class ExcluirExameSusCommandHandler : IRequestHandler<ExcluirExameSusComm
         }
     }
 }
-

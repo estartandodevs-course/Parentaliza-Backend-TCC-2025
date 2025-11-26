@@ -29,4 +29,3 @@ public class ExcluirControleLeiteMaternoCommand : IRequest<CommandResponse<Unit>
         return ResultadoDasValidacoes.IsValid;
     }
 }
-

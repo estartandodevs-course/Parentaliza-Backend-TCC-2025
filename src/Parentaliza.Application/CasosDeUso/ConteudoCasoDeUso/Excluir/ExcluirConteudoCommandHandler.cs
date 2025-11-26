@@ -37,7 +37,7 @@ public class ExcluirConteudoCommandHandler : IRequestHandler<ExcluirConteudoComm
 
             await _conteudoRepository.Remover(conteudoExiste.Id);
 
-            return CommandResponse<Unit>.Sucesso(null, HttpStatusCode.NoContent);
+            return CommandResponse<Unit>.Sucesso(Unit.Value, HttpStatusCode.NoContent);
         }
         catch (Exception ex)
         {

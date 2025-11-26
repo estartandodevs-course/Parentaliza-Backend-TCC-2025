@@ -69,4 +69,3 @@ namespace Parentaliza.Application.CasosDeUso.BebeGestacaoCasoDeUso.Criar
         }
     }
 }
-

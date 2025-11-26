@@ -51,4 +51,3 @@ public class CriarExameSusCommandHandler : IRequestHandler<CriarExameSusCommand,
         }
     }
 }
-

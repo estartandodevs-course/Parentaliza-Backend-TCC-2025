@@ -12,4 +12,3 @@ public class ObterVacinaSusCommand : IRequest<CommandResponse<ObterVacinaSusComm
         Id = id;
     }
 }
-

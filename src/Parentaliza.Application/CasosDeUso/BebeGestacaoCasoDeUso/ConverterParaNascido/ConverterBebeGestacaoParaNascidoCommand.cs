@@ -11,8 +11,8 @@ public class ConverterBebeGestacaoParaNascidoCommand : IRequest<CommandResponse<
 {
     public Guid BebeGestacaoId { get; private set; }
     public DateTime DataNascimento { get; private set; }
-    public SexoEnum Sexo { get; private set; }
-    public TipoSanguineoEnum TipoSanguineo { get; private set; }
+    public Sexo Sexo { get; private set; }
+    public TipoSanguineo TipoSanguineo { get; private set; }
     public int IdadeMeses { get; private set; }
     public decimal Peso { get; private set; }
     public decimal Altura { get; private set; }
@@ -23,8 +23,8 @@ public class ConverterBebeGestacaoParaNascidoCommand : IRequest<CommandResponse<
     public ConverterBebeGestacaoParaNascidoCommand(
         Guid bebeGestacaoId,
         DateTime dataNascimento,
-        SexoEnum sexo,
-        TipoSanguineoEnum tipoSanguineo,
+        Sexo sexo,
+        TipoSanguineo tipoSanguineo,
         int idadeMeses,
         decimal peso,
         decimal altura,
@@ -91,4 +91,3 @@ public class ConverterBebeGestacaoParaNascidoCommand : IRequest<CommandResponse<
         return ResultadoDasValidacoes.IsValid;
     }
 }
-

@@ -9,4 +9,3 @@ public class MarcarExameRealizadoCommandResponse
         Id = id;
     }
 }
-

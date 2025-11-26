@@ -12,14 +12,14 @@ public class CriarBebeNascidoCommand : IRequest<CommandResponse<CriarBebeNascido
     public Guid ResponsavelId { get; private set; }
     public string? Nome { get; private set; }
     public DateTime DataNascimento { get; private set; }
-    public SexoEnum Sexo { get; private set; }
-    public TipoSanguineoEnum TipoSanguineo { get; private set; }
+    public Sexo Sexo { get; private set; }
+    public TipoSanguineo TipoSanguineo { get; private set; }
     public int IdadeMeses { get; private set; }
     public decimal Peso { get; private set; }
     public decimal Altura { get; private set; }
 
     public ValidationResult ResultadoDasValidacoes { get; private set; } = new ValidationResult();
-    public CriarBebeNascidoCommand(Guid responsavelId, string? nome, DateTime dataNascimento, SexoEnum sexo, TipoSanguineoEnum tipoSanguineo, int idadeMeses, decimal peso, decimal altura)
+    public CriarBebeNascidoCommand(Guid responsavelId, string? nome, DateTime dataNascimento, Sexo sexo, TipoSanguineo tipoSanguineo, int idadeMeses, decimal peso, decimal altura)
     {
         ResponsavelId = responsavelId;
         Nome = nome;

@@ -20,9 +20,9 @@ public class SortParams
     public string SortOrder
     {
         get => _sortOrder;
-        set => _sortOrder = string.IsNullOrWhiteSpace(value) || 
-                           (value.ToLower() != "asc" && value.ToLower() != "desc") 
-                           ? DefaultSortOrder 
+        set => _sortOrder = string.IsNullOrWhiteSpace(value) ||
+                           (value.ToLower() != "asc" && value.ToLower() != "desc")
+                           ? DefaultSortOrder
                            : value.ToLower();
     }
 
@@ -31,4 +31,3 @@ public class SortParams
     /// </summary>
     public bool IsAscending => SortOrder == "asc";
 }
-

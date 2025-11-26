@@ -9,4 +9,3 @@ public class EditarControleMamadeiraCommandResponse
         Id = id;
     }
 }
-

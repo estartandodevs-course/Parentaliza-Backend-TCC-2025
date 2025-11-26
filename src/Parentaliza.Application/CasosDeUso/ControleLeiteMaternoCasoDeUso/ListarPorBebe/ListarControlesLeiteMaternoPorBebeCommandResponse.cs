@@ -17,4 +17,3 @@ public class ListarControlesLeiteMaternoPorBebeCommandResponse
         LadoEsquerdo = ladoEsquerdo;
     }
 }
-

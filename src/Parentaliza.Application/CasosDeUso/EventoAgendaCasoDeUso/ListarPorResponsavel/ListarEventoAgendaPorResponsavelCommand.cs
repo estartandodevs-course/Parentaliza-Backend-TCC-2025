@@ -12,4 +12,3 @@ public class ListarEventoAgendaPorResponsavelCommand : IRequest<CommandResponse<
         ResponsavelId = responsavelId;
     }
 }
-

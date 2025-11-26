@@ -9,4 +9,3 @@ public class MarcarVacinaAplicadaCommandResponse
         Id = id;
     }
 }
-
