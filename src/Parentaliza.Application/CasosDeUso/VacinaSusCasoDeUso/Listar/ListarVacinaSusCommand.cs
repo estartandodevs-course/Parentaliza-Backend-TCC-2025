@@ -3,7 +3,4 @@ using Parentaliza.Application.Mediator;
 
 namespace Parentaliza.Application.CasosDeUso.VacinaSusCasoDeUso.Listar;
 
-public class ListarVacinaSusCommand : IRequest<CommandResponse<List<ListarVacinaSusCommandResponse>>>
-{
-}
-
+public class ListarVacinaSusCommand : IRequest<CommandResponse<List<ListarVacinaSusCommandResponse>>> { }

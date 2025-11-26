@@ -9,4 +9,3 @@ public class CriarControleMamadeiraCommandResponse
         Id = id;
     }
 }
-

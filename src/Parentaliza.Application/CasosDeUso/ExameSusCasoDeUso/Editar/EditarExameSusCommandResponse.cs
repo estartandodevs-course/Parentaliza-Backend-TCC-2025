@@ -9,4 +9,3 @@ public class EditarExameSusCommandResponse
         Id = id;
     }
 }
-

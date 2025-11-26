@@ -84,4 +84,3 @@ public class MarcarVacinaAplicadaCommandHandler : IRequestHandler<MarcarVacinaAp
         }
     }
 }
-

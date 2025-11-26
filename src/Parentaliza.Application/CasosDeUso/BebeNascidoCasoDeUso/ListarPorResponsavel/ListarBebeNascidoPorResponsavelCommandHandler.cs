@@ -60,4 +60,3 @@ public class ListarBebeNascidoPorResponsavelCommandHandler : IRequestHandler<Lis
         }
     }
 }
-

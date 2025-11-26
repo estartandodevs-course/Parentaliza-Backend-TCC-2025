@@ -12,4 +12,3 @@ public class ObterControleFraldaCommand : IRequest<CommandResponse<ObterControle
         Id = id;
     }
 }
-

@@ -12,4 +12,3 @@ public class ExcluirVacinaSusCommand : IRequest<CommandResponse<ExcluirVacinaSus
         Id = id;
     }
 }
-

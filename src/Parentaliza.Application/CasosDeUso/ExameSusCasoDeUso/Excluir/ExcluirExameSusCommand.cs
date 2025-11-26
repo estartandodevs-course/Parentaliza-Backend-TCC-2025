@@ -12,4 +12,3 @@ public class ExcluirExameSusCommand : IRequest<CommandResponse<ExcluirExameSusCo
         Id = id;
     }
 }
-

@@ -60,4 +60,3 @@ public class CriarResponsavelCommandHandler : IRequestHandler<CriarResponsavelCo
         }
     }
 }
-

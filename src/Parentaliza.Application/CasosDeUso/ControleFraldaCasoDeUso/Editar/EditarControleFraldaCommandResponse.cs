@@ -9,4 +9,3 @@ public class EditarControleFraldaCommandResponse
         Id = id;
     }
 }
-

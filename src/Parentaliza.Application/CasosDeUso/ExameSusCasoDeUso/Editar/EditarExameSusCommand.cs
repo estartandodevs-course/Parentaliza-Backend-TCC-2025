@@ -74,4 +74,3 @@ public class EditarExameSusCommand : IRequest<CommandResponse<EditarExameSusComm
         return ResultadoDasValidacoes.IsValid;
     }
 }
-

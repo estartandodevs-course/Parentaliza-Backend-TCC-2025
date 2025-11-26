@@ -60,4 +60,3 @@ public class EditarControleFraldaCommand : IRequest<CommandResponse<EditarContro
         return ResultadoDasValidacoes.IsValid;
     }
 }
-

@@ -11,4 +11,3 @@ public class MarcarExameRealizadoDtos
     [MaxLength(500, ErrorMessage = "As observações não podem exceder 500 caracteres.")]
     public string? Observacoes { get; set; }
 }
-

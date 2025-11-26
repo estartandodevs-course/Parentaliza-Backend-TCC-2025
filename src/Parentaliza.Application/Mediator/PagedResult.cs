@@ -25,4 +25,3 @@ public class PagedResult<T>
         HasPrevious = page > 1;
     }
 }
-

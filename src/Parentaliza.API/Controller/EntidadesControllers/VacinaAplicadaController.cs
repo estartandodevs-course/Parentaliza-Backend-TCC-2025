@@ -103,4 +103,3 @@ public class VacinaAplicadaController : BaseController
         return StatusCode((int)response.StatusCode, response);
     }
 }
-

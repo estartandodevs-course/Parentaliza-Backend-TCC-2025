@@ -55,7 +55,6 @@ public class DesmarcarExameRealizadoCommandHandler : IRequestHandler<DesmarcarEx
 
             if (exameRealizado == null)
             {
-                // Se não existe, cria um registro marcado como não realizado
                 exameRealizado = new ExameRealizado(
                     bebeNascidoId: request.BebeNascidoId,
                     exameSusId: request.ExameSusId,
@@ -67,7 +66,6 @@ public class DesmarcarExameRealizadoCommandHandler : IRequestHandler<DesmarcarEx
             }
             else
             {
-                // Se existe, desmarca
                 exameRealizado.MarcarComoNaoRealizado();
                 await _exameRealizadoRepository.Atualizar(exameRealizado);
             }

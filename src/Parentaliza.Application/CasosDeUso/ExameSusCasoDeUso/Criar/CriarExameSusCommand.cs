@@ -67,4 +67,3 @@ public class CriarExameSusCommand : IRequest<CommandResponse<CriarExameSusComman
         return ResultadoDasValidacoes.IsValid;
     }
 }
-

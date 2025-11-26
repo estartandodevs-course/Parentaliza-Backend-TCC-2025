@@ -9,8 +9,6 @@ public class VacinaAplicada : Entity
     public string? Observacoes { get; private set; }
     public string? Lote { get; private set; }
     public string? LocalAplicacao { get; private set; }
-
-    // Navegação
     public BebeNascido? BebeNascido { get; private set; }
     public VacinaSus? VacinaSus { get; private set; }
 
@@ -35,7 +33,7 @@ public class VacinaAplicada : Entity
     public void MarcarComoAplicada(DateTime dataAplicacao, string? lote = null, string? localAplicacao = null, string? observacoes = null)
     {
         if (dataAplicacao > DateTime.UtcNow) throw new ArgumentException("A data de aplicação não pode ser no futuro.", nameof(dataAplicacao));
-        
+
         Aplicada = true;
         DataAplicacao = dataAplicacao;
         Lote = lote;
@@ -51,4 +49,3 @@ public class VacinaAplicada : Entity
         LocalAplicacao = null;
     }
 }
-

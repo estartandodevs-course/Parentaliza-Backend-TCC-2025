@@ -31,9 +31,9 @@ public class ListarConteudoCommand : IRequest<CommandResponse<PagedResult<Listar
         DataFim = dataFim;
         Titulo = titulo;
         SortBy = sortBy;
-        SortOrder = string.IsNullOrWhiteSpace(sortOrder) || 
-                   (sortOrder.ToLower() != "asc" && sortOrder.ToLower() != "desc") 
-                   ? "desc" 
+        SortOrder = string.IsNullOrWhiteSpace(sortOrder) ||
+                   (sortOrder.ToLower() != "asc" && sortOrder.ToLower() != "desc")
+                   ? "desc"
                    : sortOrder.ToLower();
     }
 }

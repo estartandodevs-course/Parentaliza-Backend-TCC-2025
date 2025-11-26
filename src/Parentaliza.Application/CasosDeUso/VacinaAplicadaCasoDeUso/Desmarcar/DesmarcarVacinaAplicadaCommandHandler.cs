@@ -55,7 +55,6 @@ public class DesmarcarVacinaAplicadaCommandHandler : IRequestHandler<DesmarcarVa
 
             if (vacinaAplicada == null)
             {
-                // Se não existe, cria um registro marcado como não aplicada
                 vacinaAplicada = new VacinaAplicada(
                     bebeNascidoId: request.BebeNascidoId,
                     vacinaSusId: request.VacinaSusId,
@@ -69,7 +68,6 @@ public class DesmarcarVacinaAplicadaCommandHandler : IRequestHandler<DesmarcarVa
             }
             else
             {
-                // Se existe, desmarca
                 vacinaAplicada.MarcarComoNaoAplicada();
                 await _vacinaAplicadaRepository.Atualizar(vacinaAplicada);
             }
@@ -86,4 +84,3 @@ public class DesmarcarVacinaAplicadaCommandHandler : IRequestHandler<DesmarcarVa
         }
     }
 }
-

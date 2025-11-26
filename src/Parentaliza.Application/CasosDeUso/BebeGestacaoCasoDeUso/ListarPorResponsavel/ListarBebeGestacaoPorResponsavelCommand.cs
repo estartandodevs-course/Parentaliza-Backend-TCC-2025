@@ -12,4 +12,3 @@ public class ListarBebeGestacaoPorResponsavelCommand : IRequest<CommandResponse<
         ResponsavelId = responsavelId;
     }
 }
-

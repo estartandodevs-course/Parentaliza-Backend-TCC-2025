@@ -17,4 +17,3 @@ public class ListarControleLeiteMaternoCommandResponse
         LadoEsquerdo = ladoEsquerdo;
     }
 }
-

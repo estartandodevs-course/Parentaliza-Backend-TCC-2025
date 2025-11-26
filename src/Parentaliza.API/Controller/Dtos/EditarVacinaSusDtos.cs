@@ -20,4 +20,3 @@ public class EditarVacinaSusDtos
     [Range(0, 120, ErrorMessage = "A idade máxima deve estar entre 0 e 120 meses.")]
     public int? IdadeMaxMesesVacina { get; set; }
 }
-

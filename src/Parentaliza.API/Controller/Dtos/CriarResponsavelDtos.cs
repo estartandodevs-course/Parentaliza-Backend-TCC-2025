@@ -1,5 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Parentaliza.Domain.Enums;
+﻿using Parentaliza.Domain.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace Parentaliza.API.Controller.Dtos;
 
@@ -15,7 +15,7 @@ public class CriarResponsavelDtos
     public string? Email { get; set; }
 
     [Required(ErrorMessage = "O tipo de responsável é obrigatório")]
-    public TiposEnum TipoResponsavel { get; set; }
+    public TipoResponsavel TipoResponsavel { get; set; }
 
     [Required(ErrorMessage = "A senha é obrigatória")]
     [MinLength(6, ErrorMessage = "A senha deve ter no mínimo 6 caracteres")]

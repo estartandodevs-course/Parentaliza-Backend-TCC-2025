@@ -12,4 +12,3 @@ public class ObterControleLeiteMaternoCommand : IRequest<CommandResponse<ObterCo
         Id = id;
     }
 }
-

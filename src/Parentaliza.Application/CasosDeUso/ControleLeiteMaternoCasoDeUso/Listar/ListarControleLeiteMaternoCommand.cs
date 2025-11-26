@@ -28,10 +28,9 @@ public class ListarControleLeiteMaternoCommand : IRequest<CommandResponse<PagedR
         DataInicio = dataInicio;
         DataFim = dataFim;
         SortBy = sortBy;
-        SortOrder = string.IsNullOrWhiteSpace(sortOrder) || 
-                   (sortOrder.ToLower() != "asc" && sortOrder.ToLower() != "desc") 
-                   ? "desc" 
+        SortOrder = string.IsNullOrWhiteSpace(sortOrder) ||
+                   (sortOrder.ToLower() != "asc" && sortOrder.ToLower() != "desc")
+                   ? "desc"
                    : sortOrder.ToLower();
     }
 }
-

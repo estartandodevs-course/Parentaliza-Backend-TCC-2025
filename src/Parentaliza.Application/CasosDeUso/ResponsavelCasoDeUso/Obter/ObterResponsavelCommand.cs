@@ -12,4 +12,3 @@ public class ObterResponsavelCommand : IRequest<CommandResponse<ObterResponsavel
         Id = id;
     }
 }
-

@@ -74,4 +74,3 @@ public class EditarVacinaSusCommand : IRequest<CommandResponse<EditarVacinaSusCo
         return ResultadoDasValidacoes.IsValid;
     }
 }
-

@@ -51,10 +51,8 @@ public class ListarConteudoCommandHandler : IRequestHandler<ListarConteudoComman
                 query = query.Where(c => c.Titulo != null && c.Titulo.Contains(request.Titulo));
             }
 
-            // Contar total antes da paginação
             var totalCount = await query.CountAsync(cancellationToken);
 
-            // Aplicar ordenação
             var sortBy = string.IsNullOrWhiteSpace(request.SortBy) ? "dataPublicacao" : request.SortBy.ToLower();
             var isAscending = request.SortOrder == "asc";
 
@@ -71,7 +69,6 @@ public class ListarConteudoCommandHandler : IRequestHandler<ListarConteudoComman
                     : query.OrderByDescending(c => c.DataPublicacao)
             };
 
-            // Aplicar paginação
             var conteudos = await query
                 .Skip((request.Page - 1) * request.PageSize)
                 .Take(request.PageSize)

@@ -12,4 +12,3 @@ public class ListarControlesMamadeiraPorBebeCommand : IRequest<CommandResponse<L
         BebeNascidoId = bebeNascidoId;
     }
 }
-

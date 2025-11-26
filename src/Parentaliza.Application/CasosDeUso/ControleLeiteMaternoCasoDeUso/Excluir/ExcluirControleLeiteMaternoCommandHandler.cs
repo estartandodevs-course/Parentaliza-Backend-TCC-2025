@@ -49,4 +49,3 @@ public class ExcluirControleLeiteMaternoCommandHandler : IRequestHandler<Excluir
         }
     }
 }
-
