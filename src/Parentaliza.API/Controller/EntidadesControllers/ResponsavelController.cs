@@ -2,12 +2,12 @@
 using Microsoft.AspNetCore.Mvc;
 using Parentaliza.API.Controller.Base;
 using Parentaliza.API.Controller.Dtos;
-using Parentaliza.Application.Mediator;
 using Parentaliza.Application.CasosDeUso.ResponsavelCasoDeUso.Criar;
 using Parentaliza.Application.CasosDeUso.ResponsavelCasoDeUso.Editar;
 using Parentaliza.Application.CasosDeUso.ResponsavelCasoDeUso.Excluir;
 using Parentaliza.Application.CasosDeUso.ResponsavelCasoDeUso.Listar;
 using Parentaliza.Application.CasosDeUso.ResponsavelCasoDeUso.Obter;
+using Parentaliza.Application.Mediator;
 
 namespace Parentaliza.API.Controller.EntidadesControllers;
 

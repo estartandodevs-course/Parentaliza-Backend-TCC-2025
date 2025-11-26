@@ -29,10 +29,9 @@ public class ListarResponsavelCommand : IRequest<CommandResponse<PagedResult<Lis
         Email = email;
         TipoResponsavel = tipoResponsavel;
         SortBy = sortBy;
-        SortOrder = string.IsNullOrWhiteSpace(sortOrder) || 
-                   (sortOrder.ToLower() != "asc" && sortOrder.ToLower() != "desc") 
-                   ? "asc" 
+        SortOrder = string.IsNullOrWhiteSpace(sortOrder) ||
+                   (sortOrder.ToLower() != "asc" && sortOrder.ToLower() != "desc")
+                   ? "asc"
                    : sortOrder.ToLower();
     }
 }
-

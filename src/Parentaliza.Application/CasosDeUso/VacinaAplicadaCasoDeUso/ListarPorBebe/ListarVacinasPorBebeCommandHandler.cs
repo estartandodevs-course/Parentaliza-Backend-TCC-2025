@@ -37,14 +37,11 @@ public class ListarVacinasPorBebeCommandHandler : IRequestHandler<ListarVacinasP
                     mensagem: "Bebê não encontrado.");
             }
 
-            // Busca todas as vacinas SUS disponíveis
             var todasVacinasSus = await _vacinaSusRepository.ObterTodos();
-            
-            // Busca as vacinas aplicadas pelo bebê
+
             var vacinasAplicadas = await _vacinaAplicadaRepository.ObterVacinasPorBebe(request.BebeNascidoId);
             var vacinasAplicadasDict = vacinasAplicadas.ToDictionary(v => v.VacinaSusId);
 
-            // Cria a resposta combinando todas as vacinas SUS com o status de aplicação
             var response = todasVacinasSus.Select(vacinaSus =>
             {
                 var vacinaAplicada = vacinasAplicadasDict.GetValueOrDefault(vacinaSus.Id);
@@ -73,4 +70,3 @@ public class ListarVacinasPorBebeCommandHandler : IRequestHandler<ListarVacinasP
         }
     }
 }
-

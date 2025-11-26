@@ -4,7 +4,6 @@ using Parentaliza.Application.Mediator;
 using Parentaliza.Domain.Entidades;
 using Parentaliza.Domain.InterfacesRepository;
 using System.Net;
-using System.Reflection;
 
 namespace Parentaliza.Application.CasosDeUso.ConteudoCasoDeUso.Editar;
 
@@ -49,8 +48,6 @@ public class EditarConteudoCommandHandler : IRequestHandler<EditarConteudoComman
                         mensagem: "O nome do conteudo já está em uso.");
                 }
             }
-
-            // Atualizar a entidade existente usando reflection para acessar propriedades privadas
             var tipo = typeof(Conteudo);
             tipo.GetProperty(nameof(Conteudo.Titulo))?.SetValue(conteudo, request.Titulo);
             tipo.GetProperty(nameof(Conteudo.Categoria))?.SetValue(conteudo, request.Categoria);

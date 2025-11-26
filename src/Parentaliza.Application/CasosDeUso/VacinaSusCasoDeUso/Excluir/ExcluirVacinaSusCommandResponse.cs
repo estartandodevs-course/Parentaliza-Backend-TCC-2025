@@ -9,4 +9,3 @@ public class ExcluirVacinaSusCommandResponse
         Id = id;
     }
 }
-

@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Parentaliza.API.Controller.Base;
@@ -102,4 +101,3 @@ public class ExameRealizadoController : BaseController
         return StatusCode((int)response.StatusCode, response);
     }
 }
-

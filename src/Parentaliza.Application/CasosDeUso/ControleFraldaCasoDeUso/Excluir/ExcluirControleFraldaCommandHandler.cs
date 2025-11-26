@@ -49,4 +49,3 @@ public class ExcluirControleFraldaCommandHandler : IRequestHandler<ExcluirContro
         }
     }
 }
-

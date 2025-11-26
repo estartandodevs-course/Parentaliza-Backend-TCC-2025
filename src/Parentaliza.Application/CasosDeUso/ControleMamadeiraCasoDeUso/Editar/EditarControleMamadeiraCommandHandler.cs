@@ -4,7 +4,6 @@ using Parentaliza.Application.Mediator;
 using Parentaliza.Domain.Entidades;
 using Parentaliza.Domain.InterfacesRepository;
 using System.Net;
-using System.Reflection;
 
 namespace Parentaliza.Application.CasosDeUso.ControleMamadeiraCasoDeUso.Editar;
 
@@ -50,7 +49,6 @@ public class EditarControleMamadeiraCommandHandler : IRequestHandler<EditarContr
                     mensagem: "Bebê não encontrado.");
             }
 
-            // Atualizar a entidade existente usando reflection para acessar propriedades privadas
             var tipo = typeof(ControleMamadeira);
             tipo.GetProperty(nameof(ControleMamadeira.BebeNascidoId))?.SetValue(controleMamadeira, request.BebeNascidoId);
             tipo.GetProperty(nameof(ControleMamadeira.Data))?.SetValue(controleMamadeira, request.Data);
@@ -72,4 +70,3 @@ public class EditarControleMamadeiraCommandHandler : IRequestHandler<EditarContr
         }
     }
 }
-

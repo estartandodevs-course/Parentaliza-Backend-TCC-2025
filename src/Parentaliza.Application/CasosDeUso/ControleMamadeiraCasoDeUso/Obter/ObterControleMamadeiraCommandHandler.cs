@@ -51,4 +51,3 @@ public class ObterControleMamadeiraCommandHandler : IRequestHandler<ObterControl
         }
     }
 }
-

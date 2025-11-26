@@ -59,4 +59,3 @@ public class ListarEventoAgendaPorResponsavelCommandHandler : IRequestHandler<Li
         }
     }
 }
-

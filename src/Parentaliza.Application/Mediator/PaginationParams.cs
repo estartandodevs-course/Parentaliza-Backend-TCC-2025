@@ -40,4 +40,3 @@ public class PaginationParams
     /// </summary>
     public int Take => PageSize;
 }
-

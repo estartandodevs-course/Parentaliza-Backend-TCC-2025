@@ -31,4 +31,3 @@ public class ListarEventoAgendaPorResponsavelCommandResponse
         Anotacao = anotacao;
     }
 }
-

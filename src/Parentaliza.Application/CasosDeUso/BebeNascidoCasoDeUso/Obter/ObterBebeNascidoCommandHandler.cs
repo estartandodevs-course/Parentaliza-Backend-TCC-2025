@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
-using Parentaliza.Application.CasosDeUso.BebeNascidoCasoDeUso.Obter;
 using Parentaliza.Application.Mediator;
 using Parentaliza.Domain.InterfacesRepository;
 using System.Net;
@@ -22,7 +21,7 @@ public class ObterBebeNascidoCommandHandler : IRequestHandler<ObterBebeNascidoCo
 
     public async Task<CommandResponse<ObterBebeNascidoCommandResponse>> Handle(ObterBebeNascidoCommand request, CancellationToken cancellationToken)
     {
-        if(!request.Validar())
+        if (!request.Validar())
         {
             return CommandResponse<ObterBebeNascidoCommandResponse>.ErroValidacao(request.ResultadoDasValidacoes);
         }
@@ -30,7 +29,7 @@ public class ObterBebeNascidoCommandHandler : IRequestHandler<ObterBebeNascidoCo
         {
             var bebeNascido = await _bebeNascidoRepository.ObterBebeNascido(request.Id);
 
-            if(bebeNascido == null)
+            if (bebeNascido == null)
             {
                 return CommandResponse<ObterBebeNascidoCommandResponse>.AdicionarErro("Bebê nascido não encontrado", HttpStatusCode.NotFound);
             }
@@ -49,7 +48,7 @@ public class ObterBebeNascidoCommandHandler : IRequestHandler<ObterBebeNascidoCo
 
             return CommandResponse<ObterBebeNascidoCommandResponse>.Sucesso(bebeNascidoResponse, HttpStatusCode.OK);
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             _logger.LogError(ex, "Erro ao obter bebê nascido");
             return CommandResponse<ObterBebeNascidoCommandResponse>.ErroCritico(mensagem: $"Ocorreu um erro ao obter o bebê nascido: {ex.Message}");

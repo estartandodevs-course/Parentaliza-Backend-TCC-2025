@@ -19,4 +19,3 @@ public class ListarControlesMamadeiraPorBebeCommandResponse
         Anotacao = anotacao;
     }
 }
-

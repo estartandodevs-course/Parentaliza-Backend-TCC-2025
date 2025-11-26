@@ -32,4 +32,3 @@ public class ConverterBebeGestacaoParaNascidoDtos
     [Required(ErrorMessage = "É necessário informar se deseja excluir o registro de gestação após a conversão")]
     public bool ExcluirBebeGestacao { get; set; } = true;
 }
-

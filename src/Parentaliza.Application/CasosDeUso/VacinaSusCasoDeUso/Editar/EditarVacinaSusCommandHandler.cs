@@ -4,7 +4,6 @@ using Parentaliza.Application.Mediator;
 using Parentaliza.Domain.Entidades;
 using Parentaliza.Domain.InterfacesRepository;
 using System.Net;
-using System.Reflection;
 
 namespace Parentaliza.Application.CasosDeUso.VacinaSusCasoDeUso.Editar;
 
@@ -39,7 +38,6 @@ public class EditarVacinaSusCommandHandler : IRequestHandler<EditarVacinaSusComm
                     mensagem: "Vacina SUS não encontrada.");
             }
 
-            // Atualizar a entidade existente usando reflection para acessar propriedades privadas
             var tipo = typeof(VacinaSus);
             tipo.GetProperty(nameof(VacinaSus.NomeVacina))?.SetValue(vacinaSus, request.NomeVacina);
             tipo.GetProperty(nameof(VacinaSus.Descricao))?.SetValue(vacinaSus, request.Descricao);
@@ -61,4 +59,3 @@ public class EditarVacinaSusCommandHandler : IRequestHandler<EditarVacinaSusComm
         }
     }
 }
-

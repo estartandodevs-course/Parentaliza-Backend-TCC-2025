@@ -19,4 +19,3 @@ public class ObterExameSusCommandResponse
         IdadeMaxMesesExame = idadeMaxMesesExame;
     }
 }
-

@@ -44,4 +44,3 @@ public class ExcluirResponsavelCommandHandler : IRequestHandler<ExcluirResponsav
         }
     }
 }
-

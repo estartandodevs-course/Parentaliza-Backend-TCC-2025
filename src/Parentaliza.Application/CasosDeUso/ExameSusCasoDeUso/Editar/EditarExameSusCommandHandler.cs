@@ -4,7 +4,6 @@ using Parentaliza.Application.Mediator;
 using Parentaliza.Domain.Entidades;
 using Parentaliza.Domain.InterfacesRepository;
 using System.Net;
-using System.Reflection;
 
 namespace Parentaliza.Application.CasosDeUso.ExameSusCasoDeUso.Editar;
 
@@ -39,7 +38,6 @@ public class EditarExameSusCommandHandler : IRequestHandler<EditarExameSusComman
                     mensagem: "Exame SUS não encontrado.");
             }
 
-            // Atualizar a entidade existente usando reflection para acessar propriedades privadas
             var tipo = typeof(ExameSus);
             tipo.GetProperty(nameof(ExameSus.NomeExame))?.SetValue(exameSus, request.NomeExame);
             tipo.GetProperty(nameof(ExameSus.Descricao))?.SetValue(exameSus, request.Descricao);
@@ -61,4 +59,3 @@ public class EditarExameSusCommandHandler : IRequestHandler<EditarExameSusComman
         }
     }
 }
-

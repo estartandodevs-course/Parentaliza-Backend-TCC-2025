@@ -1,5 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Parentaliza.Domain.Enums;
+﻿using Parentaliza.Domain.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace Parentaliza.API.Controller.Dtos;
 

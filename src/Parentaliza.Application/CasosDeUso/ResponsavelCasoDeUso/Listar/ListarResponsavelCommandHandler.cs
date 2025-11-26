@@ -30,7 +30,6 @@ public class ListarResponsavelCommandHandler : IRequestHandler<ListarResponsavel
         {
             var query = _context.Set<Domain.Entidades.Responsavel>().AsNoTracking();
 
-            // Aplicar filtros
             if (!string.IsNullOrWhiteSpace(request.Nome))
             {
                 query = query.Where(r => r.Nome != null && r.Nome.Contains(request.Nome));
@@ -46,10 +45,8 @@ public class ListarResponsavelCommandHandler : IRequestHandler<ListarResponsavel
                 query = query.Where(r => r.TipoResponsavel == request.TipoResponsavel.Value);
             }
 
-            // Contar total antes da paginação
             var totalCount = await query.CountAsync(cancellationToken);
 
-            // Aplicar ordenação
             var sortBy = string.IsNullOrWhiteSpace(request.SortBy) ? "nome" : request.SortBy.ToLower();
             var isAscending = request.SortOrder == "asc";
 
@@ -63,7 +60,6 @@ public class ListarResponsavelCommandHandler : IRequestHandler<ListarResponsavel
                     : query.OrderByDescending(r => r.Nome)
             };
 
-            // Aplicar paginação
             var responsaveis = await query
                 .Skip((request.Page - 1) * request.PageSize)
                 .Take(request.PageSize)
@@ -94,4 +90,3 @@ public class ListarResponsavelCommandHandler : IRequestHandler<ListarResponsavel
         }
     }
 }
-

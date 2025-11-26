@@ -30,7 +30,6 @@ public class ListarControleMamadeiraCommandHandler : IRequestHandler<ListarContr
         {
             var query = _context.Set<Domain.Entidades.ControleMamadeira>().AsNoTracking();
 
-            // Aplicar filtros
             if (request.BebeNascidoId.HasValue && request.BebeNascidoId.Value != Guid.Empty)
             {
                 query = query.Where(c => c.BebeNascidoId == request.BebeNascidoId.Value);
@@ -56,10 +55,8 @@ public class ListarControleMamadeiraCommandHandler : IRequestHandler<ListarContr
                 query = query.Where(c => c.QuantidadeLeite.HasValue && c.QuantidadeLeite.Value <= request.QuantidadeLeiteMax.Value);
             }
 
-            // Contar total antes da paginação
             var totalCount = await query.CountAsync(cancellationToken);
 
-            // Aplicar ordenação
             var sortBy = string.IsNullOrWhiteSpace(request.SortBy) ? "data" : request.SortBy.ToLower();
             var isAscending = request.SortOrder == "asc";
 
@@ -73,7 +70,6 @@ public class ListarControleMamadeiraCommandHandler : IRequestHandler<ListarContr
                     : query.OrderByDescending(c => c.Data).ThenByDescending(c => c.Hora)
             };
 
-            // Aplicar paginação
             var controles = await query
                 .Skip((request.Page - 1) * request.PageSize)
                 .Take(request.PageSize)
@@ -105,4 +101,3 @@ public class ListarControleMamadeiraCommandHandler : IRequestHandler<ListarContr
         }
     }
 }
-

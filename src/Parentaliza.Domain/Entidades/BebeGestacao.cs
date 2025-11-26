@@ -8,8 +8,6 @@ public class BebeGestacao : Entity
     public int DiasDeGestacao { get; private set; }
     public decimal PesoEstimado { get; private set; }
     public decimal ComprimentoEstimado { get; private set; }
-
-    // Navegação
     public Responsavel? Responsavel { get; private set; }
 
     public BebeGestacao() { }

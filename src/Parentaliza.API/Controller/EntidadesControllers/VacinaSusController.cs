@@ -62,4 +62,3 @@ public class VacinaSusController : BaseController
         return StatusCode((int)response.StatusCode, response);
     }
 }
-

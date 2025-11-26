@@ -50,4 +50,3 @@ public class ObterControleLeiteMaternoCommandHandler : IRequestHandler<ObterCont
         }
     }
 }
-

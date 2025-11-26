@@ -64,4 +64,3 @@ public class CriarResponsavelCommand : IRequest<CommandResponse<CriarResponsavel
         return ResultadoDasValidacoes.IsValid;
     }
 }
-

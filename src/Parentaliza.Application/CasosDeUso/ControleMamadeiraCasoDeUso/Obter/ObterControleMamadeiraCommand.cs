@@ -12,4 +12,3 @@ public class ObterControleMamadeiraCommand : IRequest<CommandResponse<ObterContr
         Id = id;
     }
 }
-

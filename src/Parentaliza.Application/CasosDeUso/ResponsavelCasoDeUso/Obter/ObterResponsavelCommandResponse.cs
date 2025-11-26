@@ -19,4 +19,3 @@ public class ObterResponsavelCommandResponse
         FaseNascimento = faseNascimento;
     }
 }
-

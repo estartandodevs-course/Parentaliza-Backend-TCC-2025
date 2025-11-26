@@ -12,8 +12,6 @@ public class BebeNascido : Entity
     public int IdadeMeses { get; private set; }
     public decimal Peso { get; private set; }
     public decimal Altura { get; private set; }
-
-    // Navegação
     public Responsavel? Responsavel { get; private set; }
 
     public BebeNascido() { }

@@ -1,5 +1,5 @@
-using System.ComponentModel.DataAnnotations;
 using Parentaliza.Domain.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace Parentaliza.API.Controller.Dtos;
 
@@ -23,4 +23,3 @@ public class EditarResponsavelDtos
     [MaxLength(50, ErrorMessage = "A fase de nascimento não pode exceder 50 caracteres")]
     public string? FaseNascimento { get; set; }
 }
-

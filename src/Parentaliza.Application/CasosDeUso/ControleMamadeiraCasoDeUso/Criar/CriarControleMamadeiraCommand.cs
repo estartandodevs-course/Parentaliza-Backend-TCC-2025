@@ -56,4 +56,3 @@ public class CriarControleMamadeiraCommand : IRequest<CommandResponse<CriarContr
         return ResultadoDasValidacoes.IsValid;
     }
 }
-

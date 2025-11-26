@@ -57,4 +57,3 @@ public class EditarResponsavelCommand : IRequest<CommandResponse<EditarResponsav
         return ResultadoDasValidacoes.IsValid;
     }
 }
-

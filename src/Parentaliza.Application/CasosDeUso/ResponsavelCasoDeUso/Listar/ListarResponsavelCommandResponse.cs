@@ -19,4 +19,3 @@ public class ListarResponsavelCommandResponse
         FaseNascimento = faseNascimento;
     }
 }
-

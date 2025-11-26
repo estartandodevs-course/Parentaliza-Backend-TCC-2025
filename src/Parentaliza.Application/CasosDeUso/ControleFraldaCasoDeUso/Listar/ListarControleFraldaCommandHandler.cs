@@ -30,7 +30,6 @@ public class ListarControleFraldaCommandHandler : IRequestHandler<ListarControle
         {
             var query = _context.Set<Domain.Entidades.ControleFralda>().AsNoTracking();
 
-            // Aplicar filtros
             if (request.BebeNascidoId.HasValue && request.BebeNascidoId.Value != Guid.Empty)
             {
                 query = query.Where(c => c.BebeNascidoId == request.BebeNascidoId.Value);
@@ -51,16 +50,14 @@ public class ListarControleFraldaCommandHandler : IRequestHandler<ListarControle
                 query = query.Where(c => c.TipoFralda != null && c.TipoFralda.Contains(request.TipoFralda));
             }
 
-            // Contar total antes da paginação
             var totalCount = await query.CountAsync(cancellationToken);
 
-            // Aplicar ordenação
             var sortBy = string.IsNullOrWhiteSpace(request.SortBy) ? "horaTroca" : request.SortBy.ToLower();
             var isAscending = request.SortOrder == "asc";
 
             query = sortBy switch
             {
-                "tipofralda" => isAscending 
+                "tipofralda" => isAscending
                     ? query.OrderBy(c => c.TipoFralda).ThenByDescending(c => c.HoraTroca)
                     : query.OrderByDescending(c => c.TipoFralda).ThenByDescending(c => c.HoraTroca),
                 "horaTroca" or _ => isAscending
@@ -68,7 +65,6 @@ public class ListarControleFraldaCommandHandler : IRequestHandler<ListarControle
                     : query.OrderByDescending(c => c.HoraTroca)
             };
 
-            // Aplicar paginação
             var controles = await query
                 .Skip((request.Page - 1) * request.PageSize)
                 .Take(request.PageSize)
@@ -99,4 +95,3 @@ public class ListarControleFraldaCommandHandler : IRequestHandler<ListarControle
         }
     }
 }
-

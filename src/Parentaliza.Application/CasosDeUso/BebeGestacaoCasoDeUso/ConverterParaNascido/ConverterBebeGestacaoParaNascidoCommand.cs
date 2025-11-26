@@ -91,4 +91,3 @@ public class ConverterBebeGestacaoParaNascidoCommand : IRequest<CommandResponse<
         return ResultadoDasValidacoes.IsValid;
     }
 }
-

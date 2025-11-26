@@ -29,4 +29,3 @@ public class ExcluirControleFraldaCommand : IRequest<CommandResponse<Unit>>
         return ResultadoDasValidacoes.IsValid;
     }
 }
-

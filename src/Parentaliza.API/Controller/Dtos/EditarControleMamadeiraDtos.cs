@@ -20,4 +20,3 @@ public class EditarControleMamadeiraDtos
     [MaxLength(500, ErrorMessage = "A anotação não pode exceder 500 caracteres.")]
     public string? Anotacao { get; set; }
 }
-

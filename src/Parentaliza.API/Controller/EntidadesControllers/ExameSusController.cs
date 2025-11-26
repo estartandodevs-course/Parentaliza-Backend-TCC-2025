@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Parentaliza.API.Controller.Base;
@@ -63,4 +62,3 @@ public class ExameSusController : BaseController
         return StatusCode((int)response.StatusCode, response);
     }
 }
-

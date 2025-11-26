@@ -12,4 +12,3 @@ public class ListarExamesPorBebeCommand : IRequest<CommandResponse<List<ListarEx
         BebeNascidoId = bebeNascidoId;
     }
 }
-

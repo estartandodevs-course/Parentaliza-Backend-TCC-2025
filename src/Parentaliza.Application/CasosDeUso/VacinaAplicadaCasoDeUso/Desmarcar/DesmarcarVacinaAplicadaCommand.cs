@@ -37,4 +37,3 @@ public class DesmarcarVacinaAplicadaCommand : IRequest<CommandResponse<Desmarcar
         return ResultadoDasValidacoes.IsValid;
     }
 }
-
